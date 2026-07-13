@@ -8,9 +8,8 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Our Little Timezone</title>
+  <title>Server's Timezones</title>
 
-  <!-- Geist Pixel font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -28,29 +27,9 @@
       margin: 0;
       min-height: 100vh;
       padding: 40px 20px;
-
       font-family: "Geist Pixel", monospace;
       color: #443653;
-
-      background:
-        radial-gradient(
-          circle at top,
-          rgba(255, 255, 255, 0.8),
-          transparent 55%
-        ),
-        linear-gradient(
-          135deg,
-          #EFE6FA,
-          #f8efff,
-          #e9e4fa
-        );
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
+      background: #EFE6FA;
     }
 
     .page {
@@ -65,9 +44,6 @@
       font-size: clamp(2rem, 5vw, 3.2rem);
       color: #765b91;
       letter-spacing: 1px;
-
-      text-shadow:
-        0 2px 8px rgba(255, 255, 255, 0.9);
     }
 
     .subtitle {
@@ -84,25 +60,34 @@
       gap: 20px;
     }
 
-.friend-card {
-    position: relative;
-    overflow: hidden;
-    min-height: 270px;
-    padding: 28px 22px;
+    .friend-card {
+      min-height: 270px;
+      padding: 28px 22px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-    text-align: center;
+      text-align: center;
+      color: white;
 
-    /* keep the rest of your styles here */
-}
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-radius: 24px;
+
+      background-image:
+        linear-gradient(
+          rgba(68, 48, 94, 0.2),
+          rgba(53, 34, 81, 0.42)
+        ),
+        url("stars.jpg");
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
 
       box-shadow:
-        0 12px 30px rgba(104, 78, 135, 0.25),
-        inset 0 0 30px rgba(255, 255, 255, 0.08);
+        0 12px 30px rgba(104, 78, 135, 0.25);
 
       transition:
         transform 0.25s ease,
@@ -113,13 +98,14 @@
       transform: translateY(-6px);
 
       box-shadow:
-        0 18px 38px rgba(104, 78, 135, 0.35),
-        inset 0 0 30px rgba(255, 255, 255, 0.12);
+        0 18px 38px rgba(104, 78, 135, 0.35);
     }
 
     .friend-name {
+      width: 100%;
       margin: 0;
-      font-size: 1.7rem;
+      text-align: center;
+      font-size: 1.65rem;
       letter-spacing: 1px;
 
       text-shadow:
@@ -128,41 +114,41 @@
 
     .friend-utc {
       display: inline-block;
-      margin-top: 12px;
+      margin: 12px auto 0;
       padding: 6px 13px;
 
-      border: 1px solid rgba(255, 255, 255, 0.45);
       border-radius: 999px;
 
-      background: rgba(239, 230, 250, 0.85);
+      background: rgba(239, 230, 250, 0.88);
       color: #5d4775;
 
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
-
-      backdrop-filter: blur(6px);
     }
 
     .friend-time {
-    margin: 24px 0 5px;
+      width: 100%;
+      margin: 20px 0 6px;
+      padding: 4px 0 10px;
 
-    font-size: 2.8rem;   /* slightly smaller */
+      text-align: center;
+      font-size: 2.7rem;
+      line-height: 1.3;
+      font-weight: 700;
+      letter-spacing: 0;
 
-    line-height: 1.25;   /* important! */
-
-    padding: 4px 0;      /* gives the font room */
-
-    font-weight: 700;
-
-    text-shadow:
-        0 2px 10px rgba(0,0,0,.45),
-        0 0 12px rgba(255,255,255,.3);
+      text-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.45),
+        0 0 12px rgba(255, 255, 255, 0.3);
     }
 
     .friend-date {
-      margin: 8px 0 0;
+      width: 100%;
+      margin: 6px 0 0;
+
+      text-align: center;
       color: rgba(255, 255, 255, 0.95);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
 
       text-shadow:
         0 2px 5px rgba(0, 0, 0, 0.4);
@@ -173,16 +159,13 @@
       margin-top: 18px;
       padding: 8px 14px;
 
-      border: 1px solid rgba(255, 255, 255, 0.45);
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       color: #5b4971;
 
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
-
-      backdrop-filter: blur(6px);
     }
 
     footer {
@@ -199,6 +182,10 @@
 
       .friend-card {
         min-height: 250px;
+      }
+
+      .friend-time {
+        font-size: 2.4rem;
       }
     }
   </style>
@@ -220,13 +207,6 @@
   </div>
 
   <script>
-    /*
-      Change the names and UTC offsets here.
-
-      UTC+5:30 = 5.5
-      UTC+9:30 = 9.5
-    */
-
     const friends = [
       {
         name: "Fami",
@@ -258,10 +238,10 @@
 
       const utcMilliseconds =
         now.getTime() +
-        now.getTimezoneOffset() * 60_000;
+        now.getTimezoneOffset() * 60000;
 
       return new Date(
-        utcMilliseconds + offset * 3_600_000
+        utcMilliseconds + offset * 3600000
       );
     }
 
@@ -270,7 +250,6 @@
       const absoluteOffset = Math.abs(offset);
 
       const hours = Math.floor(absoluteOffset);
-
       const minutes = Math.round(
         (absoluteOffset - hours) * 60
       );
@@ -331,7 +310,6 @@
 
       const hour = friendTime.getHours();
       const status = getStatus(hour);
-
       const utcLabel =
         formatUtcOffset(friend.utc);
 
@@ -367,9 +345,7 @@
     }
 
     updateClocks();
-
     setInterval(updateClocks, 1000);
   </script>
 </body>
 </html>
-
