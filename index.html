@@ -1,229 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <title>Friend Timezones</title>
+  <title>Friend Times</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 40px 20px;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #fff0f5, #eef4ff);
-      color: #222;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      margin-bottom: 8px;
+      background: #f4f4f4;
+      padding: 30px;
       text-align: center;
-      font-size: 2.4rem;
     }
 
-    .subtitle {
-      margin-top: 0;
-      margin-bottom: 30px;
-      text-align: center;
-      color: #666;
+    #friends {
+      max-width: 700px;
+      margin: 30px auto;
     }
 
-    #friend-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
-
-    .friend-card {
-      padding: 22px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 18px;
+    .card {
       background: white;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      margin: 15px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .friend-name {
-      margin: 0;
-      font-size: 1.4rem;
-    }
-
-    .friend-time {
-      margin: 0;
-      font-size: 2.2rem;
+    .time {
+      font-size: 36px;
       font-weight: bold;
-    }
-
-    .friend-date {
-      margin: 8px 0 0;
-      color: #555;
-    }
-
-    .friend-status {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: #f0f0f0;
-      font-size: 0.9rem;
-    }
-
-    footer {
-      margin-top: 35px;
-      text-align: center;
-      color: #777;
-      font-size: 0.9rem;
+      margin: 10px;
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <h1>Friend Timezones</h1>
+  <h1>Friend Times</h1>
 
-    <p class="subtitle">
-      See what time it is for everyone.
-    </p>
+  <div id="friends"></div>
 
-    <main id="friend-list"></main>
-
-    <footer>
-      The clocks update automatically.
-    </footer>
-  </div>
-
-
+  <script>
     const friends = [
-
-    {
-        name:"Fami",
-        utc:3
-    },
-
-    {
-        name:"Annie",
-        utc:3
-    },
-
-    {
-        name:"Maow",
-        utc:1
-    },
-  
-    {
-        name:"Noelle",
-        utc:-4
-    },
-  
-    {
-        name:"Bing",
-        utc:-4
-    }
-
-];
+      { name: "Fami", utc: 3 },
+      { name: "Annie", utc: 3 },
+      { name: "Maow", utc: 1 },
+      { name: "Bing", utc: -4 },
+      { name: "Noelle", utc: -4 },
+      { name: "Toji", utc: -7 },
     ];
 
-    const friendList = document.getElementById("friend-list");
+    function getTimeForOffset(offset) {
+      const now = new Date();
 
-    function getHourInTimezone(date, timeZone) {
-      const hour = new Intl.DateTimeFormat("en-US", {
-        timeZone: timeZone,
-        hour: "2-digit",
-        hourCycle: "h23"
-      }).format(date);
+      const utcMilliseconds =
+        now.getTime() +
+        now.getTimezoneOffset() * 60000;
 
-      return Number(hour);
-    }
-
-    function getStatus(hour) {
-      if (hour >= 24 || hour < 7) {
-        return "Perhaps sleeping?";
-      }
-
-      if (hour < 9) {
-        return "Good morning!";
-      }
-
-      if (hour < 18) {
-        return "Maybe free?";
-      }
-
-      if (hour < 22) {
-        return "Good evening!";
-      }
-
-      return "Getting late";
-    }
-
-    function createFriendCard(friend, now) {
-      const time = new Intl.DateTimeFormat("en-US", {
-        timeZone: friend.timeZone,
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit"
-      }).format(now);
-
-      const date = new Intl.DateTimeFormat("en-US", {
-        timeZone: friend.timeZone,
-        weekday: "long",
-        month: "long",
-        day: "numeric"
-      }).format(now);
-
-      const localHour = getHourInTimezone(
-        now,
-        friend.timeZone
+      return new Date(
+        utcMilliseconds + offset * 3600000
       );
-
-      const status = getStatus(localHour);
-
-      return `
-        <section class="friend-card">
-          <h2 class="friend-name">${friend.name}</h2>
-
-          <p class="friend-location">
-            ${friend.location}
-          </p>
-
-          <p class="friend-time">
-            ${time}
-          </p>
-
-          <p class="friend-date">
-            ${date}
-          </p>
-
-          <span class="friend-status">
-            ${status}
-          </span>
-        </section>
-      `;
     }
 
     function updateClocks() {
-      const now = new Date();
+      const container = document.getElementById("friends");
 
-      friendList.innerHTML = friends
-        .map(friend => createFriendCard(friend, now))
-        .join("");
+      container.innerHTML = friends.map(friend => {
+        const friendTime = getTimeForOffset(friend.utc);
+
+        const timeText = friendTime.toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        });
+
+        const utcText =
+          friend.utc >= 0
+            ? `UTC+${friend.utc}`
+            : `UTC${friend.utc}`;
+
+        return `
+          <div class="card">
+            <h2>${friend.name}</h2>
+            <div>${utcText}</div>
+            <div class="time">${timeText}</div>
+          </div>
+        `;
+      }).join("");
     }
 
     updateClocks();
-
     setInterval(updateClocks, 1000);
   </script>
 </body>
