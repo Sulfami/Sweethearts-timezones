@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel:wght@400..700&display=swap" rel="stylesheet">
-  
 <head>
   <meta charset="UTF-8">
 
@@ -16,6 +10,15 @@
 
   <title>Our Little Timezone</title>
 
+  <!-- Geist Pixel font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist+Pixel:wght@400..700&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
     * {
       box-sizing: border-box;
@@ -25,7 +28,8 @@
       margin: 0;
       min-height: 100vh;
       padding: 40px 20px;
-      font-family: Arial, sans-serif;
+
+      font-family: "Geist Pixel", monospace;
       color: #443653;
 
       background:
@@ -42,6 +46,13 @@
         );
     }
 
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
     .page {
       width: 100%;
       max-width: 1000px;
@@ -53,7 +64,10 @@
       text-align: center;
       font-size: clamp(2rem, 5vw, 3.2rem);
       color: #765b91;
-      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+      letter-spacing: 1px;
+
+      text-shadow:
+        0 2px 8px rgba(255, 255, 255, 0.9);
     }
 
     .subtitle {
@@ -75,29 +89,33 @@
       overflow: hidden;
       min-height: 270px;
       padding: 28px 22px;
+
       border: 2px solid rgba(255, 255, 255, 0.55);
       border-radius: 24px;
 
-     .friend-card {
-  position: relative;
-  overflow: hidden;
-  min-height: 270px;
-  padding: 28px 22px;
-  border: 2px solid rgba(255, 255, 255, 0.55);
-  border-radius: 24px;
+      background-image:
+        linear-gradient(
+          rgba(68, 48, 94, 0.18),
+          rgba(53, 34, 81, 0.38)
+        ),
+        url("stars.jpg");
 
-  background-image: url("stars.jpg");
-  background-size: cover;
-  background-position: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
 
-  color: white;
+      color: white;
+      text-align: center;
 
-  box-shadow:
-    0 12px 30px rgba(104, 78, 135, 0.25);
+      box-shadow:
+        0 12px 30px rgba(104, 78, 135, 0.25),
+        inset 0 0 30px rgba(255, 255, 255, 0.08);
 
-  transition: transform 0.25s ease;
-}
-      
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
     .friend-card:hover {
       transform: translateY(-6px);
 
@@ -109,53 +127,63 @@
     .friend-name {
       margin: 0;
       font-size: 1.7rem;
-      text-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
+      letter-spacing: 1px;
+
+      text-shadow:
+        0 2px 7px rgba(0, 0, 0, 0.4);
     }
 
     .friend-utc {
       display: inline-block;
       margin-top: 12px;
       padding: 6px 13px;
+
+      border: 1px solid rgba(255, 255, 255, 0.45);
       border-radius: 999px;
 
-      background: rgba(239, 230, 250, 0.8);
+      background: rgba(239, 230, 250, 0.85);
       color: #5d4775;
 
       font-size: 0.9rem;
-      font-weight: bold;
+      font-weight: 700;
 
       backdrop-filter: blur(6px);
     }
 
     .friend-time {
       margin: 24px 0 5px;
+
       font-size: clamp(2.2rem, 8vw, 3rem);
-      font-weight: bold;
+      font-weight: 700;
       letter-spacing: 1px;
 
       text-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.4),
+        0 2px 10px rgba(0, 0, 0, 0.45),
         0 0 12px rgba(255, 255, 255, 0.3);
     }
 
     .friend-date {
       margin: 8px 0 0;
-      color: rgba(255, 255, 255, 0.92);
+      color: rgba(255, 255, 255, 0.95);
       font-size: 0.95rem;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+
+      text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.4);
     }
 
     .friend-status {
       display: inline-block;
       margin-top: 18px;
       padding: 8px 14px;
+
+      border: 1px solid rgba(255, 255, 255, 0.45);
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       color: #5b4971;
 
       font-size: 0.9rem;
-      font-weight: bold;
+      font-weight: 700;
 
       backdrop-filter: blur(6px);
     }
@@ -181,7 +209,7 @@
 
 <body>
   <div class="page">
-    <h1> Server's timezones </h1>
+    <h1>Server's Timezones</h1>
 
     <p class="subtitle">
       Thank you for visiting!
@@ -196,11 +224,10 @@
 
   <script>
     /*
-      Change only the names and UTC offsets below.
+      Change the names and UTC offsets here.
 
-      Decimal offsets also work:
-      UTC+5:30 becomes utc: 5.5
-      UTC+9:30 becomes utc: 9.5
+      UTC+5:30 = 5.5
+      UTC+9:30 = 9.5
     */
 
     const friends = [
@@ -246,6 +273,7 @@
       const absoluteOffset = Math.abs(offset);
 
       const hours = Math.floor(absoluteOffset);
+
       const minutes = Math.round(
         (absoluteOffset - hours) * 60
       );
@@ -284,26 +312,29 @@
       const friendTime =
         getFriendTime(friend.utc);
 
-      const time = friendTime.toLocaleTimeString(
-        "en-GB",
-        {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit"
-        }
-      );
+      const time =
+        friendTime.toLocaleTimeString(
+          "en-GB",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          }
+        );
 
-      const date = friendTime.toLocaleDateString(
-        "en-US",
-        {
-          weekday: "long",
-          month: "long",
-          day: "numeric"
-        }
-      );
+      const date =
+        friendTime.toLocaleDateString(
+          "en-US",
+          {
+            weekday: "long",
+            month: "long",
+            day: "numeric"
+          }
+        );
 
       const hour = friendTime.getHours();
       const status = getStatus(hour);
+
       const utcLabel =
         formatUtcOffset(friend.utc);
 
@@ -339,7 +370,9 @@
     }
 
     updateClocks();
+
     setInterval(updateClocks, 1000);
   </script>
 </body>
 </html>
+
