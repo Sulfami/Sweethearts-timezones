@@ -2,91 +2,336 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Friend Times</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Our Little Timezone</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px 20px;
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 30px;
+      color: #443653;
+
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(255, 255, 255, 0.8),
+          transparent 55%
+        ),
+        linear-gradient(
+          135deg,
+          #EFE6FA,
+          #f8efff,
+          #e9e4fa
+        );
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
       text-align: center;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: #765b91;
+      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
     }
 
-    #friends {
-      max-width: 700px;
-      margin: 30px auto;
+    .subtitle {
+      margin: 0 0 35px;
+      text-align: center;
+      color: #806e91;
+      font-size: 1.05rem;
     }
 
-    .card {
-      background: white;
-      margin: 15px;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    #friend-list {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
     }
 
-    .time {
-      font-size: 36px;
+    .friend-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 270px;
+      padding: 28px 22px;
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-radius: 24px;
+
+      background-image:
+        linear-gradient(
+          rgba(85, 73, 122, 0.28),
+          rgba(65, 53, 101, 0.48)
+        ),
+        url("stars.jpg");
+
+      background-size: cover;
+      background-position: center;
+
+      color: white;
+      text-align: center;
+
+      box-shadow:
+        0 12px 30px rgba(104, 78, 135, 0.25),
+        inset 0 0 30px rgba(255, 255, 255, 0.08);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .friend-card:hover {
+      transform: translateY(-6px);
+
+      box-shadow:
+        0 18px 38px rgba(104, 78, 135, 0.35),
+        inset 0 0 30px rgba(255, 255, 255, 0.12);
+    }
+
+    .friend-name {
+      margin: 0;
+      font-size: 1.7rem;
+      text-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
+    }
+
+    .friend-utc {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 13px;
+      border-radius: 999px;
+
+      background: rgba(239, 230, 250, 0.8);
+      color: #5d4775;
+
+      font-size: 0.9rem;
       font-weight: bold;
-      margin: 10px;
+
+      backdrop-filter: blur(6px);
+    }
+
+    .friend-time {
+      margin: 24px 0 5px;
+      font-size: clamp(2.2rem, 8vw, 3rem);
+      font-weight: bold;
+      letter-spacing: 1px;
+
+      text-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.4),
+        0 0 12px rgba(255, 255, 255, 0.3);
+    }
+
+    .friend-date {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.95rem;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+    }
+
+    .friend-status {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.85);
+      color: #5b4971;
+
+      font-size: 0.9rem;
+      font-weight: bold;
+
+      backdrop-filter: blur(6px);
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #806e91;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 28px 14px;
+      }
+
+      .friend-card {
+        min-height: 250px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>Friend Times</h1>
+  <div class="page">
+    <h1>✨ Our Little Timezone ✨</h1>
 
-  <div id="friends"></div>
+    <p class="subtitle">
+      Different places, same sky.
+    </p>
+
+    <main id="friend-list"></main>
+
+    <footer>
+      ♡ The clocks update automatically ♡
+    </footer>
+  </div>
 
   <script>
+    /*
+      Change only the names and UTC offsets below.
+
+      Decimal offsets also work:
+      UTC+5:30 becomes utc: 5.5
+      UTC+9:30 becomes utc: 9.5
+    */
+
     const friends = [
-      { name: "Fami", utc: 3 },
-      { name: "Annie", utc: 3 },
-      { name: "Maow", utc: 1 },
-      { name: "Bing", utc: -4 },
-      { name: "Noelle", utc: -4 },
-      { name: "Toji", utc: -7 },
+      {
+        name: "Fami",
+        utc: 3
+      },
+      {
+        name: "Annie",
+        utc: 3
+      },
+      {
+        name: "Maow",
+        utc: 1
+      },
+      {
+        name: "Noelle",
+        utc: -4
+      },
+      {
+        name: "Bing",
+        utc: -4
+      }
     ];
 
-    function getTimeForOffset(offset) {
+    const friendList =
+      document.getElementById("friend-list");
+
+    function getFriendTime(offset) {
       const now = new Date();
 
       const utcMilliseconds =
         now.getTime() +
-        now.getTimezoneOffset() * 60000;
+        now.getTimezoneOffset() * 60_000;
 
       return new Date(
-        utcMilliseconds + offset * 3600000
+        utcMilliseconds + offset * 3_600_000
       );
     }
 
-    function updateClocks() {
-      const container = document.getElementById("friends");
+    function formatUtcOffset(offset) {
+      const sign = offset >= 0 ? "+" : "−";
+      const absoluteOffset = Math.abs(offset);
 
-      container.innerHTML = friends.map(friend => {
-        const friendTime = getTimeForOffset(friend.utc);
+      const hours = Math.floor(absoluteOffset);
+      const minutes = Math.round(
+        (absoluteOffset - hours) * 60
+      );
 
-        const timeText = friendTime.toLocaleTimeString("en-GB", {
+      if (minutes === 0) {
+        return `UTC${sign}${hours}`;
+      }
+
+      return (
+        `UTC${sign}${hours}:` +
+        String(minutes).padStart(2, "0")
+      );
+    }
+
+    function getStatus(hour) {
+      if (hour >= 23 || hour < 7) {
+        return "🌙 Perhaps sleeping?";
+      }
+
+      if (hour < 10) {
+        return "🌸 Good morning!";
+      }
+
+      if (hour < 18) {
+        return "☀️ Maybe free?";
+      }
+
+      if (hour < 22) {
+        return "✨ Good evening!";
+      }
+
+      return "💤 Getting late";
+    }
+
+    function createFriendCard(friend) {
+      const friendTime =
+        getFriendTime(friend.utc);
+
+      const time = friendTime.toLocaleTimeString(
+        "en-GB",
+        {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit"
-        });
+        }
+      );
 
-        const utcText =
-          friend.utc >= 0
-            ? `UTC+${friend.utc}`
-            : `UTC${friend.utc}`;
+      const date = friendTime.toLocaleDateString(
+        "en-US",
+        {
+          weekday: "long",
+          month: "long",
+          day: "numeric"
+        }
+      );
 
-        return `
-          <div class="card">
-            <h2>${friend.name}</h2>
-            <div>${utcText}</div>
-            <div class="time">${timeText}</div>
+      const hour = friendTime.getHours();
+      const status = getStatus(hour);
+      const utcLabel =
+        formatUtcOffset(friend.utc);
+
+      return `
+        <section class="friend-card">
+          <h2 class="friend-name">
+            ♡ ${friend.name} ♡
+          </h2>
+
+          <div class="friend-utc">
+            ${utcLabel}
           </div>
-        `;
-      }).join("");
+
+          <p class="friend-time">
+            ${time}
+          </p>
+
+          <p class="friend-date">
+            ${date}
+          </p>
+
+          <span class="friend-status">
+            ${status}
+          </span>
+        </section>
+      `;
+    }
+
+    function updateClocks() {
+      friendList.innerHTML = friends
+        .map(createFriendCard)
+        .join("");
     }
 
     updateClocks();
