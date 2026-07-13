@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Friend Timezones</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #eef4ff);
+      color: #222;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      text-align: center;
+      font-size: 2.4rem;
+    }
+
+    .subtitle {
+      margin-top: 0;
+      margin-bottom: 30px;
+      text-align: center;
+      color: #666;
+    }
+
+    #friend-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .friend-card {
+      padding: 22px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .friend-name {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .friend-time {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+
+    .friend-date {
+      margin: 8px 0 0;
+      color: #555;
+    }
+
+    .friend-status {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 35px;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <h1>Friend Timezones</h1>
+
+    <p class="subtitle">
+      See what time it is for everyone.
+    </p>
+
+    <main id="friend-list"></main>
+
+    <footer>
+      The clocks update automatically.
+    </footer>
+  </div>
+
+
+    const friends = [
+
+    {
+        name:"Fami",
+        utc:3
+    },
+
+    {
+        name:"Annie",
+        utc:3
+    },
+
+    {
+        name:"Maow",
+        utc:1
+    },
+  
+    {
+        name:"Noelle",
+        utc:-4
+    },
+  
+    {
+        name:"Bing",
+        utc:-4
+    }
+
+];
+    ];
+
+    const friendList = document.getElementById("friend-list");
+
+    function getHourInTimezone(date, timeZone) {
+      const hour = new Intl.DateTimeFormat("en-US", {
+        timeZone: timeZone,
+        hour: "2-digit",
+        hourCycle: "h23"
+      }).format(date);
+
+      return Number(hour);
+    }
+
+    function getStatus(hour) {
+      if (hour >= 24 || hour < 7) {
+        return "Perhaps sleeping?";
+      }
+
+      if (hour < 9) {
+        return "Good morning!";
+      }
+
+      if (hour < 18) {
+        return "Maybe free?";
+      }
+
+      if (hour < 22) {
+        return "Good evening!";
+      }
+
+      return "Getting late";
+    }
+
+    function createFriendCard(friend, now) {
+      const time = new Intl.DateTimeFormat("en-US", {
+        timeZone: friend.timeZone,
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit"
+      }).format(now);
+
+      const date = new Intl.DateTimeFormat("en-US", {
+        timeZone: friend.timeZone,
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+      }).format(now);
+
+      const localHour = getHourInTimezone(
+        now,
+        friend.timeZone
+      );
+
+      const status = getStatus(localHour);
+
+      return `
+        <section class="friend-card">
+          <h2 class="friend-name">${friend.name}</h2>
+
+          <p class="friend-location">
+            ${friend.location}
+          </p>
+
+          <p class="friend-time">
+            ${time}
+          </p>
+
+          <p class="friend-date">
+            ${date}
+          </p>
+
+          <span class="friend-status">
+            ${status}
+          </span>
+        </section>
+      `;
+    }
+
+    function updateClocks() {
+      const now = new Date();
+
+      friendList.innerHTML = friends
+        .map(friend => createFriendCard(friend, now))
+        .join("");
+    }
+
+    updateClocks();
+
+    setInterval(updateClocks, 1000);
+  </script>
+</body>
+</html>
