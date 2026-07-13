@@ -177,7 +177,7 @@
 
 <body>
   <div class="page">
-    <h1>✨ Our Little Timezone ✨</h1>
+    <h1> Server's timezones </h1>
 
     <p class="subtitle">
       Different places, same sky.
@@ -186,7 +186,7 @@
     <main id="friend-list"></main>
 
     <footer>
-      ♡ The clocks update automatically ♡
+      This clocks update automatically!
     </footer>
   </div>
 
@@ -258,22 +258,22 @@
 
     function getStatus(hour) {
       if (hour >= 23 || hour < 7) {
-        return "🌙 Perhaps sleeping?";
+        return "Perhaps sleeping?";
       }
 
       if (hour < 10) {
-        return "🌸 Good morning!";
+        return "Good morning!";
       }
 
       if (hour < 18) {
-        return "☀️ Maybe free?";
+        return "Maybe free?";
       }
 
       if (hour < 22) {
-        return "✨ Good evening!";
+        return "Good evening!";
       }
 
-      return "💤 Getting late";
+      return "It's getting late.";
     }
 
     function createFriendCard(friend) {
@@ -306,7 +306,7 @@
       return `
         <section class="friend-card">
           <h2 class="friend-name">
-            ♡ ${friend.name} ♡
+            ❤︎ ${friend.name} ❤︎
           </h2>
 
           <div class="friend-utc">
