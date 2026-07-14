@@ -27,22 +27,14 @@
       margin: 0;
       min-height: 100vh;
       padding: 40px 20px;
-
       font-family: "Geist Pixel", monospace;
       color: #443653;
-
       background-image:
-          url("card-three.jpg");
-        linear-gradient(
-          rgba(239, 230, 250, 0.72),
-          rgba(239, 230, 250, 0.72)
-        ),
-      
+        linear-gradient:
+       rgba(95, 75, 140, 0.35),
+       rgba(75, 55, 120, 0.45) ),
+      url("card.three");
 
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
     }
 
     .page {
@@ -53,7 +45,7 @@
 
     .title-card {
       max-width: 700px;
-      margin: 0 auto 25px;
+      margin: 0 auto 35px;
       padding: 34px 30px;
 
       text-align: center;
@@ -63,11 +55,8 @@
       border-radius: 24px;
 
       background-image:
-        linear-gradient(
-          rgba(95, 75, 140, 0.35),
-          rgba(75, 55, 120, 0.45)
-        ),
-        url("card-one.jpg");
+       
+        url("card.one");
 
       background-size: cover;
       background-position: center;
@@ -76,37 +65,53 @@
       box-shadow:
         0 12px 30px rgba(104, 78, 135, 0.25);
     }
+.subtitle-card{
+    max-width:520px;
 
-    .subtitle-card {
-      max-width: 520px;
-      margin: 0 auto 35px;
-      padding: 22px;
+    margin:0 auto 35px;
 
-      text-align: center;
-      color: white;
+    padding:22px;
 
-      border: 2px solid rgba(255, 255, 255, 0.55);
-      border-radius: 22px;
+    text-align:center;
 
-      background-image:
+    color:white;
+
+    border:2px solid rgba(255,255,255,.55);
+
+    border-radius:22px;
+
+    background-image:
         linear-gradient(
-          rgba(95, 75, 140, 0.35),
-          rgba(75, 55, 120, 0.45)
+            rgba(95,75,140,.35),
+            rgba(75,55,120,.45)
         ),
-        url("card-two.jpg");
+        url("card.two");
 
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+    background-size:cover;
+    background-position:center;
 
-      box-shadow:
-        0 12px 30px rgba(104, 78, 135, 0.25);
-    }
+    box-shadow:
+        0 12px 30px rgba(104,78,135,.25);
+}
 
+.subtitle-card .subtitle{
+
+    margin:12px 0;
+
+    color:white;
+
+    font-size:1rem;
+
+    line-height:1.5;
+
+    text-shadow:
+        0 2px 6px rgba(0,0,0,.35);
+}
+    
     .title-card h1 {
       margin: 0;
-
       color: white;
+
       font-size: clamp(2.1rem, 5vw, 3.2rem);
       letter-spacing: 2px;
       line-height: 1.2;
@@ -116,9 +121,9 @@
     }
 
     .divider {
-      margin: 0 0 14px;
-
+      margin: 18px 0;
       color: #F7EFFF;
+
       font-size: clamp(0.75rem, 2.5vw, 1.1rem);
       letter-spacing: 2px;
       line-height: 1.4;
@@ -127,15 +132,15 @@
         0 0 8px rgba(255, 255, 255, 0.4);
     }
 
-    .subtitle-card .subtitle {
+    .title-card .subtitle {
       margin: 0;
-
       color: rgba(255, 255, 255, 0.96);
+
       font-size: 1rem;
-      line-height: 1.5;
+      line-height: 1.4;
 
       text-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.35);
+        0 2px 5px rgba(0, 0, 0, 0.35);
     }
 
     #friend-list {
@@ -263,10 +268,9 @@
 
     footer {
       margin-top: 40px;
-
       text-align: center;
-      color: #806e91;
 
+      color: #806e91;
       font-size: 0.95rem;
       line-height: 1.4;
     }
@@ -278,10 +282,6 @@
 
       .title-card {
         padding: 28px 18px;
-      }
-
-      .subtitle-card {
-        padding: 20px 16px;
       }
 
       .friend-card {
@@ -302,20 +302,19 @@
 <body>
   <div class="page">
 
-    <div class="title-card">
-      <h1>Server's Timezones</h1>
-    </div>
+<div class="title-card">
+    <h1>Server's Timezones</h1>
+</div>
 
-    <div class="subtitle-card">
-      <div class="divider">
+<div class="subtitle-card">
+    <div class="divider">
         ✦────────────୨ৎ────────────✦
-      </div>
-
-      <p class="subtitle">
-        Thank you for visiting!
-      </p>
     </div>
 
+    <p class="subtitle">
+        Thank you for visiting!
+
+</div>
     <main id="friend-list"></main>
 
     <footer>
@@ -323,7 +322,7 @@
     </footer>
   </div>
 
-  <script>
+   <script>
     const friends = [
       {
         name: "Fami",
@@ -349,7 +348,7 @@
         name: "Mocha",
         utc: -4
       },
-      {
+        {
         name: "Toji",
         utc: -7
       }
