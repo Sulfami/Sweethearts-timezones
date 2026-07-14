@@ -23,44 +23,20 @@
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 40px 20px;
+body {
+  background-image:
+    linear-gradient(
+      rgba(239, 230, 250, 0.72),
+      rgba(239, 230, 250, 0.72)
+    ),
+    url("card-three.jpg");
 
-      font-family: "Geist Pixel", monospace;
-      color: #443653;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
-      background-image:
-        linear-gradient(
-          rgba(239, 230, 250, 0.72),
-          rgba(239, 230, 250, 0.72)
-        ),
-        url("card-three.jpg");
-
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-   .title-card {
-  max-width: 700px;
-  margin: 0 auto 25px;
-  padding: 34px 30px;
-
-  text-align: center;
-  color: white;
-
-  border: 2px solid rgba(255, 255, 255, 0.55);
-  border-radius: 24px;
-
+.title-card {
   background-image:
     linear-gradient(
       rgba(95, 75, 140, 0.35),
@@ -70,108 +46,32 @@
 
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-
-  box-shadow:
-    0 12px 30px rgba(104, 78, 135, 0.25);
 }
-  
 
-    .subtitle-card {
-      max-width: 520px;
-      margin: 0 auto 35px;
-      padding: 22px;
+.subtitle-card {
+  background-image:
+    linear-gradient(
+      rgba(95, 75, 140, 0.35),
+      rgba(75, 55, 120, 0.45)
+    ),
+    url("card-two.jpg");
 
-      text-align: center;
-      color: white;
+  background-size: cover;
+  background-position: center;
+}
 
-      border: 2px solid rgba(255, 255, 255, 0.55);
-      border-radius: 22px;
+.friend-card {
+  background-image:
+    linear-gradient(
+      rgba(95, 75, 140, 0.35),
+      rgba(75, 55, 120, 0.45)
+    ),
+    url("stars.jpg");
 
-      background-image:
-        linear-gradient(
-          rgba(95, 75, 140, 0.35),
-          rgba(75, 55, 120, 0.45)
-        ),
-        url("card-two.jpg");
-
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-
-      box-shadow:
-        0 12px 30px rgba(104, 78, 135, 0.25);
-    }
-
-    .title-card h1 {
-      margin: 0;
-
-      color: white;
-      font-size: clamp(2.1rem, 5vw, 3.2rem);
-      letter-spacing: 2px;
-      line-height: 1.2;
-
-      text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .divider {
-      margin: 0 0 14px;
-
-      color: #F7EFFF;
-      font-size: clamp(0.75rem, 2.5vw, 1.1rem);
-      letter-spacing: 2px;
-      line-height: 1.4;
-
-      text-shadow:
-        0 0 8px rgba(255, 255, 255, 0.4);
-    }
-
-    .subtitle-card .subtitle {
-      margin: 0;
-
-      color: rgba(255, 255, 255, 0.96);
-      font-size: 1rem;
-      line-height: 1.5;
-
-      text-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.35);
-    }
-
-    #friend-list {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-
-    .friend-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 270px;
-      padding: 28px 22px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      text-align: center;
-      color: white;
-
-      border: 2px solid rgba(255, 255, 255, 0.55);
-      border-radius: 24px;
-
-      background-image:
-        linear-gradient(
-          rgba(95, 75, 140, 0.35),
-          rgba(75, 55, 120, 0.45)
-        ),
-        url("stars.jpg");
-
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+    
 
       box-shadow:
         0 12px 30px rgba(104, 78, 135, 0.25);
