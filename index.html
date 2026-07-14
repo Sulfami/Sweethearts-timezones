@@ -445,11 +445,16 @@ footer {
       const utcLabel =
         formatUtcOffset(friend.utc);
 
-      return `
-        <section class="friend-card">
-          <h2 class="friend-name">
-            ${friend.name}
-          </h2>
+return `
+  <section class="friend-card">
+
+    <div class="friend-role">
+      ${friend.role}
+    </div>
+
+    <h2 class="friend-name">
+      ${friend.name}
+    </h2>
 
           <div class="friend-utc">
             ${utcLabel}
