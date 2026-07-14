@@ -186,7 +186,27 @@ body {
       box-shadow:
         0 18px 38px rgba(104, 78, 135, 0.35);
     }
+    
+.friend-role {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 11px;
 
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.22);
+  color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+    
     .friend-name {
       width: 100%;
       margin: 0;
@@ -285,6 +305,11 @@ footer {
     padding: 20px 16px;
   }
 
+   <div class="friend-role">
+      ${friend.role}
+    </div>
+  }
+  
   .friend-card {
     min-height: 250px;
   }
@@ -327,7 +352,7 @@ footer {
   <script>
     const friends = [
       { name: "Fami", utc: 3 },
-      { name: "Annie", utc: 3 },
+      { role: "Owner", name: "Annie", utc: 3 },
       { name: "Maow", utc: 1 },
       { name: "Noelle", utc: -4 },
       { name: "Bing", utc: -4 },
