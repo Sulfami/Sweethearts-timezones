@@ -305,10 +305,13 @@ footer {
     padding: 20px 16px;
   }
 
-   <div class="friend-role">
-      ${friend.role}
-    </div>
-  }
+${friend.roles.length ? `
+<div class="friend-roles">
+  ${friend.roles.map(role => `
+    <span class="friend-role">${role}</span>
+  `).join("")}
+</div>
+` : ""}
   
   .friend-card {
     min-height: 250px;
@@ -351,22 +354,78 @@ footer {
   </div>
 
   <script>
-    const friends = [
-      { name: "Fami", utc: 3 },
-      { role: "Owner", name: "Annie", utc: 3 },
-      { name: "C. Hamster", utc: 3 },
-      { role: "Admin", name: "Cece", utc: 1 },
-      { role: "Mod", name: "Maow", utc: 1 },
-      { name: "Noelle", utc: -4 },
-      { name: "Bing", utc: -4 },
-      { role: "Paired" "Coffee's", name: "Mocha", utc: -4 },
-      { name: "Trace", utc: -5 },
-      { name: "Serenity", utc: -5 },
-      { name: "Toji", utc: -7 },
-      { role: "Mod", name: "Twinkletoes", utc: -7 },
-      { role: "Paired" "Mocha's", name: "Coffee", utc: -8 },
-      { role: "Mod", name: "Malice", utc: 0 }
-    ];
+const friends = [
+  {
+    name: "Fami",
+    utc: 3,
+    roles: []
+  },
+  {
+    name: "Annie",
+    utc: 3,
+    roles: ["Owner"]
+  },
+  {
+    name: "C. Hamster",
+    utc: 3,
+    roles: []
+  },
+  {
+    name: "Cece",
+    utc: 1,
+    roles: ["Admin"]
+  },
+  {
+    name: "Maow",
+    utc: 1,
+    roles: ["Mod"]
+  },
+  {
+    name: "Noelle",
+    utc: -4,
+    roles: []
+  },
+  {
+    name: "Bing",
+    utc: -4,
+    roles: []
+  },
+  {
+    name: "Mocha",
+    utc: -4,
+    roles: ["Paired", "Coffee's"]
+  },
+  {
+    name: "Trace",
+    utc: -5,
+    roles: []
+  },
+  {
+    name: "Serenity",
+    utc: -5,
+    roles: []
+  },
+  {
+    name: "Toji",
+    utc: -7,
+    roles: []
+  },
+  {
+    name: "Twinkletoes",
+    utc: -7,
+    roles: ["Mod"]
+  },
+  {
+    name: "Coffee",
+    utc: -8,
+    roles: ["Paired", "Mocha's"]
+  },
+  {
+    name: "Malice",
+    utc: 0,
+    roles: ["Mod"]
+  }
+];
 
     const friendList =
       document.getElementById("friend-list");
