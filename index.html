@@ -23,26 +23,26 @@
       box-sizing: border-box;
     }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 40px 20px;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px 20px;
 
-  font-family: "Geist Pixel", monospace;
-  color: #443653;
+      font-family: "Geist Pixel", monospace;
+      color: #443653;
 
-  background-image:
-    linear-gradient(
-      rgba(120, 90, 155, 0.45),
-      rgba(120, 90, 155, 0.45)
-    ),
-    url("four.jpg");
+      background-image:
+        linear-gradient(
+          rgba(120, 90, 155, 0.45),
+          rgba(120, 90, 155, 0.45)
+        ),
+        url("four.jpg");
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
 
     .page {
       width: 100%;
@@ -147,7 +147,7 @@ body {
     .friend-card {
       position: relative;
       overflow: hidden;
-      min-height: 270px;
+      min-height: 290px;
       padding: 28px 22px;
 
       display: flex;
@@ -186,27 +186,33 @@ body {
       box-shadow:
         0 18px 38px rgba(104, 78, 135, 0.35);
     }
-    
-.friend-role {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 5px 11px;
 
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.22);
-  color: white;
-
-  border: 1px solid rgba(255, 255, 255, 0.5);
-
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
-
-  text-shadow:
-    0 1px 4px rgba(0, 0, 0, 0.35);
+    .friend-roles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 12px;
     }
-    
+
+    .friend-role {
+      display: inline-block;
+      padding: 5px 11px;
+
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.22);
+      color: white;
+
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.2;
+
+      text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+
     .friend-name {
       width: 100%;
       margin: 0;
@@ -264,67 +270,59 @@ body {
         0 2px 5px rgba(0, 0, 0, 0.4);
     }
 
-.friend-status {
-  display: inline-block;
-  margin: 18 0 10px;
-  padding: 8px 14px;
+    .friend-status {
+      display: inline-block;
+      margin: 18px 0 10px;
+      padding: 8px 14px;
 
-  border-radius: 999px;
+      border-radius: 999px;
 
-  background: rgba(255, 255, 255, 0.9);
-  color: #5b4971;
+      background: rgba(255, 255, 255, 0.9);
+      color: #5b4971;
 
-  font-size: 0.85rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
 
-footer {
-  margin-top: 40px;
-  text-align: center;
+    footer {
+      margin-top: 40px;
+      text-align: center;
 
-  color: white;
+      color: white;
 
-  font-size: 0.95rem;
-  line-height: 1.4;
+      font-size: 0.95rem;
+      line-height: 1.5;
 
-  text-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.4);
-}
+      text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.4);
+    }
 
-@media (max-width: 520px) {
-  body {
-    padding: 28px 14px;
-  }
+    @media (max-width: 520px) {
+      body {
+        padding: 28px 14px;
+      }
 
-  .title-card {
-    padding: 28px 18px;
-  }
+      .title-card {
+        padding: 28px 18px;
+      }
 
-  .subtitle-card {
-    padding: 20px 16px;
-  }
+      .subtitle-card {
+        padding: 20px 16px;
+      }
 
-${friend.roles.length ? `
-<div class="friend-roles">
-  ${friend.roles.map(role => `
-    <span class="friend-role">${role}</span>
-  `).join("")}
-</div>
-` : ""}
-  
-  .friend-card {
-    min-height: 250px;
-  }
+      .friend-card {
+        min-height: 270px;
+      }
 
-  .friend-time {
-    font-size: 2.4rem;
-  }
+      .friend-time {
+        font-size: 2.4rem;
+      }
 
-  .divider {
-    letter-spacing: 1px;
-  }
-}
+      .divider {
+        letter-spacing: 1px;
+      }
+    }
   </style>
 </head>
 
@@ -348,84 +346,84 @@ ${friend.roles.length ? `
     <main id="friend-list"></main>
 
     <footer>
-      This clock updates automatically!
-      Still in progress, some are just put under the UTC 0 for a placeholder!
+      This clock updates automatically!<br>
+      Still in progress — some timezones are placeholders.
     </footer>
   </div>
 
-  <script>
-const friends = [
-  {
-    name: "Fami",
-    utc: 3,
-    roles: [undetermined]
-  },
-  {
-    name: "Annie",
-    utc: 3,
-    roles: ["Owner"]
-  },
-  {
-    name: "C. Hamster",
-    utc: 3,
-    roles: [undetermined]
-  },
-  {
-    name: "Cece",
-    utc: 1,
-    roles: ["Admin"]
-  },
-  {
-    name: "Maow",
-    utc: 1,
-    roles: ["Mod"]
-  },
-  {
-    name: "Noelle",
-    utc: -4,
-    roles: [undetermined]
-  },
-  {
-    name: "Bing",
-    utc: -4,
-    roles: [undetermined]
-  },
-  {
-    name: "Mocha",
-    utc: -4,
-    roles: ["Paired", "Coffee's"]
-  },
-  {
-    name: "Trace",
-    utc: -5,
-    roles: [undetermined]
-  },
-  {
-    name: "Serenity",
-    utc: -5,
-    roles: [undetermined]
-  },
-  {
-    name: "Toji",
-    utc: -7,
-    roles: [undetermined]
-  },
-  {
-    name: "Twinkletoes",
-    utc: -7,
-    roles: ["Mod"]
-  },
-  {
-    name: "Coffee",
-    utc: -8,
-    roles: ["Paired", "Mocha's"]
-  },
-  {
-    name: "Malice",
-    utc: 0,
-    roles: ["Mod"]
-  }
-];
+    <script>
+    const friends = [
+      {
+        name: "Fami",
+        utc: 3,
+        roles: []
+      },
+      {
+        name: "Annie",
+        utc: 3,
+        roles: ["Owner"]
+      },
+      {
+        name: "C. Hamster",
+        utc: 3,
+        roles: []
+      },
+      {
+        name: "Cece",
+        utc: 1,
+        roles: ["Admin"]
+      },
+      {
+        name: "Maow",
+        utc: 1,
+        roles: ["Mod"]
+      },
+      {
+        name: "Noelle",
+        utc: -4,
+        roles: []
+      },
+      {
+        name: "Bing",
+        utc: -4,
+        roles: []
+      },
+      {
+        name: "Mocha",
+        utc: -4,
+        roles: ["Paired", "Coffee's"]
+      },
+      {
+        name: "Trace",
+        utc: -5,
+        roles: []
+      },
+      {
+        name: "Serenity",
+        utc: -5,
+        roles: []
+      },
+      {
+        name: "Toji",
+        utc: -7,
+        roles: []
+      },
+      {
+        name: "Twinkletoes",
+        utc: -7,
+        roles: ["Mod"]
+      },
+      {
+        name: "Coffee",
+        utc: -8,
+        roles: ["Paired", "Mocha's"]
+      },
+      {
+        name: "Malice",
+        utc: 0,
+        roles: ["Mod"]
+      }
+    ];
 
     const friendList =
       document.getElementById("friend-list");
@@ -446,11 +444,13 @@ const friends = [
       const sign = offset >= 0 ? "+" : "−";
       const absoluteOffset = Math.abs(offset);
 
-      const hours = Math.floor(absoluteOffset);
+      const hours =
+        Math.floor(absoluteOffset);
 
-      const minutes = Math.round(
-        (absoluteOffset - hours) * 60
-      );
+      const minutes =
+        Math.round(
+          (absoluteOffset - hours) * 60
+        );
 
       if (minutes === 0) {
         return `UTC${sign}${hours}`;
@@ -480,6 +480,26 @@ const friends = [
       }
 
       return "It's getting late.";
+    }
+
+    function createRoles(roles) {
+      if (!roles || roles.length === 0) {
+        return "";
+      }
+
+      return `
+        <div class="friend-roles">
+          ${roles
+            .map(
+              role => `
+                <span class="friend-role">
+                  ${role}
+                </span>
+              `
+            )
+            .join("")}
+        </div>
+      `;
     }
 
     function createFriendCard(friend) {
@@ -512,16 +532,17 @@ const friends = [
       const utcLabel =
         formatUtcOffset(friend.utc);
 
-return `
-  <section class="friend-card">
+      const roleBadges =
+        createRoles(friend.roles);
 
-    <div class="friend-role">
-      ${friend.role}
-    </div>
+      return `
+        <section class="friend-card">
 
-    <h2 class="friend-name">
-      ${friend.name}
-    </h2>
+          ${roleBadges}
+
+          <h2 class="friend-name">
+            ${friend.name}
+          </h2>
 
           <div class="friend-utc">
             ${utcLabel}
@@ -538,18 +559,24 @@ return `
           <span class="friend-status">
             ${status}
           </span>
+
         </section>
       `;
     }
 
     function updateClocks() {
-      friendList.innerHTML = friends
-        .map(createFriendCard)
-        .join("");
+      friendList.innerHTML =
+        friends
+          .map(createFriendCard)
+          .join("");
     }
 
     updateClocks();
-    setInterval(updateClocks, 1000);
+
+    setInterval(
+      updateClocks,
+      1000
+    );
   </script>
 </body>
 </html>
