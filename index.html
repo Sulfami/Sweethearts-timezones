@@ -44,6 +44,13 @@
       background-attachment: fixed;
     }
 
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
     .page {
       width: 100%;
       max-width: 1000px;
@@ -137,71 +144,149 @@
         0 2px 6px rgba(0, 0, 0, 0.35);
     }
 
-    .login-card{
+    .login-card,
+    .editor-card {
+      max-width: 520px;
+      margin: 0 auto 35px;
+      padding: 24px;
 
-  max-width:420px;
+      color: white;
+      text-align: center;
 
-  margin:0 auto 35px;
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-radius: 22px;
 
-  padding:24px;
+      background-image:
+        linear-gradient(
+          rgba(95, 75, 140, 0.55),
+          rgba(75, 55, 120, 0.65)
+        ),
+        url("two.jpg");
 
-  text-align:center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
 
-  color:white;
+      box-shadow:
+        0 12px 30px rgba(104, 78, 135, 0.25);
+    }
 
-  border:2px solid rgba(255,255,255,.55);
+    .login-card h2,
+    .editor-card h2 {
+      margin: 0 0 18px;
 
-  border-radius:22px;
+      color: white;
+      font-size: 1.5rem;
+      line-height: 1.3;
 
-  background-image:
-    linear-gradient(
-      rgba(95,75,140,.45),
-      rgba(75,55,120,.55)
-    ),
-    url("two.jpg");
+      text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.4);
+    }
 
-  background-size:cover;
-  background-position:center;
+    .login-card label,
+    .editor-card label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 6px;
 
-  box-shadow:
-    0 12px 30px rgba(104,78,135,.25);
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
 
-}
+    .login-card input,
+    .editor-card input,
+    .editor-card select {
+      width: 100%;
+      margin: 0;
+      padding: 12px;
 
-.login-card input{
+      color: #443653;
+      background: rgba(255, 255, 255, 0.94);
 
-  width:100%;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 12px;
+      outline: none;
+    }
 
-  margin:10px 0;
+    .login-card input:focus,
+    .editor-card input:focus,
+    .editor-card select:focus {
+      border-color: #d9c3f1;
 
-  padding:12px;
+      box-shadow:
+        0 0 0 3px rgba(239, 230, 250, 0.35);
+    }
 
-  border:none;
+    .login-card button,
+    .editor-card button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
 
-  border-radius:12px;
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.92);
 
-  font-family:inherit;
+      border: none;
+      border-radius: 12px;
 
-}
+      font-weight: 700;
+      cursor: pointer;
 
-.login-card button{
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+    }
 
-  width:100%;
+    .login-card button:hover,
+    .editor-card button:hover {
+      transform: translateY(-2px);
+      background: white;
+    }
 
-  margin-top:10px;
+    .secondary-button {
+      background: rgba(239, 230, 250, 0.85) !important;
+    }
 
-  padding:12px;
+    #login-message,
+    #editor-message {
+      min-height: 1.4em;
+      margin: 14px 0 0;
 
-  border:none;
+      color: white;
+      font-size: 0.88rem;
+      line-height: 1.4;
 
-  border-radius:12px;
+      text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.4);
+    }
 
-  font-family:inherit;
+    #editing-name {
+      margin: 0 0 10px;
 
-  cursor:pointer;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 1rem;
+      line-height: 1.4;
+    }
 
-}
-    
+    .editor-card[hidden] {
+      display: none;
+    }
+
+    .login-card[hidden] {
+      display: none;
+    }
+
+    #background-file {
+      padding: 9px;
+    }
+
+    #accent-color {
+      min-height: 48px;
+      padding: 5px;
+      cursor: pointer;
+    }
+
     #friend-list {
       display: grid;
       grid-template-columns:
@@ -212,7 +297,7 @@
     .friend-card {
       position: relative;
       overflow: hidden;
-      min-height: 290px;
+      min-height: 310px;
       padding: 28px 22px;
 
       display: flex;
@@ -264,11 +349,11 @@
       display: inline-block;
       padding: 5px 11px;
 
+      color: white;
+      background: rgba(255, 255, 255, 0.22);
+
       border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 999px;
-
-      background: rgba(255, 255, 255, 0.22);
-      color: white;
 
       font-size: 0.85rem;
       font-weight: 700;
@@ -296,10 +381,10 @@
       margin: 12px auto 0;
       padding: 6px 13px;
 
-      border-radius: 999px;
-
-      background: rgba(239, 230, 250, 0.88);
       color: #5d4775;
+      background: rgba(239, 230, 250, 0.88);
+
+      border-radius: 999px;
 
       font-size: 0.85rem;
       font-weight: 700;
@@ -335,15 +420,35 @@
         0 2px 5px rgba(0, 0, 0, 0.4);
     }
 
+    .friend-custom-status {
+      width: 100%;
+      margin: 14px 0 0;
+      padding: 8px 12px;
+
+      color: white;
+      background: rgba(255, 255, 255, 0.18);
+
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 12px;
+
+      font-size: 0.85rem;
+      line-height: 1.35;
+
+      overflow-wrap: anywhere;
+
+      text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+
     .friend-status {
       display: inline-block;
       margin: 18px 0 10px;
       padding: 8px 14px;
 
-      border-radius: 999px;
-
-      background: rgba(255, 255, 255, 0.9);
       color: #5b4971;
+      background: rgba(255, 255, 255, 0.9);
+
+      border-radius: 999px;
 
       font-size: 0.85rem;
       font-weight: 700;
@@ -352,9 +457,9 @@
 
     footer {
       margin-top: 40px;
-      text-align: center;
 
       color: white;
+      text-align: center;
 
       font-size: 0.95rem;
       line-height: 1.5;
@@ -372,12 +477,14 @@
         padding: 28px 18px;
       }
 
-      .subtitle-card {
+      .subtitle-card,
+      .login-card,
+      .editor-card {
         padding: 20px 16px;
       }
 
       .friend-card {
-        min-height: 270px;
+        min-height: 290px;
       }
 
       .friend-time {
@@ -391,7 +498,7 @@
   </style>
 </head>
 
-<body>
+  <body>
   <div class="page">
 
     <div class="title-card">
@@ -408,30 +515,96 @@
       </p>
     </div>
 
-<section class="login-card">
+    <section class="login-card" id="login-card">
+      <h2>Customize your card</h2>
 
-  <h2>Customize your card</h2>
+      <label for="login-email">
+        Email
+      </label>
 
-  <input
-    id="login-email"
-    type="email"
-    placeholder="Email"
-  >
+      <input
+        id="login-email"
+        type="email"
+        autocomplete="email"
+        placeholder="Your assigned email"
+      >
 
-  <input
-    id="login-password"
-    type="password"
-    placeholder="Password"
-  >
+      <label for="login-password">
+        Password
+      </label>
 
-  <button id="login-button">
-    Log In
-  </button>
+      <input
+        id="login-password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Your password"
+      >
 
-  <p id="login-message"></p>
+      <button id="login-button" type="button">
+        Log in
+      </button>
 
-</section>
-    
+      <p id="login-message"></p>
+    </section>
+
+    <section
+      class="editor-card"
+      id="editor-card"
+      hidden
+    >
+      <h2>Edit your card</h2>
+
+      <p id="editing-name"></p>
+
+      <label for="custom-status">
+        Custom status
+      </label>
+
+      <input
+        id="custom-status"
+        type="text"
+        maxlength="80"
+        placeholder="Write a status..."
+      >
+
+      <label for="accent-color">
+        Accent colour
+      </label>
+
+      <input
+        id="accent-color"
+        type="color"
+        value="#EFE6FA"
+      >
+
+      <label for="background-file">
+        Upload a card background
+      </label>
+
+      <input
+        id="background-file"
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/gif"
+      >
+
+      <button
+        id="save-card-button"
+        type="button"
+      >
+        Save changes
+      </button>
+
+      <button
+        id="logout-button"
+        class="secondary-button"
+        type="button"
+      >
+        Log out
+      </button>
+
+      <p id="editor-message"></p>
+    </section>
+
     <main id="friend-list"></main>
 
     <footer>
@@ -440,131 +613,240 @@
     </footer>
   </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL =
-  "https://cdstptswoblnvohozhlp.supabase.co";
+  <script>
+    const SUPABASE_URL =
+      "https://cdstptswoblnvohozhlp.supabase.co";
 
-const SUPABASE_KEY =
-  "sb_publishable_8mb39C8jhNMuEJ5sPCXHFw_zs3ABDzT";
+    const SUPABASE_KEY =
+      "sb_publishable_8mb39C8jhNMuEJ5sPCXHFw_zs3ABDzT";
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
-    const friends = [
-        {
+    const STORAGE_BUCKET =
+      "card-backgrounds";
+
+    const fallbackFriends = [
+      {
         name: "Seiya",
         utc: 8,
-        roles: ["Paired", "♡", "Noelle's"]
+        roles: ["Paired", "♡", "Noelle's"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Annie",
         utc: 3,
-        roles: ["Owner"]
+        roles: ["Owner"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Fami",
         utc: 3,
-        roles: ["Server co-owner", "Trial mod"]
+        roles: ["Server co-owner", "Trial mod"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "C. Hamster",
         utc: 3,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Ani",
         utc: 2,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Cece",
         utc: 1,
-        roles: ["Admin"]
+        roles: ["Admin"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Maow",
         utc: 1,
-        roles: ["Server co-owner", "Admin"]
+        roles: ["Server co-owner", "Admin"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Xen",
         utc: 1,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Noelle",
         utc: -4,
-        roles: ["Paired", "♡", "Seiya's"]
+        roles: ["Paired", "♡", "Seiya's"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Bing",
         utc: -4,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
-            {
+      {
         name: "Malice",
         utc: -4,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
-            {
+      {
         name: "Mocha",
         utc: -4,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Trace",
         utc: -5,
-        roles: ["Trial mod"]
+        roles: ["Trial mod"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Serenity",
         utc: -5,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Toji",
         utc: -7,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Twinkletoes",
         utc: -7,
-        roles: ["Admin"]
+        roles: ["Admin"],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Coffee",
         utc: -8,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Cassie",
         utc: 0,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Julie",
         utc: 0,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Log",
         utc: 0,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       },
       {
         name: "Gabby",
         utc: 0,
-        roles: []
+        roles: [],
+        custom_status: "",
+        background: "stars.jpg",
+        accent_color: "#EFE6FA"
       }
     ];
 
+    let friends = [...fallbackFriends];
+    let currentUser = null;
+    let currentCard = null;
+
     const friendList =
       document.getElementById("friend-list");
+
+    const loginCard =
+      document.getElementById("login-card");
+
+    const loginEmail =
+      document.getElementById("login-email");
+
+    const loginPassword =
+      document.getElementById("login-password");
+
+    const loginButton =
+      document.getElementById("login-button");
+
+    const loginMessage =
+      document.getElementById("login-message");
+
+    const editorCard =
+      document.getElementById("editor-card");
+
+    const editingName =
+      document.getElementById("editing-name");
+
+    const customStatusInput =
+      document.getElementById("custom-status");
+
+    const accentColorInput =
+      document.getElementById("accent-color");
+
+    const backgroundFileInput =
+      document.getElementById("background-file");
+
+    const saveCardButton =
+      document.getElementById("save-card-button");
+
+    const logoutButton =
+      document.getElementById("logout-button");
+
+    const editorMessage =
+      document.getElementById("editor-message");
 
     function getFriendTime(offset) {
       const now = new Date();
@@ -574,13 +856,20 @@ const supabaseClient =
         now.getTimezoneOffset() * 60000;
 
       return new Date(
-        utcMilliseconds + offset * 3600000
+        utcMilliseconds +
+        Number(offset) * 3600000
       );
     }
 
     function formatUtcOffset(offset) {
-      const sign = offset >= 0 ? "+" : "−";
-      const absoluteOffset = Math.abs(offset);
+      const numericOffset =
+        Number(offset);
+
+      const sign =
+        numericOffset >= 0 ? "+" : "−";
+
+      const absoluteOffset =
+        Math.abs(numericOffset);
 
       const hours =
         Math.floor(absoluteOffset);
@@ -600,7 +889,7 @@ const supabaseClient =
       );
     }
 
-    function getStatus(hour) {
+    function getAutomaticStatus(hour) {
       if (hour >= 23 || hour < 7) {
         return "Perhaps sleeping?";
       }
@@ -620,8 +909,8 @@ const supabaseClient =
       return "It's getting late.";
     }
 
-    function createRoles(roles) {
-      if (!roles || roles.length === 0) {
+        function createRoles(roles) {
+      if (!Array.isArray(roles) || roles.length === 0) {
         return "";
       }
 
@@ -631,13 +920,52 @@ const supabaseClient =
             .map(
               role => `
                 <span class="friend-role">
-                  ${role}
+                  ${escapeHtml(String(role))}
                 </span>
               `
             )
             .join("")}
         </div>
       `;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function safeBackground(value) {
+      if (!value) {
+        return "stars.jpg";
+      }
+
+      const background =
+        String(value).trim();
+
+      if (
+        background.startsWith("https://") ||
+        background.startsWith("http://") ||
+        /^[a-zA-Z0-9._/-]+$/.test(background)
+      ) {
+        return background;
+      }
+
+      return "stars.jpg";
+    }
+
+    function safeAccentColor(value) {
+      const color =
+        String(value || "").trim();
+
+      if (/^#[0-9a-fA-F]{6}$/.test(color)) {
+        return color;
+      }
+
+      return "#EFE6FA";
     }
 
     function createFriendCard(friend) {
@@ -664,8 +992,10 @@ const supabaseClient =
           }
         );
 
-      const status =
-        getStatus(friendTime.getHours());
+      const automaticStatus =
+        getAutomaticStatus(
+          friendTime.getHours()
+        );
 
       const utcLabel =
         formatUtcOffset(friend.utc);
@@ -673,31 +1003,67 @@ const supabaseClient =
       const roleBadges =
         createRoles(friend.roles);
 
-      return `
-        <section class="friend-card">
+      const background =
+        safeBackground(friend.background);
 
+      const accentColor =
+        safeAccentColor(
+          friend.accent_color
+        );
+
+      const customStatus =
+        String(
+          friend.custom_status || ""
+        ).trim();
+
+      const customStatusHtml =
+        customStatus
+          ? `
+              <p class="friend-custom-status">
+                ${escapeHtml(customStatus)}
+              </p>
+            `
+          : "";
+
+      return `
+        <section
+          class="friend-card"
+          style="
+            background-image:
+              linear-gradient(
+                color-mix(
+                  in srgb,
+                  ${accentColor} 42%,
+                  transparent
+                ),
+                rgba(75, 55, 120, 0.48)
+              ),
+              url('${background}');
+          "
+        >
           ${roleBadges}
 
           <h2 class="friend-name">
-            ${friend.name}
+            ${escapeHtml(friend.name)}
           </h2>
 
           <div class="friend-utc">
-            ${utcLabel}
+            ${escapeHtml(utcLabel)}
           </div>
 
           <p class="friend-time">
-            ${time}
+            ${escapeHtml(time)}
           </p>
 
           <p class="friend-date">
-            ${date}
+            ${escapeHtml(date)}
           </p>
 
-          <span class="friend-status">
-            ${status}
-          </span>
+          ${customStatusHtml}
 
+          <span class="friend-status">
+            ${escapeHtml(automaticStatus)}
+          </span>
         </section>
       `;
     }
@@ -709,41 +1075,405 @@ const supabaseClient =
           .join("");
     }
 
-document
-.getElementById("login-button")
-.addEventListener(
-"click",
-async()=>{
+    async function loadCardsFromSupabase() {
+      const { data, error } =
+        await supabaseClient
+          .from("card")
+          .select(
+            `
+              id,
+              owner_id,
+              name,
+              utc_offset,
+              roles,
+              custom_status,
+              background,
+              accent_color
+            `
+          )
+          .order("id", {
+            ascending: true
+          });
 
-const email=
-document.getElementById(
-"login-email"
-).value;
+      if (error) {
+        console.error(
+          "Could not load Supabase cards:",
+          error
+        );
 
-const password=
-document.getElementById(
-"login-password"
-).value;
+        friends =
+          [...fallbackFriends];
 
-const {error}=await
-supabaseClient.auth.signInWithPassword({
+        updateClocks();
+        return;
+      }
 
-email,
-password
+      if (!data || data.length === 0) {
+        friends =
+          [...fallbackFriends];
 
-});
+        updateClocks();
+        return;
+      }
 
-document.getElementById(
-"login-message"
-).textContent=
+      friends = data.map(card => ({
+        id: card.id,
+        owner_id: card.owner_id,
+        name: card.name,
+        utc: Number(card.utc_offset),
+        roles: Array.isArray(card.roles)
+          ? card.roles
+          : [],
+        custom_status:
+          card.custom_status || "",
+        background:
+          card.background || "stars.jpg",
+        accent_color:
+          card.accent_color || "#EFE6FA"
+      }));
 
-error
-? error.message
-: "Logged in!";
+      updateClocks();
+    }
 
-});
-  
-    updateClocks();
+    async function loadMyCard() {
+      editorMessage.textContent = "";
+
+      const {
+        data: { user },
+        error: userError
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (userError || !user) {
+        currentUser = null;
+        currentCard = null;
+
+        editorCard.hidden = true;
+        loginCard.hidden = false;
+
+        return;
+      }
+
+      currentUser = user;
+
+      const { data, error } =
+        await supabaseClient
+          .from("card")
+          .select("*")
+          .eq("owner_id", user.id)
+          .maybeSingle();
+
+      if (error) {
+        console.error(
+          "Could not load user card:",
+          error
+        );
+
+        currentCard = null;
+        editorCard.hidden = true;
+        loginCard.hidden = false;
+
+        loginMessage.textContent =
+          `Logged in, but the card could not be loaded: ${error.message}`;
+
+        return;
+      }
+
+      if (!data) {
+        currentCard = null;
+        editorCard.hidden = true;
+        loginCard.hidden = false;
+
+        loginMessage.textContent =
+          "Logged in, but no card is connected to this account.";
+
+        return;
+      }
+
+      currentCard = data;
+
+      editingName.textContent =
+        `Editing ${data.name}'s card`;
+
+      customStatusInput.value =
+        data.custom_status || "";
+
+      accentColorInput.value =
+        safeAccentColor(
+          data.accent_color
+        );
+
+      backgroundFileInput.value = "";
+
+      loginMessage.textContent = "";
+      loginCard.hidden = true;
+      editorCard.hidden = false;
+    }
+
+    async function uploadBackground(file) {
+      if (!currentUser) {
+        throw new Error(
+          "You must be logged in."
+        );
+      }
+
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error(
+          "Please choose a JPG, PNG, WEBP, or GIF image."
+        );
+      }
+
+      const maximumSize =
+        5 * 1024 * 1024;
+
+      if (file.size > maximumSize) {
+        throw new Error(
+          "The image must be smaller than 5 MB."
+        );
+      }
+
+      const extensionMap = {
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/webp": "webp",
+        "image/gif": "gif"
+      };
+
+      const extension =
+        extensionMap[file.type];
+
+      const filePath =
+        `${currentUser.id}/background-${Date.now()}.${extension}`;
+
+      const { error: uploadError } =
+        await supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: false,
+            contentType: file.type
+          });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data } =
+        supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .getPublicUrl(filePath);
+
+      if (!data?.publicUrl) {
+        throw new Error(
+          "The image uploaded, but its URL could not be created."
+        );
+      }
+
+      return data.publicUrl;
+    }
+
+    loginButton.addEventListener(
+      "click",
+      async () => {
+        const email =
+          loginEmail.value.trim();
+
+        const password =
+          loginPassword.value;
+
+        if (!email || !password) {
+          loginMessage.textContent =
+            "Enter both your email and password.";
+
+          return;
+        }
+
+        loginButton.disabled = true;
+        loginMessage.textContent =
+          "Logging in...";
+
+        const { error } =
+          await supabaseClient.auth
+            .signInWithPassword({
+              email,
+              password
+            });
+
+        loginButton.disabled = false;
+
+        if (error) {
+          loginMessage.textContent =
+            `Login failed: ${error.message}`;
+
+          return;
+        }
+
+        loginPassword.value = "";
+
+        loginMessage.textContent =
+          "Logged in!";
+
+        await loadMyCard();
+      }
+    );
+
+    saveCardButton.addEventListener(
+      "click",
+      async () => {
+        if (!currentUser || !currentCard) {
+          editorMessage.textContent =
+            "No card is connected to this account.";
+
+          return;
+        }
+
+        saveCardButton.disabled = true;
+        editorMessage.textContent =
+          "Saving...";
+
+        try {
+          const selectedFile =
+            backgroundFileInput.files[0];
+
+          let background =
+            currentCard.background ||
+            "stars.jpg";
+
+          if (selectedFile) {
+            editorMessage.textContent =
+              "Uploading background...";
+
+            background =
+              await uploadBackground(
+                selectedFile
+              );
+          }
+
+          const updates = {
+            custom_status:
+              customStatusInput.value
+                .trim()
+                .slice(0, 80),
+
+            accent_color:
+              safeAccentColor(
+                accentColorInput.value
+              ),
+
+            background
+          };
+
+          const { data, error } =
+            await supabaseClient
+              .from("card")
+              .update(updates)
+              .eq("id", currentCard.id)
+              .eq(
+                "owner_id",
+                currentUser.id
+              )
+              .select()
+              .single();
+
+          if (error) {
+            throw error;
+          }
+
+          currentCard = data;
+
+          backgroundFileInput.value = "";
+
+          editorMessage.textContent =
+            "Changes saved!";
+
+          await loadCardsFromSupabase();
+        } catch (error) {
+          console.error(
+            "Could not save card:",
+            error
+          );
+
+          editorMessage.textContent =
+            `Could not save: ${error.message}`;
+        } finally {
+          saveCardButton.disabled = false;
+        }
+      }
+    );
+
+    logoutButton.addEventListener(
+      "click",
+      async () => {
+        const { error } =
+          await supabaseClient.auth
+            .signOut();
+
+        if (error) {
+          editorMessage.textContent =
+            `Could not log out: ${error.message}`;
+
+          return;
+        }
+
+        currentUser = null;
+        currentCard = null;
+
+        editorCard.hidden = true;
+        loginCard.hidden = false;
+
+        loginEmail.value = "";
+        loginPassword.value = "";
+        loginMessage.textContent =
+          "Logged out.";
+      }
+    );
+
+    supabaseClient.auth.onAuthStateChange(
+      async (event, session) => {
+        if (
+          event === "SIGNED_IN" &&
+          session?.user
+        ) {
+          await loadMyCard();
+        }
+
+        if (event === "SIGNED_OUT") {
+          currentUser = null;
+          currentCard = null;
+
+          editorCard.hidden = true;
+          loginCard.hidden = false;
+        }
+      }
+    );
+
+    async function initialisePage() {
+      updateClocks();
+
+      await loadCardsFromSupabase();
+
+      const {
+        data: { session }
+      } =
+        await supabaseClient.auth
+          .getSession();
+
+      if (session?.user) {
+        await loadMyCard();
+      } else {
+        editorCard.hidden = true;
+        loginCard.hidden = false;
+      }
+    }
+
+    initialisePage();
 
     setInterval(
       updateClocks,
