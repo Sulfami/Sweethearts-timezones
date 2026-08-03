@@ -137,6 +137,71 @@
         0 2px 6px rgba(0, 0, 0, 0.35);
     }
 
+    .login-card{
+
+  max-width:420px;
+
+  margin:0 auto 35px;
+
+  padding:24px;
+
+  text-align:center;
+
+  color:white;
+
+  border:2px solid rgba(255,255,255,.55);
+
+  border-radius:22px;
+
+  background-image:
+    linear-gradient(
+      rgba(95,75,140,.45),
+      rgba(75,55,120,.55)
+    ),
+    url("two.jpg");
+
+  background-size:cover;
+  background-position:center;
+
+  box-shadow:
+    0 12px 30px rgba(104,78,135,.25);
+
+}
+
+.login-card input{
+
+  width:100%;
+
+  margin:10px 0;
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:12px;
+
+  font-family:inherit;
+
+}
+
+.login-card button{
+
+  width:100%;
+
+  margin-top:10px;
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:12px;
+
+  font-family:inherit;
+
+  cursor:pointer;
+
+}
+    
     #friend-list {
       display: grid;
       grid-template-columns:
@@ -343,6 +408,30 @@
       </p>
     </div>
 
+<section class="login-card">
+
+  <h2>Customize your card</h2>
+
+  <input
+    id="login-email"
+    type="email"
+    placeholder="Email"
+  >
+
+  <input
+    id="login-password"
+    type="password"
+    placeholder="Password"
+  >
+
+  <button id="login-button">
+    Log In
+  </button>
+
+  <p id="login-message"></p>
+
+</section>
+    
     <main id="friend-list"></main>
 
     <footer>
@@ -351,7 +440,21 @@
     </footer>
   </div>
 
-    <script>
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+  "https://cdstptswoblnvohozhlp.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_8mb39C8jhNMuEJ5sPCXHFw_zs3ABDzT";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
     const friends = [
         {
         name: "Seiya",
@@ -606,6 +709,40 @@
           .join("");
     }
 
+document
+.getElementById("login-button")
+.addEventListener(
+"click",
+async()=>{
+
+const email=
+document.getElementById(
+"login-email"
+).value;
+
+const password=
+document.getElementById(
+"login-password"
+).value;
+
+const {error}=await
+supabaseClient.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+document.getElementById(
+"login-message"
+).textContent=
+
+error
+? error.message
+: "Logged in!";
+
+});
+  
     updateClocks();
 
     setInterval(
