@@ -817,6 +817,12 @@
     const accentColorInput =
       document.getElementById("accent-color");
 
+    const tintStrengthInput =
+  document.getElementById("tint-strength");
+
+const tintStrengthValue =
+  document.getElementById("tint-strength-value");
+
     const backgroundFileInput =
       document.getElementById("background-file");
 
@@ -949,6 +955,27 @@
       return "#EFE6FA";
     }
 
+    function safeTintStrength(value) {
+  const strength = Number(value);
+
+  if (
+    Number.isFinite(strength) &&
+    strength >= 0 &&
+    strength <= 100
+  ) {
+    return Math.round(strength);
+  }
+
+  return 42;
+}
+    tintStrengthInput.addEventListener(
+  "input",
+  () => {
+    tintStrengthValue.textContent =
+      `${tintStrengthInput.value}%`;
+  }
+);
+
     function createFriendCard(friend) {
       const friendTime =
         getFriendTime(friend.utc);
@@ -992,6 +1019,11 @@
           friend.accent_color
         );
 
+const tintStrength =
+  safeTintStrength(
+    friend.tint_strength
+  );
+      
       const customStatus =
         String(
           friend.custom_status || ""
@@ -1012,11 +1044,11 @@
           style="
             background-image:
               linear-gradient(
-                color-mix(
-                  in srgb,
-                  ${accentColor} 42%,
-                  transparent
-                ),
+color-mix(
+  in srgb,
+  ${accentColor} ${tintStrength}%,
+  transparent
+)
                 rgba(75, 55, 120, 0.48)
               ),
               url('${background}');
@@ -1069,7 +1101,8 @@
               roles,
               custom_status,
               background,
-              accent_color
+              accent_color,
+              tint_strength
             `
           )
           .order("id", {
@@ -1107,10 +1140,12 @@
           : [],
         custom_status:
           card.custom_status || "",
-        background:
-          card.background || "stars.jpg",
-        accent_color:
-          card.accent_color || "#EFE6FA"
+background:
+  card.background || "stars.jpg",
+accent_color:
+  card.accent_color || "#EFE6FA",
+tint_strength:
+  safeTintStrength(card.tint_strength)
       }));
 
       updateClocks();
@@ -1183,6 +1218,14 @@
         safeAccentColor(
           data.accent_color
         );
+
+      tintStrengthInput.value =
+  safeTintStrength(
+    data.tint_strength
+  );
+
+tintStrengthValue.textContent =
+  `${tintStrengthInput.value}%`;
 
       backgroundFileInput.value = "";
 
@@ -1337,19 +1380,24 @@
               );
           }
 
-          const updates = {
-            custom_status:
-              customStatusInput.value
-                .trim()
-                .slice(0, 80),
+const updates = {
+  custom_status:
+    customStatusInput.value
+      .trim()
+      .slice(0, 80),
 
-            accent_color:
-              safeAccentColor(
-                accentColorInput.value
-              ),
+  accent_color:
+    safeAccentColor(
+      accentColorInput.value
+    ),
 
-            background
-          };
+  tint_strength:
+    safeTintStrength(
+      tintStrengthInput.value
+    ),
+
+  background
+};
 
           const { data, error } =
             await supabaseClient
