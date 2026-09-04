@@ -459,11 +459,12 @@
       text-align: center;
     }
 
-    .birthday-editor-box p {
-      margin: 8px 0 0;
-      font-size: 0.82rem;
-      line-height: 1.45;
-    }
+.birthday-editor-box p {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  text-align: center;
+}
 
     .birthday-input-row {
       display: grid;
@@ -1172,7 +1173,7 @@
 
         <div id="birthday-setup">
           <p>
-            Set your birthday once. Only the month and day are saved —
+            Set your birthday once! Only the month and day are saved —
             not your birth year.
           </p>
 
@@ -1197,7 +1198,7 @@
 
           <p>
             Once you save it, the site will stop asking. If you make a
-            mistake, ask the site owner to fix it in Supabase.
+            mistake, please ask @sulfami to fix it in Supabase! — for other users can't help you!
           </p>
         </div>
 
@@ -1242,7 +1243,7 @@
 
         <p class="cropper-help">
           Drag the picture to choose what part shows on your card.
-          Use the slider to zoom in or out.
+          Use the slider to zoom in or out!
         </p>
 
         <div
@@ -1903,7 +1904,7 @@
 
       if (hasBirthday) {
         birthdaySavedText.textContent =
-          `Birthday saved: ${formatBirthday(month, day)} 🎂`;
+          `Birthday saved: ${formatBirthday(month, day)}`;
 
         return;
       }
@@ -2361,7 +2362,7 @@
 
         currentCard = data;
         birthdayMessage.textContent =
-          "Birthday saved! 🎂";
+          "Birthday saved!";
 
         renderBirthdayEditor();
         await loadCardsFromSupabase();
