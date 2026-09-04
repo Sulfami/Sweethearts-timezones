@@ -440,6 +440,383 @@
       line-height: 1.35;
     }
 
+    /* BIRTHDAY SETUP */
+    .birthday-editor-box {
+      margin-top: 20px;
+      padding: 16px;
+
+      text-align: left;
+
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 16px;
+    }
+
+    .birthday-editor-box h3 {
+      margin: 0 0 8px;
+      color: white;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    .birthday-editor-box p {
+      margin: 8px 0 0;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .birthday-input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .birthday-input-row label {
+      margin-top: 0;
+    }
+
+    #birthday-save-button {
+      margin-top: 12px;
+    }
+
+    #birthday-message {
+      min-height: 1.3em;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #birthday-saved {
+      text-align: center;
+    }
+
+    .birthday-banner {
+      width: 100%;
+      margin: 0 0 12px;
+      padding: 9px 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      color: #5b4971;
+      background: rgba(255, 244, 253, 0.96);
+      border: 2px solid rgba(255, 255, 255, 0.78);
+      border-radius: 14px;
+
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+
+      box-shadow:
+        0 6px 18px rgba(50, 30, 70, 0.22),
+        0 0 15px rgba(255, 230, 248, 0.34);
+    }
+
+    .birthday-banner img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    /* SERVER CALENDAR */
+    .calendar-card {
+      margin: 42px auto 0;
+      padding: 24px;
+
+      color: white;
+
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-radius: 24px;
+
+      background-image:
+        linear-gradient(
+          rgba(95, 75, 140, 0.68),
+          rgba(75, 55, 120, 0.78)
+        ),
+        url("two.jpg");
+
+      background-size: cover;
+      background-position: center;
+
+      box-shadow:
+        0 12px 30px rgba(104, 78, 135, 0.25);
+    }
+
+    .calendar-title-row {
+      display: grid;
+      grid-template-columns: 46px 1fr 46px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .calendar-title-row h2 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .calendar-nav-button {
+      width: 46px;
+      height: 42px;
+      padding: 0;
+
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.92);
+      border: none;
+      border-radius: 12px;
+
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .calendar-weekdays {
+      margin-bottom: 7px;
+    }
+
+    .calendar-weekday {
+      padding: 6px 2px;
+      text-align: center;
+      font-size: 0.76rem;
+      font-weight: 700;
+      opacity: 0.92;
+    }
+
+    .calendar-day-spacer {
+      min-height: 82px;
+    }
+
+    .calendar-day {
+      position: relative;
+      min-height: 82px;
+      padding: 8px 5px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 5px;
+
+      color: white;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 12px;
+
+      cursor: pointer;
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease;
+    }
+
+    .calendar-day:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .calendar-day.selected {
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 0 2px rgba(239, 230, 250, 0.18);
+    }
+
+    .calendar-day.today .calendar-day-number {
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    .calendar-day-number {
+      min-width: 26px;
+      min-height: 26px;
+      padding: 4px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .calendar-birthday-marker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+
+      font-size: 0.72rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .calendar-birthday-marker img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .calendar-plan-marker {
+      margin-top: auto;
+      padding: 3px 7px;
+
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 999px;
+
+      font-size: 0.66rem;
+      font-weight: 700;
+    }
+
+    .calendar-details {
+      margin-top: 20px;
+      padding: 18px;
+
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+    }
+
+    .calendar-details h3 {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 1.15rem;
+    }
+
+    .calendar-detail-section {
+      margin-top: 14px;
+    }
+
+    .calendar-detail-section:first-of-type {
+      margin-top: 0;
+    }
+
+    .calendar-detail-section h4 {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+    }
+
+    .calendar-birthday-list,
+    .calendar-event-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .calendar-birthday-entry,
+    .calendar-event-entry {
+      padding: 9px 11px;
+
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 11px;
+
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    .calendar-birthday-entry {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calendar-birthday-entry img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .calendar-event-entry {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .calendar-delete-button {
+      flex: 0 0 auto;
+      padding: 6px 8px;
+
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.88);
+      border: none;
+      border-radius: 9px;
+
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calendar-empty {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.82rem;
+    }
+
+    .calendar-admin-editor {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.26);
+    }
+
+    .calendar-admin-editor[hidden] {
+      display: none;
+    }
+
+    .calendar-admin-editor label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .calendar-plan-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    #calendar-plan-input {
+      min-width: 0;
+      padding: 10px 11px;
+
+      color: #443653;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 11px;
+      outline: none;
+    }
+
+    #calendar-add-plan-button {
+      padding: 10px 13px;
+
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.92);
+      border: none;
+      border-radius: 11px;
+
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #calendar-message {
+      min-height: 1.3em;
+      margin: 10px 0 0;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
     #friend-list {
       display: grid;
       grid-template-columns:
@@ -644,6 +1021,41 @@
         font-size: 2.4rem;
       }
 
+      .calendar-card {
+        padding: 18px 12px;
+      }
+
+      .calendar-weekdays,
+      .calendar-grid {
+        gap: 4px;
+      }
+
+      .calendar-day,
+      .calendar-day-spacer {
+        min-height: 68px;
+      }
+
+      .calendar-day {
+        padding: 6px 2px;
+      }
+
+      .calendar-birthday-marker span:last-child {
+        display: none;
+      }
+
+      .calendar-plan-marker {
+        padding: 2px 5px;
+        font-size: 0.58rem;
+      }
+
+      .calendar-plan-row {
+        grid-template-columns: 1fr;
+      }
+
+      .birthday-input-row {
+        grid-template-columns: 1fr;
+      }
+
       .divider {
         letter-spacing: 1px;
       }
@@ -755,6 +1167,47 @@
         accept="image/png,image/jpeg,image/webp,image/gif"
       >
 
+      <div class="birthday-editor-box">
+        <h3>Birthday</h3>
+
+        <div id="birthday-setup">
+          <p>
+            Set your birthday once. Only the month and day are saved —
+            not your birth year.
+          </p>
+
+          <div class="birthday-input-row">
+            <div>
+              <label for="birthday-month">Month</label>
+              <select id="birthday-month"></select>
+            </div>
+
+            <div>
+              <label for="birthday-day">Day</label>
+              <select id="birthday-day"></select>
+            </div>
+          </div>
+
+          <button
+            id="birthday-save-button"
+            type="button"
+          >
+            Save birthday
+          </button>
+
+          <p>
+            Once you save it, the site will stop asking. If you make a
+            mistake, ask the site owner to fix it in Supabase.
+          </p>
+        </div>
+
+        <div id="birthday-saved" hidden>
+          <p id="birthday-saved-text"></p>
+        </div>
+
+        <p id="birthday-message"></p>
+      </div>
+
       <button
         id="save-card-button"
         type="button"
@@ -846,6 +1299,90 @@
 
     <main id="friend-list"></main>
 
+    <section class="calendar-card" id="server-calendar">
+      <div class="calendar-title-row">
+        <button
+          class="calendar-nav-button"
+          id="calendar-prev-button"
+          type="button"
+          aria-label="Previous month"
+        >
+          ‹
+        </button>
+
+        <h2 id="calendar-month-title">Calendar</h2>
+
+        <button
+          class="calendar-nav-button"
+          id="calendar-next-button"
+          type="button"
+          aria-label="Next month"
+        >
+          ›
+        </button>
+      </div>
+
+      <div class="calendar-weekdays" aria-hidden="true">
+        <div class="calendar-weekday">Sun</div>
+        <div class="calendar-weekday">Mon</div>
+        <div class="calendar-weekday">Tue</div>
+        <div class="calendar-weekday">Wed</div>
+        <div class="calendar-weekday">Thu</div>
+        <div class="calendar-weekday">Fri</div>
+        <div class="calendar-weekday">Sat</div>
+      </div>
+
+      <div class="calendar-grid" id="calendar-grid"></div>
+
+      <div class="calendar-details">
+        <h3 id="calendar-selected-title"></h3>
+
+        <div class="calendar-detail-section">
+          <h4>Birthdays</h4>
+          <div
+            class="calendar-birthday-list"
+            id="calendar-birthday-list"
+          ></div>
+        </div>
+
+        <div class="calendar-detail-section">
+          <h4>Plans</h4>
+          <div
+            class="calendar-event-list"
+            id="calendar-event-list"
+          ></div>
+        </div>
+
+        <div
+          class="calendar-admin-editor"
+          id="calendar-admin-editor"
+          hidden
+        >
+          <label for="calendar-plan-input">
+            Add a plan for this day
+          </label>
+
+          <div class="calendar-plan-row">
+            <input
+              id="calendar-plan-input"
+              type="text"
+              maxlength="120"
+              placeholder="Movie night, server event, etc."
+            >
+
+            <button
+              id="calendar-add-plan-button"
+              type="button"
+            >
+              Add plan
+            </button>
+          </div>
+        </div>
+
+        <p id="calendar-message"></p>
+      </div>
+    </section>
+
     <footer>
       This clock updates automatically!<br>
       Still in progress — some timezones are placeholders.
@@ -870,6 +1407,13 @@
     const STORAGE_BUCKET =
       "card-backgrounds";
 
+    /*
+      Put a file named birthday.png in the same GitHub folder as
+      stars.jpg. If it is missing, the site falls back to a cake emoji.
+    */
+    const BIRTHDAY_ICON_URL =
+      "birthday.png";
+
     const fallbackFriends = [
       {
         name: "Annie",
@@ -878,7 +1422,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Maow",
@@ -887,7 +1433,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Fami",
@@ -896,7 +1444,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Hammy",
@@ -905,7 +1455,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Cece",
@@ -914,7 +1466,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Xen",
@@ -923,7 +1477,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Noelle",
@@ -932,7 +1488,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Bing",
@@ -941,7 +1499,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Malice",
@@ -950,7 +1510,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Serenity",
@@ -959,7 +1521,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Cassie",
@@ -968,7 +1532,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Gojo",
@@ -977,7 +1543,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Twinkletoes",
@@ -986,7 +1554,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Gabby",
@@ -995,7 +1565,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Coffee",
@@ -1004,7 +1576,9 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       },
       {
         name: "Log",
@@ -1013,13 +1587,28 @@
         custom_status: "",
         background: "stars.jpg",
         accent_color: "#EFE6FA",
-        tint_strength: 42
+        tint_strength: 42,
+        birthday_month: null,
+        birthday_day: null
       }
     ];
 
     let friends = [...fallbackFriends];
     let currentUser = null;
     let currentCard = null;
+
+    let calendarEvents = [];
+    let calendarIsAdmin = false;
+
+    const nowForCalendar = new Date();
+    let calendarViewDate = new Date(
+      nowForCalendar.getFullYear(),
+      nowForCalendar.getMonth(),
+      1
+    );
+
+    let selectedCalendarDate =
+      formatDateKey(nowForCalendar);
 
     const friendList =
       document.getElementById("friend-list");
@@ -1070,6 +1659,62 @@
     const editorMessage =
       document.getElementById("editor-message");
 
+    /* BIRTHDAY ELEMENTS */
+    const birthdaySetup =
+      document.getElementById("birthday-setup");
+
+    const birthdaySaved =
+      document.getElementById("birthday-saved");
+
+    const birthdaySavedText =
+      document.getElementById("birthday-saved-text");
+
+    const birthdayMonthSelect =
+      document.getElementById("birthday-month");
+
+    const birthdayDaySelect =
+      document.getElementById("birthday-day");
+
+    const birthdaySaveButton =
+      document.getElementById("birthday-save-button");
+
+    const birthdayMessage =
+      document.getElementById("birthday-message");
+
+    /* CALENDAR ELEMENTS */
+    const calendarMonthTitle =
+      document.getElementById("calendar-month-title");
+
+    const calendarPrevButton =
+      document.getElementById("calendar-prev-button");
+
+    const calendarNextButton =
+      document.getElementById("calendar-next-button");
+
+    const calendarGrid =
+      document.getElementById("calendar-grid");
+
+    const calendarSelectedTitle =
+      document.getElementById("calendar-selected-title");
+
+    const calendarBirthdayList =
+      document.getElementById("calendar-birthday-list");
+
+    const calendarEventList =
+      document.getElementById("calendar-event-list");
+
+    const calendarAdminEditor =
+      document.getElementById("calendar-admin-editor");
+
+    const calendarPlanInput =
+      document.getElementById("calendar-plan-input");
+
+    const calendarAddPlanButton =
+      document.getElementById("calendar-add-plan-button");
+
+    const calendarMessage =
+      document.getElementById("calendar-message");
+
     /* IMAGE CROPPER ELEMENTS */
     const cropperOverlay =
       document.getElementById("cropper-overlay");
@@ -1107,6 +1752,752 @@
     let cropDragStartY = 0;
     let cropDragOriginX = 0;
     let cropDragOriginY = 0;
+
+
+    function formatDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(
+        date.getMonth() + 1
+      ).padStart(2, "0");
+
+      const day = String(
+        date.getDate()
+      ).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+
+    function parseDateKey(dateKey) {
+      const [year, month, day] =
+        String(dateKey)
+          .split("-")
+          .map(Number);
+
+      return new Date(
+        year,
+        month - 1,
+        day
+      );
+    }
+
+
+    function getDaysInMonth(month, year = 2000) {
+      return new Date(
+        year,
+        month,
+        0
+      ).getDate();
+    }
+
+
+    function populateBirthdayMonthOptions() {
+      birthdayMonthSelect.innerHTML =
+        Array.from(
+          { length: 12 },
+          (_, index) => {
+            const monthNumber = index + 1;
+
+            const label = new Date(
+              2000,
+              index,
+              1
+            ).toLocaleDateString(
+              "en-US",
+              { month: "long" }
+            );
+
+            return (
+              `<option value="${monthNumber}">` +
+              `${label}` +
+              `</option>`
+            );
+          }
+        ).join("");
+    }
+
+
+    function populateBirthdayDayOptions() {
+      const month =
+        Number(birthdayMonthSelect.value) || 1;
+
+      const previousDay =
+        Number(birthdayDaySelect.value) || 1;
+
+      const dayCount =
+        getDaysInMonth(month, 2000);
+
+      birthdayDaySelect.innerHTML =
+        Array.from(
+          { length: dayCount },
+          (_, index) => {
+            const day = index + 1;
+
+            return (
+              `<option value="${day}">` +
+              `${day}` +
+              `</option>`
+            );
+          }
+        ).join("");
+
+      birthdayDaySelect.value = String(
+        Math.min(previousDay, dayCount)
+      );
+    }
+
+
+    function formatBirthday(month, day) {
+      const date = new Date(
+        2000,
+        Number(month) - 1,
+        Number(day)
+      );
+
+      return date.toLocaleDateString(
+        "en-US",
+        {
+          month: "long",
+          day: "numeric"
+        }
+      );
+    }
+
+
+    function birthdayIconHtml(className = "") {
+      const safeClass =
+        escapeHtml(className);
+
+      return `
+        <img
+          class="${safeClass}"
+          src="${escapeHtml(BIRTHDAY_ICON_URL)}"
+          alt="Birthday"
+          onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+        >
+        <span hidden aria-hidden="true">🎂</span>
+      `;
+    }
+
+
+    function renderBirthdayEditor() {
+      birthdayMessage.textContent = "";
+
+      const month = Number(
+        currentCard?.birthday_month
+      );
+
+      const day = Number(
+        currentCard?.birthday_day
+      );
+
+      const hasBirthday =
+        Number.isInteger(month) &&
+        Number.isInteger(day) &&
+        month >= 1 &&
+        month <= 12 &&
+        day >= 1;
+
+      birthdaySetup.hidden = hasBirthday;
+      birthdaySaved.hidden = !hasBirthday;
+
+      if (hasBirthday) {
+        birthdaySavedText.textContent =
+          `Birthday saved: ${formatBirthday(month, day)} 🎂`;
+
+        return;
+      }
+
+      const today = new Date();
+
+      birthdayMonthSelect.value =
+        String(today.getMonth() + 1);
+
+      populateBirthdayDayOptions();
+
+      birthdayDaySelect.value =
+        String(today.getDate());
+    }
+
+
+    function isBirthdayOnDate(friend, date) {
+      const month = Number(
+        friend.birthday_month
+      );
+
+      const day = Number(
+        friend.birthday_day
+      );
+
+      return (
+        month === date.getMonth() + 1 &&
+        day === date.getDate()
+      );
+    }
+
+
+    function isBirthdayNowForFriend(friend, friendTime) {
+      const month = Number(
+        friend.birthday_month
+      );
+
+      const day = Number(
+        friend.birthday_day
+      );
+
+      return (
+        month === friendTime.getMonth() + 1 &&
+        day === friendTime.getDate()
+      );
+    }
+
+
+    function birthdaysForDate(date) {
+      return friends.filter(
+        friend => isBirthdayOnDate(
+          friend,
+          date
+        )
+      );
+    }
+
+
+    function calendarEventsForDate(dateKey) {
+      return calendarEvents.filter(
+        event => event.event_date === dateKey
+      );
+    }
+
+
+    async function loadCalendarEvents() {
+      const { data, error } =
+        await supabaseClient
+          .from("calendar_events")
+          .select(
+            `
+              id,
+              event_date,
+              title,
+              created_at
+            `
+          )
+          .order("event_date", {
+            ascending: true
+          })
+          .order("id", {
+            ascending: true
+          });
+
+      if (error) {
+        console.error(
+          "Could not load calendar plans:",
+          error
+        );
+
+        calendarEvents = [];
+        calendarMessage.textContent =
+          "Plans could not be loaded. Birthdays still work.";
+
+        renderCalendar();
+        return;
+      }
+
+      calendarEvents = data || [];
+      calendarMessage.textContent = "";
+      renderCalendar();
+    }
+
+
+    async function checkCalendarAdmin() {
+      if (!currentUser) {
+        calendarIsAdmin = false;
+        calendarAdminEditor.hidden = true;
+        renderSelectedCalendarDate();
+        return;
+      }
+
+      const { data, error } =
+        await supabaseClient
+          .rpc("is_calendar_admin");
+
+      if (error) {
+        console.error(
+          "Could not check calendar admin:",
+          error
+        );
+
+        calendarIsAdmin = false;
+      } else {
+        calendarIsAdmin = data === true;
+      }
+
+      calendarAdminEditor.hidden =
+        !calendarIsAdmin;
+
+      renderSelectedCalendarDate();
+    }
+
+
+    function renderCalendar() {
+      if (!calendarGrid) {
+        return;
+      }
+
+      const year =
+        calendarViewDate.getFullYear();
+
+      const monthIndex =
+        calendarViewDate.getMonth();
+
+      calendarMonthTitle.textContent =
+        calendarViewDate.toLocaleDateString(
+          "en-US",
+          {
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+      const firstWeekday =
+        new Date(
+          year,
+          monthIndex,
+          1
+        ).getDay();
+
+      const dayCount =
+        new Date(
+          year,
+          monthIndex + 1,
+          0
+        ).getDate();
+
+      const todayKey =
+        formatDateKey(new Date());
+
+      let html = "";
+
+      for (let index = 0; index < firstWeekday; index += 1) {
+        html +=
+          `<div class="calendar-day-spacer" aria-hidden="true"></div>`;
+      }
+
+      for (let day = 1; day <= dayCount; day += 1) {
+        const date = new Date(
+          year,
+          monthIndex,
+          day
+        );
+
+        const dateKey =
+          formatDateKey(date);
+
+        const birthdays =
+          birthdaysForDate(date);
+
+        const plans =
+          calendarEventsForDate(dateKey);
+
+        const classes = [
+          "calendar-day"
+        ];
+
+        if (dateKey === todayKey) {
+          classes.push("today");
+        }
+
+        if (
+          dateKey === selectedCalendarDate
+        ) {
+          classes.push("selected");
+        }
+
+        const birthdayMarker =
+          birthdays.length > 0
+            ? `
+                <div class="calendar-birthday-marker">
+                  ${birthdayIconHtml()}
+                  <span>
+                    ${birthdays.length === 1
+                      ? escapeHtml(birthdays[0].name)
+                      : `${birthdays.length} birthdays`}
+                  </span>
+                </div>
+              `
+            : "";
+
+        const planMarker =
+          plans.length > 0
+            ? `
+                <div class="calendar-plan-marker">
+                  ✦ ${plans.length}
+                </div>
+              `
+            : "";
+
+        html += `
+          <button
+            class="${classes.join(" ")}"
+            type="button"
+            data-calendar-date="${dateKey}"
+          >
+            <span class="calendar-day-number">
+              ${day}
+            </span>
+
+            ${birthdayMarker}
+            ${planMarker}
+          </button>
+        `;
+      }
+
+      calendarGrid.innerHTML = html;
+      renderSelectedCalendarDate();
+    }
+
+
+    function renderSelectedCalendarDate() {
+      if (!calendarSelectedTitle) {
+        return;
+      }
+
+      const date =
+        parseDateKey(selectedCalendarDate);
+
+      calendarSelectedTitle.textContent =
+        date.toLocaleDateString(
+          "en-US",
+          {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+          }
+        );
+
+      const birthdays =
+        birthdaysForDate(date);
+
+      if (birthdays.length === 0) {
+        calendarBirthdayList.innerHTML =
+          `<p class="calendar-empty">No birthdays on this day.</p>`;
+      } else {
+        calendarBirthdayList.innerHTML =
+          birthdays
+            .map(
+              friend => `
+                <div class="calendar-birthday-entry">
+                  <span class="calendar-birthday-entry-icon">
+                    ${birthdayIconHtml()}
+                  </span>
+                  <span>
+                    ${escapeHtml(friend.name)}'s birthday!
+                  </span>
+                </div>
+              `
+            )
+            .join("");
+      }
+
+      const plans =
+        calendarEventsForDate(
+          selectedCalendarDate
+        );
+
+      if (plans.length === 0) {
+        calendarEventList.innerHTML =
+          `<p class="calendar-empty">No plans written down yet.</p>`;
+      } else {
+        calendarEventList.innerHTML =
+          plans
+            .map(
+              event => `
+                <div class="calendar-event-entry">
+                  <span>${escapeHtml(event.title)}</span>
+
+                  ${calendarIsAdmin
+                    ? `
+                        <button
+                          class="calendar-delete-button"
+                          type="button"
+                          data-delete-calendar-event="${event.id}"
+                        >
+                          Delete
+                        </button>
+                      `
+                    : ""}
+                </div>
+              `
+            )
+            .join("");
+      }
+
+      calendarAdminEditor.hidden =
+        !calendarIsAdmin;
+    }
+
+
+    calendarPrevButton.addEventListener(
+      "click",
+      () => {
+        calendarViewDate = new Date(
+          calendarViewDate.getFullYear(),
+          calendarViewDate.getMonth() - 1,
+          1
+        );
+
+        selectedCalendarDate =
+          formatDateKey(calendarViewDate);
+
+        renderCalendar();
+      }
+    );
+
+
+    calendarNextButton.addEventListener(
+      "click",
+      () => {
+        calendarViewDate = new Date(
+          calendarViewDate.getFullYear(),
+          calendarViewDate.getMonth() + 1,
+          1
+        );
+
+        selectedCalendarDate =
+          formatDateKey(calendarViewDate);
+
+        renderCalendar();
+      }
+    );
+
+
+    calendarGrid.addEventListener(
+      "click",
+      event => {
+        const button =
+          event.target.closest(
+            "[data-calendar-date]"
+          );
+
+        if (!button) {
+          return;
+        }
+
+        selectedCalendarDate =
+          button.dataset.calendarDate;
+
+        renderCalendar();
+      }
+    );
+
+
+    birthdayMonthSelect.addEventListener(
+      "change",
+      populateBirthdayDayOptions
+    );
+
+
+    birthdaySaveButton.addEventListener(
+      "click",
+      async () => {
+        if (!currentUser || !currentCard) {
+          birthdayMessage.textContent =
+            "You need to be logged in.";
+
+          return;
+        }
+
+        if (
+          currentCard.birthday_month != null ||
+          currentCard.birthday_day != null
+        ) {
+          birthdayMessage.textContent =
+            "Your birthday is already saved.";
+
+          renderBirthdayEditor();
+          return;
+        }
+
+        const month =
+          Number(birthdayMonthSelect.value);
+
+        const day =
+          Number(birthdayDaySelect.value);
+
+        birthdaySaveButton.disabled = true;
+        birthdayMessage.textContent =
+          "Saving birthday...";
+
+        const { data, error } =
+          await supabaseClient
+            .from("card")
+            .update({
+              birthday_month: month,
+              birthday_day: day
+            })
+            .eq("id", currentCard.id)
+            .eq(
+              "owner_id",
+              currentUser.id
+            )
+            .is("birthday_month", null)
+            .is("birthday_day", null)
+            .select()
+            .single();
+
+        birthdaySaveButton.disabled = false;
+
+        if (error) {
+          console.error(
+            "Could not save birthday:",
+            error
+          );
+
+          birthdayMessage.textContent =
+            `Could not save birthday: ${error.message}`;
+
+          return;
+        }
+
+        currentCard = data;
+        birthdayMessage.textContent =
+          "Birthday saved! 🎂";
+
+        renderBirthdayEditor();
+        await loadCardsFromSupabase();
+      }
+    );
+
+
+    calendarAddPlanButton.addEventListener(
+      "click",
+      async () => {
+        if (!calendarIsAdmin) {
+          calendarMessage.textContent =
+            "Only calendar admins can add plans.";
+
+          return;
+        }
+
+        const title =
+          calendarPlanInput.value
+            .trim()
+            .slice(0, 120);
+
+        if (!title) {
+          calendarMessage.textContent =
+            "Write a plan first.";
+
+          return;
+        }
+
+        calendarAddPlanButton.disabled = true;
+        calendarMessage.textContent =
+          "Adding plan...";
+
+        const { data, error } =
+          await supabaseClient
+            .from("calendar_events")
+            .insert({
+              event_date:
+                selectedCalendarDate,
+              title
+            })
+            .select(
+              `
+                id,
+                event_date,
+                title,
+                created_at
+              `
+            )
+            .single();
+
+        calendarAddPlanButton.disabled = false;
+
+        if (error) {
+          console.error(
+            "Could not add calendar plan:",
+            error
+          );
+
+          calendarMessage.textContent =
+            `Could not add plan: ${error.message}`;
+
+          return;
+        }
+
+        calendarEvents.push(data);
+        calendarPlanInput.value = "";
+        calendarMessage.textContent =
+          "Plan added!";
+
+        renderCalendar();
+      }
+    );
+
+
+    calendarPlanInput.addEventListener(
+      "keydown",
+      event => {
+        if (event.key === "Enter") {
+          calendarAddPlanButton.click();
+        }
+      }
+    );
+
+
+    calendarEventList.addEventListener(
+      "click",
+      async event => {
+        const button =
+          event.target.closest(
+            "[data-delete-calendar-event]"
+          );
+
+        if (!button || !calendarIsAdmin) {
+          return;
+        }
+
+        const eventId =
+          Number(
+            button.dataset.deleteCalendarEvent
+          );
+
+        button.disabled = true;
+        calendarMessage.textContent =
+          "Deleting plan...";
+
+        const { error } =
+          await supabaseClient
+            .from("calendar_events")
+            .delete()
+            .eq("id", eventId);
+
+        if (error) {
+          console.error(
+            "Could not delete calendar plan:",
+            error
+          );
+
+          calendarMessage.textContent =
+            `Could not delete plan: ${error.message}`;
+
+          button.disabled = false;
+          return;
+        }
+
+        calendarEvents =
+          calendarEvents.filter(
+            item => Number(item.id) !== eventId
+          );
+
+        calendarMessage.textContent =
+          "Plan deleted.";
+
+        renderCalendar();
+      }
+    );
 
 
     function getFriendTime(offset) {
@@ -1792,6 +3183,19 @@
       const roleBadges =
         createRoles(friend.roles);
 
+      const birthdayBanner =
+        isBirthdayNowForFriend(
+          friend,
+          friendTime
+        )
+          ? `
+              <div class="birthday-banner">
+                ${birthdayIconHtml()}
+                <span>HAPPY BIRTHDAY!</span>
+              </div>
+            `
+          : "";
+
       const background =
         safeBackground(friend.background);
 
@@ -1840,6 +3244,7 @@
               url('${background}');
           "
         >
+          ${birthdayBanner}
           ${roleBadges}
 
           <h2 class="friend-name">
@@ -1890,7 +3295,9 @@
               custom_status,
               background,
               accent_color,
-              tint_strength
+              tint_strength,
+              birthday_month,
+              birthday_day
             `
           )
           .order("id", {
@@ -1942,10 +3349,21 @@
         tint_strength:
           safeTintStrength(
             card.tint_strength
-          )
+          ),
+
+        birthday_month:
+          card.birthday_month == null
+            ? null
+            : Number(card.birthday_month),
+
+        birthday_day:
+          card.birthday_day == null
+            ? null
+            : Number(card.birthday_day)
       }));
 
       updateClocks();
+      renderCalendar();
     }
 
 
@@ -2036,6 +3454,11 @@
       */
       tintStrengthInput.style.accentColor =
         accentColorInput.value;
+
+      cropZoomInput.style.accentColor =
+        accentColorInput.value;
+
+      renderBirthdayEditor();
 
       backgroundFileInput.value = "";
       croppedBackgroundBlob = null;
@@ -2159,6 +3582,7 @@
           "Logged in!";
 
         await loadMyCard();
+        await checkCalendarAdmin();
       }
     );
 
@@ -2275,8 +3699,11 @@
 
         currentUser = null;
         currentCard = null;
+        calendarIsAdmin = false;
 
         editorCard.hidden = true;
+        calendarAdminEditor.hidden = true;
+        renderSelectedCalendarDate();
         loginCard.hidden = false;
 
         loginEmail.value = "";
@@ -2289,29 +3716,44 @@
 
 
     supabaseClient.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         if (
           event === "SIGNED_IN" &&
           session?.user
         ) {
-          await loadMyCard();
+          setTimeout(
+            async () => {
+              await loadMyCard();
+              await checkCalendarAdmin();
+            },
+            0
+          );
         }
 
         if (event === "SIGNED_OUT") {
           currentUser = null;
           currentCard = null;
+          calendarIsAdmin = false;
 
           editorCard.hidden = true;
           loginCard.hidden = false;
+          calendarAdminEditor.hidden = true;
+
+          renderSelectedCalendarDate();
         }
       }
     );
 
 
     async function initialisePage() {
+      populateBirthdayMonthOptions();
+      populateBirthdayDayOptions();
+
       updateClocks();
+      renderCalendar();
 
       await loadCardsFromSupabase();
+      await loadCalendarEvents();
 
       const {
         data: { session }
@@ -2321,9 +3763,11 @@
 
       if (session?.user) {
         await loadMyCard();
+        await checkCalendarAdmin();
       } else {
         editorCard.hidden = true;
         loginCard.hidden = false;
+        calendarAdminEditor.hidden = true;
       }
     }
 
