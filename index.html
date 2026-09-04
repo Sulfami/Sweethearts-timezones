@@ -725,6 +725,32 @@
       line-height: 1.35;
     }
 
+    .calendar-birthday-entry {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calendar-birthday-entry-icon {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+    }
+
+    .calendar-birthday-entry-icon img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .calendar-birthday-entry-icon span {
+      font-size: 18px;
+      line-height: 1;
+    }
+
     .calendar-event-top-row {
       display: flex;
       align-items: flex-start;
@@ -1224,7 +1250,6 @@
         >
           Keep current timer
         </option>
-        <option value="never">Don't clear</option>
         <option value="30">30 minutes</option>
         <option value="60">1 hour</option>
         <option value="240">4 hours</option>
@@ -3567,17 +3592,18 @@
           return currentExpiration;
         }
 
-        return null;
+        return new Date(
+          Date.now() + 30 * 60 * 1000
+        ).toISOString();
       }
 
-      if (selectedValue === "never") {
-        return null;
-      }
 
       const minutes = Number(selectedValue);
 
       if (!Number.isFinite(minutes) || minutes <= 0) {
-        return null;
+        return new Date(
+          Date.now() + 30 * 60 * 1000
+        ).toISOString();
       }
 
       return new Date(
@@ -3894,7 +3920,7 @@
         customStatusDurationInput.value = "keep";
       } else {
         customStatusKeepOption.hidden = true;
-        customStatusDurationInput.value = "never";
+        customStatusDurationInput.value = "30";
       }
 
       accentColorInput.value =
@@ -4151,7 +4177,7 @@
             customStatusDurationInput.value = "keep";
           } else {
             customStatusKeepOption.hidden = true;
-            customStatusDurationInput.value = "never";
+            customStatusDurationInput.value = "30";
           }
 
           backgroundFileInput.value = "";
