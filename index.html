@@ -1212,6 +1212,25 @@
         placeholder="Write a status..."
       >
 
+      <label for="custom-status-duration">
+        Clear status after
+      </label>
+
+      <select id="custom-status-duration">
+        <option
+          id="custom-status-keep-option"
+          value="keep"
+          hidden
+        >
+          Keep current timer
+        </option>
+        <option value="never">Don't clear</option>
+        <option value="30">30 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="240">4 hours</option>
+        <option value="1440">24 hours</option>
+      </select>
+
       <label for="accent-color">
         Accent colour
       </label>
@@ -1510,6 +1529,7 @@
         utc: 3,
         roles: ["Owner"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1521,6 +1541,7 @@
         utc: 3,
         roles: ["Server co-owner", "Admin"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1532,6 +1553,7 @@
         utc: 3,
         roles: ["Server co-owner", "Trial"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1543,6 +1565,7 @@
         utc: 3,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1554,6 +1577,7 @@
         utc: 1,
         roles: ["Admin"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1565,6 +1589,7 @@
         utc: 1,
         roles: ["Mod"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1576,6 +1601,7 @@
         utc: -4,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1587,6 +1613,7 @@
         utc: -4,
         roles: ["Mod"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1598,6 +1625,7 @@
         utc: -4,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1609,6 +1637,7 @@
         utc: -5,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1620,6 +1649,7 @@
         utc: -6,
         roles: ["Mod"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1631,6 +1661,7 @@
         utc: -7,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1642,6 +1673,7 @@
         utc: -7,
         roles: ["Admin"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1653,6 +1685,7 @@
         utc: -7,
         roles: ["Matchmaker ♡ Cupid"],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1664,6 +1697,7 @@
         utc: -8,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1675,6 +1709,7 @@
         utc: 0,
         roles: [],
         custom_status: "",
+        custom_status_expires_at: null,
         background: "stars.jpg",
         accent_color: "#EFE6FA",
         tint_strength: 42,
@@ -1727,6 +1762,12 @@
 
     const customStatusInput =
       document.getElementById("custom-status");
+
+    const customStatusDurationInput =
+      document.getElementById("custom-status-duration");
+
+    const customStatusKeepOption =
+      document.getElementById("custom-status-keep-option");
 
     const accentColorInput =
       document.getElementById("accent-color");
@@ -3476,6 +3517,75 @@
     );
 
 
+    function getStatusExpirationTime(value) {
+      if (!value) {
+        return null;
+      }
+
+      const time = new Date(value).getTime();
+
+      return Number.isFinite(time)
+        ? time
+        : null;
+    }
+
+
+    function customStatusIsExpired(friend) {
+      const expirationTime =
+        getStatusExpirationTime(
+          friend.custom_status_expires_at
+        );
+
+      return (
+        expirationTime !== null &&
+        expirationTime <= Date.now()
+      );
+    }
+
+
+    function getCustomStatusExpirationForSave(statusText) {
+      if (!statusText) {
+        return null;
+      }
+
+      const selectedValue =
+        customStatusDurationInput.value;
+
+      if (selectedValue === "keep") {
+        const currentExpiration =
+          currentCard?.custom_status_expires_at || null;
+
+        const currentExpirationTime =
+          getStatusExpirationTime(
+            currentExpiration
+          );
+
+        if (
+          currentExpirationTime !== null &&
+          currentExpirationTime > Date.now()
+        ) {
+          return currentExpiration;
+        }
+
+        return null;
+      }
+
+      if (selectedValue === "never") {
+        return null;
+      }
+
+      const minutes = Number(selectedValue);
+
+      if (!Number.isFinite(minutes) || minutes <= 0) {
+        return null;
+      }
+
+      return new Date(
+        Date.now() + minutes * 60 * 1000
+      ).toISOString();
+    }
+
+
     function createFriendCard(friend) {
       const friendTime =
         getFriendTime(friend.utc);
@@ -3539,9 +3649,11 @@
         );
 
       const customStatus =
-        String(
-          friend.custom_status || ""
-        ).trim();
+        customStatusIsExpired(friend)
+          ? ""
+          : String(
+              friend.custom_status || ""
+            ).trim();
 
       const customStatusHtml =
         customStatus
@@ -3621,6 +3733,7 @@
               utc_offset,
               roles,
               custom_status,
+              custom_status_expires_at,
               background,
               accent_color,
               tint_strength,
@@ -3666,6 +3779,9 @@
 
         custom_status:
           card.custom_status || "",
+
+        custom_status_expires_at:
+          card.custom_status_expires_at || null,
 
         background:
           card.background || "stars.jpg",
@@ -3755,8 +3871,31 @@
       editingName.textContent =
         `Editing ${data.name}'s card`;
 
+      const statusExpirationTime =
+        getStatusExpirationTime(
+          data.custom_status_expires_at
+        );
+
+      const statusIsExpired =
+        statusExpirationTime !== null &&
+        statusExpirationTime <= Date.now();
+
       customStatusInput.value =
-        data.custom_status || "";
+        statusIsExpired
+          ? ""
+          : (data.custom_status || "");
+
+      if (
+        !statusIsExpired &&
+        String(data.custom_status || "").trim() &&
+        statusExpirationTime !== null
+      ) {
+        customStatusKeepOption.hidden = false;
+        customStatusDurationInput.value = "keep";
+      } else {
+        customStatusKeepOption.hidden = true;
+        customStatusDurationInput.value = "never";
+      }
 
       accentColorInput.value =
         safeAccentColor(
@@ -3950,11 +4089,21 @@
               );
           }
 
+          const customStatus =
+            customStatusInput.value
+              .trim()
+              .slice(0, 80);
+
+          const customStatusExpiresAt =
+            getCustomStatusExpirationForSave(
+              customStatus
+            );
+
           const updates = {
-            custom_status:
-              customStatusInput.value
-                .trim()
-                .slice(0, 80),
+            custom_status: customStatus,
+
+            custom_status_expires_at:
+              customStatusExpiresAt,
 
             accent_color:
               safeAccentColor(
@@ -3987,6 +4136,23 @@
           }
 
           currentCard = data;
+
+          const savedExpirationTime =
+            getStatusExpirationTime(
+              data.custom_status_expires_at
+            );
+
+          if (
+            String(data.custom_status || "").trim() &&
+            savedExpirationTime !== null &&
+            savedExpirationTime > Date.now()
+          ) {
+            customStatusKeepOption.hidden = false;
+            customStatusDurationInput.value = "keep";
+          } else {
+            customStatusKeepOption.hidden = true;
+            customStatusDurationInput.value = "never";
+          }
 
           backgroundFileInput.value = "";
           croppedBackgroundBlob = null;
