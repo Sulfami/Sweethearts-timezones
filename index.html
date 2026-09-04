@@ -287,6 +287,16 @@
       cursor: pointer;
     }
 
+    /* TINT SLIDER */
+    #tint-strength {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px;
+
+      accent-color: #EFE6FA;
+      cursor: pointer;
+    }
+
     #friend-list {
       display: grid;
       grid-template-columns:
@@ -498,7 +508,7 @@
   </style>
 </head>
 
-  <body>
+<body>
   <div class="page">
 
     <div class="title-card">
@@ -576,19 +586,21 @@
         type="color"
         value="#EFE6FA"
       >
-      
-      <label for="tint-strength">
-  Tint strength: <span id="tint-strength-value">42%</span>
-</label>
 
-<input
-  id="tint-strength"
-  type="range"
-  min="0"
-  max="100"
-  step="1"
-  value="42"
->
+      <!-- NEW TINT SLIDER -->
+      <label for="tint-strength">
+        Tint strength:
+        <span id="tint-strength-value">42%</span>
+      </label>
+
+      <input
+        id="tint-strength"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="42"
+      >
 
       <label for="background-file">
         Upload a card background
@@ -651,23 +663,26 @@
         roles: ["Owner"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
-            {
+      {
         name: "Maow",
         utc: 3,
         roles: ["Server co-owner", "Admin"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
-            }, 
+        accent_color: "#EFE6FA",
+        tint_strength: 42
+      },
       {
         name: "Fami",
         utc: 3,
         roles: ["Server co-owner", "Trial"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Hammy",
@@ -675,15 +690,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
-      },
-            {
-        name: "Artemis",
-        utc: 2,
-        roles: [],
-        custom_status: "",
-        background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Cece",
@@ -691,7 +699,8 @@
         roles: ["Admin"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Xen",
@@ -699,7 +708,8 @@
         roles: ["Mod"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Noelle",
@@ -707,7 +717,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Bing",
@@ -715,7 +726,8 @@
         roles: ["Mod"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Malice",
@@ -723,7 +735,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Serenity",
@@ -731,7 +744,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Cassie",
@@ -739,7 +753,8 @@
         roles: ["Mod"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Gojo",
@@ -747,7 +762,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Twinkletoes",
@@ -755,15 +771,17 @@
         roles: ["Admin"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
-        {
+      {
         name: "Gabby",
         utc: -7,
         roles: ["Matchmaker ♡ Cupid"],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Coffee",
@@ -771,7 +789,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       },
       {
         name: "Log",
@@ -779,7 +798,8 @@
         roles: [],
         custom_status: "",
         background: "stars.jpg",
-        accent_color: "#EFE6FA"
+        accent_color: "#EFE6FA",
+        tint_strength: 42
       }
     ];
 
@@ -817,11 +837,12 @@
     const accentColorInput =
       document.getElementById("accent-color");
 
+    /* NEW TINT SLIDER VARIABLES */
     const tintStrengthInput =
-  document.getElementById("tint-strength");
+      document.getElementById("tint-strength");
 
-const tintStrengthValue =
-  document.getElementById("tint-strength-value");
+    const tintStrengthValue =
+      document.getElementById("tint-strength-value");
 
     const backgroundFileInput =
       document.getElementById("background-file");
@@ -835,6 +856,7 @@ const tintStrengthValue =
     const editorMessage =
       document.getElementById("editor-message");
 
+
     function getFriendTime(offset) {
       const now = new Date();
 
@@ -847,6 +869,7 @@ const tintStrengthValue =
         Number(offset) * 3600000
       );
     }
+
 
     function formatUtcOffset(offset) {
       const numericOffset =
@@ -876,6 +899,7 @@ const tintStrengthValue =
       );
     }
 
+
     function getAutomaticStatus(hour) {
       if (hour >= 23 || hour < 7) {
         return "Perhaps sleeping?";
@@ -896,7 +920,8 @@ const tintStrengthValue =
       return "It's getting late.";
     }
 
-        function createRoles(roles) {
+
+    function createRoles(roles) {
       if (!Array.isArray(roles) || roles.length === 0) {
         return "";
       }
@@ -916,6 +941,7 @@ const tintStrengthValue =
       `;
     }
 
+
     function escapeHtml(value) {
       return String(value)
         .replaceAll("&", "&amp;")
@@ -924,6 +950,7 @@ const tintStrengthValue =
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
+
 
     function safeBackground(value) {
       if (!value) {
@@ -944,6 +971,7 @@ const tintStrengthValue =
       return "stars.jpg";
     }
 
+
     function safeAccentColor(value) {
       const color =
         String(value || "").trim();
@@ -955,26 +983,49 @@ const tintStrengthValue =
       return "#EFE6FA";
     }
 
+
+    /* NEW: MAKE SURE TINT IS BETWEEN 0 AND 100 */
     function safeTintStrength(value) {
-  const strength = Number(value);
+      const strength = Number(value);
 
-  if (
-    Number.isFinite(strength) &&
-    strength >= 0 &&
-    strength <= 100
-  ) {
-    return Math.round(strength);
-  }
+      if (
+        Number.isFinite(strength) &&
+        strength >= 0 &&
+        strength <= 100
+      ) {
+        return Math.round(strength);
+      }
 
-  return 42;
-}
+      return 42;
+    }
+
+
+    /*
+      NEW:
+      UPDATE THE NUMBER BESIDE THE SLIDER
+    */
     tintStrengthInput.addEventListener(
-  "input",
-  () => {
-    tintStrengthValue.textContent =
-      `${tintStrengthInput.value}%`;
-  }
-);
+      "input",
+      () => {
+        tintStrengthValue.textContent =
+          `${tintStrengthInput.value}%`;
+      }
+    );
+
+
+    /*
+      NEW:
+      MAKE THE SLIDER MATCH
+      THE USER'S ACCENT COLOUR
+    */
+    accentColorInput.addEventListener(
+      "input",
+      () => {
+        tintStrengthInput.style.accentColor =
+          accentColorInput.value;
+      }
+    );
+
 
     function createFriendCard(friend) {
       const friendTime =
@@ -1019,11 +1070,12 @@ const tintStrengthValue =
           friend.accent_color
         );
 
-const tintStrength =
-  safeTintStrength(
-    friend.tint_strength
-  );
-      
+      /* NEW: GET USER'S SAVED TINT */
+      const tintStrength =
+        safeTintStrength(
+          friend.tint_strength
+        );
+
       const customStatus =
         String(
           friend.custom_status || ""
@@ -1044,12 +1096,16 @@ const tintStrength =
           style="
             background-image:
               linear-gradient(
-color-mix(
-  in srgb,
-  ${accentColor} ${tintStrength}%,
-  transparent
-)
-                rgba(75, 55, 120, 0.48)
+                color-mix(
+                  in srgb,
+                  ${accentColor} ${tintStrength}%,
+                  transparent
+                ),
+                color-mix(
+                  in srgb,
+                  #4b3778 ${tintStrength}%,
+                  transparent
+                )
               ),
               url('${background}');
           "
@@ -1081,12 +1137,14 @@ color-mix(
       `;
     }
 
+
     function updateClocks() {
       friendList.innerHTML =
         friends
           .map(createFriendCard)
           .join("");
     }
+
 
     async function loadCardsFromSupabase() {
       const { data, error } =
@@ -1135,21 +1193,31 @@ color-mix(
         owner_id: card.owner_id,
         name: card.name,
         utc: Number(card.utc_offset),
-        roles: Array.isArray(card.roles)
-          ? card.roles
-          : [],
+
+        roles:
+          Array.isArray(card.roles)
+            ? card.roles
+            : [],
+
         custom_status:
           card.custom_status || "",
-background:
-  card.background || "stars.jpg",
-accent_color:
-  card.accent_color || "#EFE6FA",
-tint_strength:
-  safeTintStrength(card.tint_strength)
+
+        background:
+          card.background || "stars.jpg",
+
+        accent_color:
+          card.accent_color || "#EFE6FA",
+
+        /* NEW */
+        tint_strength:
+          safeTintStrength(
+            card.tint_strength
+          )
       }));
 
       updateClocks();
     }
+
 
     async function loadMyCard() {
       editorMessage.textContent = "";
@@ -1219,13 +1287,25 @@ tint_strength:
           data.accent_color
         );
 
+      /*
+        NEW:
+        LOAD THEIR SAVED TINT
+      */
       tintStrengthInput.value =
-  safeTintStrength(
-    data.tint_strength
-  );
+        safeTintStrength(
+          data.tint_strength
+        );
 
-tintStrengthValue.textContent =
-  `${tintStrengthInput.value}%`;
+      tintStrengthValue.textContent =
+        `${tintStrengthInput.value}%`;
+
+      /*
+        NEW:
+        SLIDER COLOUR MATCHES
+        THEIR ACCENT COLOUR
+      */
+      tintStrengthInput.style.accentColor =
+        accentColorInput.value;
 
       backgroundFileInput.value = "";
 
@@ -1233,6 +1313,7 @@ tintStrengthValue.textContent =
       loginCard.hidden = true;
       editorCard.hidden = false;
     }
+
 
     async function uploadBackground(file) {
       if (!currentUser) {
@@ -1303,6 +1384,7 @@ tintStrengthValue.textContent =
       return data.publicUrl;
     }
 
+
     loginButton.addEventListener(
       "click",
       async () => {
@@ -1320,6 +1402,7 @@ tintStrengthValue.textContent =
         }
 
         loginButton.disabled = true;
+
         loginMessage.textContent =
           "Logging in...";
 
@@ -1348,6 +1431,7 @@ tintStrengthValue.textContent =
       }
     );
 
+
     saveCardButton.addEventListener(
       "click",
       async () => {
@@ -1359,6 +1443,7 @@ tintStrengthValue.textContent =
         }
 
         saveCardButton.disabled = true;
+
         editorMessage.textContent =
           "Saving...";
 
@@ -1380,24 +1465,25 @@ tintStrengthValue.textContent =
               );
           }
 
-const updates = {
-  custom_status:
-    customStatusInput.value
-      .trim()
-      .slice(0, 80),
+          const updates = {
+            custom_status:
+              customStatusInput.value
+                .trim()
+                .slice(0, 80),
 
-  accent_color:
-    safeAccentColor(
-      accentColorInput.value
-    ),
+            accent_color:
+              safeAccentColor(
+                accentColorInput.value
+              ),
 
-  tint_strength:
-    safeTintStrength(
-      tintStrengthInput.value
-    ),
+            /* NEW: SAVE TINT */
+            tint_strength:
+              safeTintStrength(
+                tintStrengthInput.value
+              ),
 
-  background
-};
+            background
+          };
 
           const { data, error } =
             await supabaseClient
@@ -1423,6 +1509,7 @@ const updates = {
             "Changes saved!";
 
           await loadCardsFromSupabase();
+
         } catch (error) {
           console.error(
             "Could not save card:",
@@ -1431,11 +1518,13 @@ const updates = {
 
           editorMessage.textContent =
             `Could not save: ${error.message}`;
+
         } finally {
           saveCardButton.disabled = false;
         }
       }
     );
+
 
     logoutButton.addEventListener(
       "click",
@@ -1459,10 +1548,12 @@ const updates = {
 
         loginEmail.value = "";
         loginPassword.value = "";
+
         loginMessage.textContent =
           "Logged out.";
       }
     );
+
 
     supabaseClient.auth.onAuthStateChange(
       async (event, session) => {
@@ -1483,6 +1574,7 @@ const updates = {
       }
     );
 
+
     async function initialisePage() {
       updateClocks();
 
@@ -1501,6 +1593,7 @@ const updates = {
         loginCard.hidden = false;
       }
     }
+
 
     initialisePage();
 
