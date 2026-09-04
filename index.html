@@ -459,12 +459,12 @@
       text-align: center;
     }
 
-.birthday-editor-box p {
-  margin: 8px 0 0;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  text-align: center;
-}
+    .birthday-editor-box p {
+      margin: 8px 0 0;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      text-align: center;
+    }
 
     .birthday-input-row {
       display: grid;
@@ -715,7 +715,7 @@
 
     .calendar-birthday-entry,
     .calendar-event-entry {
-      padding: 9px 11px;
+      padding: 11px;
 
       background: rgba(255, 255, 255, 0.14);
       border: 1px solid rgba(255, 255, 255, 0.24);
@@ -725,24 +725,26 @@
       line-height: 1.35;
     }
 
-    .calendar-birthday-entry {
+    .calendar-event-top-row {
       display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .calendar-birthday-entry img {
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
-      flex: 0 0 auto;
-    }
-
-    .calendar-event-entry {
-      display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 10px;
+    }
+
+    .calendar-event-info {
+      min-width: 0;
+    }
+
+    .calendar-event-title {
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .calendar-event-owner {
+      margin-top: 3px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.74rem;
     }
 
     .calendar-delete-button {
@@ -757,6 +759,61 @@
       font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    .calendar-interest-area {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .calendar-interest-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      min-height: 36px;
+      padding: 7px 10px;
+
+      color: #5b4971;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calendar-interest-toggle input {
+      width: 17px;
+      height: 17px;
+      margin: 0;
+      accent-color: #a884cf;
+      cursor: pointer;
+    }
+
+    .calendar-interest-toggle input:disabled {
+      cursor: wait;
+    }
+
+    .calendar-interest-summary {
+      margin-top: 7px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.74rem;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .calendar-interest-login-note {
+      display: inline-block;
+      padding: 6px 9px;
+
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 9px;
+
+      font-size: 0.74rem;
     }
 
     .calendar-empty {
@@ -780,6 +837,28 @@
       margin-bottom: 7px;
       font-size: 0.84rem;
       font-weight: 700;
+    }
+
+    .calendar-joinable-option {
+      display: flex !important;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px !important;
+      padding: 8px 10px;
+
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+
+      cursor: pointer;
+    }
+
+    .calendar-joinable-option input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: #EFE6FA;
+      cursor: pointer;
     }
 
     .calendar-plan-row {
@@ -1363,6 +1442,16 @@
             Add a plan for this day
           </label>
 
+          <label class="calendar-joinable-option">
+            <input
+              id="calendar-joinable-input"
+              type="checkbox"
+            >
+            <span>
+              Let people say they're interested
+            </span>
+          </label>
+
           <div class="calendar-plan-row">
             <input
               id="calendar-plan-input"
@@ -1599,6 +1688,7 @@
     let currentCard = null;
 
     let calendarEvents = [];
+    let calendarInterests = [];
     let calendarIsAdmin = false;
 
     const nowForCalendar = new Date();
@@ -1709,6 +1799,9 @@
 
     const calendarPlanInput =
       document.getElementById("calendar-plan-input");
+
+    const calendarJoinableInput =
+      document.getElementById("calendar-joinable-input");
 
     const calendarAddPlanButton =
       document.getElementById("calendar-add-plan-button");
@@ -1970,6 +2063,33 @@
     }
 
 
+    function friendNameForUserId(userId) {
+      if (!userId) {
+        return "Unknown";
+      }
+
+      const friend = friends.find(
+        item => item.owner_id === userId
+      );
+
+      return friend?.name || "Unknown";
+    }
+
+
+    function interestsForEvent(eventId) {
+      return calendarInterests.filter(
+        interest =>
+          Number(interest.event_id) === Number(eventId)
+      );
+    }
+
+
+    function amIInterestedInEvent(eventId) {
+      return interestsForEvent(eventId)
+        .some(interest => interest.is_me === true);
+    }
+
+
     async function loadCalendarEvents() {
       const { data, error } =
         await supabaseClient
@@ -1979,6 +2099,8 @@
               id,
               event_date,
               title,
+              created_by,
+              is_joinable,
               created_at
             `
           )
@@ -2006,6 +2128,31 @@
       calendarEvents = data || [];
       calendarMessage.textContent = "";
       renderCalendar();
+    }
+
+
+    async function loadCalendarInterests() {
+      const { data, error } =
+        await supabaseClient
+          .rpc("get_calendar_event_interest");
+
+      if (error) {
+        console.error(
+          "Could not load event interest:",
+          error
+        );
+
+        calendarInterests = [];
+        renderSelectedCalendarDate();
+        return;
+      }
+
+      calendarInterests =
+        Array.isArray(data)
+          ? data
+          : [];
+
+      renderSelectedCalendarDate();
     }
 
 
@@ -2212,23 +2359,105 @@
         calendarEventList.innerHTML =
           plans
             .map(
-              event => `
-                <div class="calendar-event-entry">
-                  <span>${escapeHtml(event.title)}</span>
+              event => {
+                const plannerName =
+                  friendNameForUserId(
+                    event.created_by
+                  );
 
-                  ${calendarIsAdmin
+                const interests =
+                  interestsForEvent(
+                    event.id
+                  );
+
+                const interestedNames =
+                  interests
+                    .map(item =>
+                      String(
+                        item.user_name || "Someone"
+                      )
+                    )
+                    .sort((a, b) =>
+                      a.localeCompare(b)
+                    );
+
+                const interested =
+                  amIInterestedInEvent(
+                    event.id
+                  );
+
+                const interestArea =
+                  event.is_joinable
                     ? `
-                        <button
-                          class="calendar-delete-button"
-                          type="button"
-                          data-delete-calendar-event="${event.id}"
-                        >
-                          Delete
-                        </button>
+                        <div class="calendar-interest-area">
+                          ${currentUser
+                            ? `
+                                <label class="calendar-interest-toggle">
+                                  <input
+                                    type="checkbox"
+                                    data-calendar-interest-event="${event.id}"
+                                    ${interested ? "checked" : ""}
+                                  >
+                                  <span>
+                                    ${interested
+                                      ? "Interested ✓"
+                                      : "I'm interested"}
+                                  </span>
+                                </label>
+                              `
+                            : `
+                                <span class="calendar-interest-login-note">
+                                  ♡ Log in to mark yourself interested
+                                </span>
+                              `}
+
+                          <div class="calendar-interest-summary">
+                            ${interestedNames.length === 0
+                              ? "No one has marked interest yet."
+                              : `
+                                  <strong>
+                                    ${interestedNames.length}
+                                    interested:
+                                  </strong>
+                                  ${escapeHtml(
+                                    interestedNames.join(" • ")
+                                  )}
+                                `}
+                          </div>
+                        </div>
                       `
-                    : ""}
-                </div>
-              `
+                    : "";
+
+                return `
+                  <div class="calendar-event-entry">
+                    <div class="calendar-event-top-row">
+                      <div class="calendar-event-info">
+                        <div class="calendar-event-title">
+                          ✦ ${escapeHtml(event.title)}
+                        </div>
+
+                        <div class="calendar-event-owner">
+                          Planned by ${escapeHtml(plannerName)}
+                        </div>
+                      </div>
+
+                      ${calendarIsAdmin
+                        ? `
+                            <button
+                              class="calendar-delete-button"
+                              type="button"
+                              data-delete-calendar-event="${event.id}"
+                            >
+                              Delete
+                            </button>
+                          `
+                        : ""}
+                    </div>
+
+                    ${interestArea}
+                  </div>
+                `;
+              }
             )
             .join("");
       }
@@ -2402,13 +2631,17 @@
             .insert({
               event_date:
                 selectedCalendarDate,
-              title
+              title,
+              is_joinable:
+                calendarJoinableInput.checked
             })
             .select(
               `
                 id,
                 event_date,
                 title,
+                created_by,
+                is_joinable,
                 created_at
               `
             )
@@ -2430,6 +2663,7 @@
 
         calendarEvents.push(data);
         calendarPlanInput.value = "";
+        calendarJoinableInput.checked = false;
         calendarMessage.textContent =
           "Plan added!";
 
@@ -2444,6 +2678,94 @@
         if (event.key === "Enter") {
           calendarAddPlanButton.click();
         }
+      }
+    );
+
+
+    calendarEventList.addEventListener(
+      "change",
+      async event => {
+        const checkbox =
+          event.target.closest(
+            "[data-calendar-interest-event]"
+          );
+
+        if (!checkbox) {
+          return;
+        }
+
+        if (!currentUser) {
+          renderSelectedCalendarDate();
+          return;
+        }
+
+        const eventId =
+          Number(
+            checkbox.dataset.calendarInterestEvent
+          );
+
+        const calendarEvent =
+          calendarEvents.find(
+            item => Number(item.id) === eventId
+          );
+
+        if (!calendarEvent?.is_joinable) {
+          renderSelectedCalendarDate();
+          return;
+        }
+
+        const wantsToJoin =
+          checkbox.checked;
+
+        checkbox.disabled = true;
+        calendarMessage.textContent =
+          wantsToJoin
+            ? "Adding your interest..."
+            : "Removing your interest...";
+
+        let error = null;
+
+        if (wantsToJoin) {
+          const result =
+            await supabaseClient
+              .from("calendar_event_interest")
+              .insert({
+                event_id: eventId,
+                user_id: currentUser.id
+              });
+
+          error = result.error;
+
+        } else {
+          const result =
+            await supabaseClient
+              .from("calendar_event_interest")
+              .delete()
+              .eq("event_id", eventId)
+              .eq("user_id", currentUser.id);
+
+          error = result.error;
+        }
+
+        if (error) {
+          console.error(
+            "Could not update event interest:",
+            error
+          );
+
+          calendarMessage.textContent =
+            `Could not update interest: ${error.message}`;
+
+          renderSelectedCalendarDate();
+          return;
+        }
+
+        await loadCalendarInterests();
+
+        calendarMessage.textContent =
+          wantsToJoin
+            ? "You're interested! ♡"
+            : "Interest removed.";
       }
     );
 
@@ -2491,6 +2813,11 @@
         calendarEvents =
           calendarEvents.filter(
             item => Number(item.id) !== eventId
+          );
+
+        calendarInterests =
+          calendarInterests.filter(
+            item => Number(item.event_id) !== eventId
           );
 
         calendarMessage.textContent =
@@ -3584,6 +3911,7 @@
 
         await loadMyCard();
         await checkCalendarAdmin();
+        await loadCalendarInterests();
       }
     );
 
@@ -3726,6 +4054,7 @@
             async () => {
               await loadMyCard();
               await checkCalendarAdmin();
+              await loadCalendarInterests();
             },
             0
           );
@@ -3755,6 +4084,7 @@
 
       await loadCardsFromSupabase();
       await loadCalendarEvents();
+      await loadCalendarInterests();
 
       const {
         data: { session }
@@ -3765,6 +4095,7 @@
       if (session?.user) {
         await loadMyCard();
         await checkCalendarAdmin();
+        await loadCalendarInterests();
       } else {
         editorCard.hidden = true;
         loginCard.hidden = false;
