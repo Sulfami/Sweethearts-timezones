@@ -2142,6 +2142,18 @@
     }
 
 
+    function canManageCalendarEvent(event) {
+      if (!currentUser || !event) {
+        return false;
+      }
+
+      return (
+        calendarIsAdmin ||
+        event.created_by === currentUser.id
+      );
+    }
+
+
     function interestsForEvent(eventId) {
       return calendarInterests.filter(
         interest =>
@@ -2246,7 +2258,7 @@
       }
 
       calendarAdminEditor.hidden =
-        !calendarIsAdmin;
+        !currentUser;
 
       renderSelectedCalendarDate();
     }
@@ -2507,7 +2519,7 @@
                         </div>
                       </div>
 
-                      ${calendarIsAdmin
+                      ${canManageCalendarEvent(event)
                         ? `
                             <button
                               class="calendar-delete-button"
@@ -2529,7 +2541,7 @@
       }
 
       calendarAdminEditor.hidden =
-        !calendarIsAdmin;
+        !currentUser;
     }
 
 
@@ -2668,9 +2680,9 @@
     calendarAddPlanButton.addEventListener(
       "click",
       async () => {
-        if (!calendarIsAdmin) {
+        if (!currentUser) {
           calendarMessage.textContent =
-            "Only calendar admins can add plans.";
+            "Log in to add a plan.";
 
           return;
         }
@@ -2844,7 +2856,7 @@
             "[data-delete-calendar-event]"
           );
 
-        if (!button || !calendarIsAdmin) {
+        if (!button) {
           return;
         }
 
@@ -2852,6 +2864,18 @@
           Number(
             button.dataset.deleteCalendarEvent
           );
+
+        const calendarEvent =
+          calendarEvents.find(
+            item => Number(item.id) === eventId
+          );
+
+        if (!canManageCalendarEvent(calendarEvent)) {
+          calendarMessage.textContent =
+            "You can only delete your own plans.";
+
+          return;
+        }
 
         button.disabled = true;
         calendarMessage.textContent =
