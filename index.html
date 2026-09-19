@@ -1249,6 +1249,176 @@
       }
     }
   </style>
+
+<style id="server-chat-styles">
+  .chat-tab {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 9998;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 12px 0 0 12px;
+    padding: 13px 11px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    letter-spacing: .08em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    box-shadow: 0 8px 28px rgba(0,0,0,.18);
+    transition: right .25s ease, transform .25s ease, opacity .2s ease;
+  }
+
+  .chat-tab:hover {
+    transform: translateY(-50%) translateX(-3px);
+  }
+
+  .chat-tab.chat-open {
+    right: 390px;
+  }
+
+  .chat-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    width: min(390px, 92vw);
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: var(--card-bg, #151515);
+    color: var(--text-color, #fff);
+    border-left: 1px solid rgba(255,255,255,.12);
+    box-shadow: -12px 0 40px rgba(0,0,0,.28);
+    transform: translateX(102%);
+    transition: transform .25s ease;
+  }
+
+  .chat-panel.open {
+    transform: translateX(0);
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .chat-header strong {
+    display: block;
+    font-size: 16px;
+  }
+
+  .chat-header span {
+    display: block;
+    margin-top: 3px;
+    opacity: .6;
+    font-size: 12px;
+  }
+
+  .chat-header button {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 9px;
+    background: rgba(255,255,255,.08);
+    color: inherit;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .chat-messages {
+    min-height: 0;
+    overflow-y: auto;
+    padding: 14px;
+  }
+
+  .chat-empty {
+    margin: 0;
+    padding: 28px 8px;
+    text-align: center;
+    opacity: .6;
+  }
+
+  .chat-message {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.06);
+    overflow-wrap: anywhere;
+  }
+
+  .chat-message-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .chat-message-name {
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  .chat-message-time {
+    font-size: 10px;
+    opacity: .45;
+  }
+
+  .chat-message-content {
+    font-size: 14px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+  }
+
+  .chat-input-area {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    background: inherit;
+  }
+
+  .chat-input-area input {
+    min-width: 0;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    padding: 11px 12px;
+    background: rgba(255,255,255,.06);
+    color: inherit;
+    outline: none;
+  }
+
+  .chat-input-area input:focus {
+    border-color: rgba(255,255,255,.28);
+  }
+
+  .chat-input-area button {
+    width: 44px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 600px) {
+    .chat-tab.chat-open {
+      right: min(92vw, 390px);
+    }
+
+    .chat-panel {
+      width: 92vw;
+    }
+  }
+</style>
+
 </head>
 
 <body>
@@ -4409,5 +4579,275 @@
       1000
     );
   </script>
+
+<!-- ===== Server Chat ===== -->
+<button id="chat-tab" class="chat-tab" type="button" aria-label="Open server chat">
+  💬 CHAT
+</button>
+
+<aside id="chat-panel" class="chat-panel" aria-hidden="true">
+  <div class="chat-header">
+    <div>
+      <strong>✦ Server Chat</strong>
+      <span># general</span>
+    </div>
+    <button id="chat-close" type="button" aria-label="Close chat">×</button>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+    <p class="chat-empty">Loading chat...</p>
+  </div>
+
+  <form id="chat-form" class="chat-input-area">
+    <input
+      id="chat-input"
+      type="text"
+      maxlength="500"
+      placeholder="Message #general..."
+      autocomplete="off"
+    />
+    <button type="submit" aria-label="Send message">➤</button>
+  </form>
+</aside>
+<!-- ===== End Server Chat ===== -->
+
+
+<script id="server-chat-script">
+/* ===== Server Chat ===== */
+(() => {
+  const chatTab = document.getElementById("chat-tab");
+  const chatPanel = document.getElementById("chat-panel");
+  const chatClose = document.getElementById("chat-close");
+  const chatMessages = document.getElementById("chat-messages");
+  const chatForm = document.getElementById("chat-form");
+  const chatInput = document.getElementById("chat-input");
+
+  let chatChannel = null;
+  let chatLoaded = false;
+
+  if (!chatTab || !chatPanel || !chatForm) return;
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function getChatUserName(userId) {
+    if (typeof friends !== "undefined" && Array.isArray(friends)) {
+      const card = friends.find(friend => friend.owner_id === userId);
+      if (card && card.name) return card.name;
+    }
+
+    if (
+      typeof currentUser !== "undefined" &&
+      currentUser &&
+      currentUser.id === userId &&
+      typeof currentCard !== "undefined" &&
+      currentCard &&
+      currentCard.name
+    ) {
+      return currentCard.name;
+    }
+
+    return "Unknown";
+  }
+
+  function formatChatTime(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleString([], {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    });
+  }
+
+  function renderChatMessage(message) {
+    if (!message || !message.id) return;
+
+    // Realtime and the insert response can both reach the UI.
+    // Use the message ID to prevent duplicates.
+    if (chatMessages.querySelector(`[data-chat-message-id="${message.id}"]`)) {
+      return;
+    }
+
+    const empty = chatMessages.querySelector(".chat-empty");
+    if (empty) empty.remove();
+
+    const wrapper = document.createElement("article");
+    wrapper.className = "chat-message";
+    wrapper.dataset.chatMessageId = String(message.id);
+
+    wrapper.innerHTML = `
+      <div class="chat-message-meta">
+        <span class="chat-message-name">${escapeHtml(getChatUserName(message.user_id))}</span>
+        <span class="chat-message-time">${escapeHtml(formatChatTime(message.created_at))}</span>
+      </div>
+      <div class="chat-message-content">${escapeHtml(message.content)}</div>
+    `;
+
+    chatMessages.appendChild(wrapper);
+  }
+
+  function renderChatMessages(messages) {
+    chatMessages.innerHTML = "";
+
+    if (!messages || messages.length === 0) {
+      chatMessages.innerHTML = `<p class="chat-empty">Testing - No messages yet.</p>`;
+      return;
+    }
+
+    messages.forEach(renderChatMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function appendChatMessage(message) {
+    renderChatMessage(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  async function loadChatMessages() {
+    if (typeof supabaseClient === "undefined") {
+      chatMessages.innerHTML = `<p class="chat-empty">Chat is not connected.</p>`;
+      return;
+    }
+
+    chatMessages.innerHTML = `<p class="chat-empty">Loading chat...</p>`;
+
+    const { data, error } = await supabaseClient
+      .from("chat_messages")
+      .select("id, user_id, content, created_at")
+      .order("created_at", { ascending: true })
+      .limit(100);
+
+    if (error) {
+      console.error("Could not load chat:", error);
+      chatMessages.innerHTML = `<p class="chat-empty">Couldn't load the chat.</p>`;
+      return;
+    }
+
+    renderChatMessages(data || []);
+    chatLoaded = true;
+  }
+
+  function openChat() {
+    chatPanel.classList.add("open");
+    chatTab.classList.add("chat-open");
+    chatPanel.setAttribute("aria-hidden", "false");
+    chatInput.focus();
+
+    if (!chatLoaded) loadChatMessages();
+  }
+
+  function closeChat() {
+    chatPanel.classList.remove("open");
+    chatTab.classList.remove("chat-open");
+    chatPanel.setAttribute("aria-hidden", "true");
+  }
+
+  chatTab.addEventListener("click", () => {
+    if (chatPanel.classList.contains("open")) {
+      closeChat();
+    } else {
+      openChat();
+    }
+  });
+
+  chatClose.addEventListener("click", closeChat);
+
+  chatForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (
+      typeof currentUser === "undefined" ||
+      !currentUser ||
+      typeof supabaseClient === "undefined"
+    ) {
+      return;
+    }
+
+    const content = chatInput.value.trim().slice(0, 500);
+    if (!content) return;
+
+    chatInput.disabled = true;
+
+    const { data, error } = await supabaseClient
+      .from("chat_messages")
+      .insert({
+        user_id: currentUser.id,
+        content
+      })
+      .select("id, user_id, content, created_at")
+      .single();
+
+    chatInput.disabled = false;
+
+    if (error) {
+      console.error("Could not send chat message:", error);
+      return;
+    }
+
+    chatInput.value = "";
+
+    // Render immediately. The Realtime event will be ignored if it arrives too.
+    // late because renderChatMessage() de-duplicates by message ID.
+    if (data) appendChatMessage(data);
+  });
+
+  window.subscribeToChat = function subscribeToChat() {
+    if (
+      chatChannel ||
+      typeof supabaseClient === "undefined"
+    ) {
+      return;
+    }
+
+    chatChannel = supabaseClient
+      .channel("server-chat")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "chat_messages"
+        },
+        (payload) => {
+          appendChatMessage(payload.new);
+        }
+      )
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") {
+          console.log("Server chat connected.");
+        }
+      });
+  };
+
+  window.unsubscribeFromChat = async function unsubscribeFromChat() {
+    if (!chatChannel || typeof supabaseClient === "undefined") return;
+
+    await supabaseClient.removeChannel(chatChannel);
+    chatChannel = null;
+    chatLoaded = false;
+  };
+
+  // Start the realtime listener once the page's existing Supabase setup
+  // has had a chance to create supabaseClient.
+  function startWhenReady() {
+    if (typeof supabaseClient !== "undefined") {
+      window.subscribeToChat();
+    } else {
+      setTimeout(startWhenReady, 250);
+    }
+  }
+
+  startWhenReady();
+})();
+</script>
+
 </body>
 </html>
