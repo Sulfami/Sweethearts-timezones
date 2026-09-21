@@ -1249,172 +1249,289 @@
       }
     }
   </style>
+<style id="automatic-theme-contrast">
+  :root {
+    --text-color: #f5f5f5;
+    --chat-border: rgba(255,255,255,.12);
+    --accent-contrast: #fff;
+  }
+
+  body.theme-light,
+  body[data-theme="light"] {
+    --text-color: #111;
+    --chat-border: rgba(0,0,0,.16);
+    --accent-contrast: #111;
+  }
+
+  body.theme-auto-contrast,
+  body.theme-auto-contrast * {
+    color-scheme: light;
+  }
+
+  body.theme-auto-contrast {
+    color: #111 !important;
+  }
+
+  body.theme-auto-contrast input,
+  body.theme-auto-contrast textarea,
+  body.theme-auto-contrast select,
+  body.theme-auto-contrast button {
+    color: #111;
+    border-color: rgba(0,0,0,.22);
+  }
+
+  body.theme-auto-contrast .chat-panel,
+  body.theme-auto-contrast .chat-tab,
+  body.theme-auto-contrast .chat-picker {
+    color: #111 !important;
+    --text-color: #111;
+    --chat-border: rgba(0,0,0,.18);
+    --accent-contrast: #111;
+  }
+
+  body.theme-auto-contrast .chat-header,
+  body.theme-auto-contrast .chat-input-area,
+  body.theme-auto-contrast .chat-picker-header {
+    border-color: rgba(0,0,0,.18);
+  }
+
+  body.theme-auto-contrast input::placeholder {
+    color: rgba(0,0,0,.55);
+  }
+</style>
+
 
 <style id="server-chat-styles">
-  .chat-tab {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    z-index: 9998;
-    transform: translateY(-50%);
-    border: 0;
-    border-radius: 12px 0 0 12px;
-    padding: 13px 11px;
-    cursor: pointer;
-    font: inherit;
-    font-weight: 800;
-    letter-spacing: .08em;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    box-shadow: 0 8px 28px rgba(0,0,0,.18);
-    transition: right .25s ease, transform .25s ease, opacity .2s ease;
+  /* Keep the tab above every existing card/button in the project. */
+  #chat-tab.chat-tab {
+    position: fixed !important;
+    top: 50% !important;
+    right: 0 !important;
+    z-index: 2147483000 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(-50%) !important;
+    padding: 14px 10px !important;
+    border: 0 !important;
+    border-radius: 10px 0 0 10px !important;
+    cursor: pointer !important;
+    font: inherit !important;
+    font-weight: 800 !important;
+    letter-spacing: .08em !important;
+    writing-mode: vertical-rl !important;
+    box-shadow: 0 8px 28px rgba(0,0,0,.25) !important;
   }
 
-  .chat-tab:hover {
-    transform: translateY(-50%) translateX(-3px);
+  #chat-tab.chat-tab.chat-open {
+    right: min(390px, 92vw) !important;
   }
 
-  .chat-tab.chat-open {
-    right: 390px;
+  #chat-panel.chat-panel {
+    position: fixed !important;
+    inset: 0 0 0 auto !important;
+    z-index: 2147483001 !important;
+    width: min(390px, 92vw) !important;
+    height: 100vh !important;
+    display: grid !important;
+    grid-template-rows: auto 1fr auto !important;
+    transform: translateX(105%) !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: transform .25s ease, visibility 0s linear .25s !important;
+    background: var(--card-bg, #151515) !important;
+    color: var(--text-color, #fff) !important;
+    box-shadow: -12px 0 40px rgba(0,0,0,.3) !important;
   }
 
-  .chat-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9999;
-    width: min(390px, 92vw);
-    height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    background: var(--card-bg, #151515);
-    color: var(--text-color, #fff);
-    border-left: 1px solid rgba(255,255,255,.12);
-    box-shadow: -12px 0 40px rgba(0,0,0,.28);
-    transform: translateX(102%);
-    transition: transform .25s ease;
-  }
-
-  .chat-panel.open {
-    transform: translateX(0);
+  #chat-panel.chat-panel.open {
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition: transform .25s ease !important;
   }
 
   .chat-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 16px;
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px;
+    border-bottom:1px solid var(--chat-border, rgba(255,255,255,.12));
   }
 
-  .chat-header strong {
-    display: block;
-    font-size: 16px;
-  }
+  .chat-header strong { display:block; }
+  .chat-header span { display:block; opacity:.6; font-size:12px; margin-top:3px; }
 
-  .chat-header span {
-    display: block;
-    margin-top: 3px;
-    opacity: .6;
-    font-size: 12px;
-  }
-
-  .chat-header button {
-    width: 34px;
-    height: 34px;
-    border: 0;
-    border-radius: 9px;
-    background: rgba(255,255,255,.08);
-    color: inherit;
-    cursor: pointer;
-    font-size: 24px;
-    line-height: 1;
+  .chat-header button,
+  .chat-picker-close {
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:9px;
+    background:rgba(127,127,127,.12);
+    color:inherit;
+    cursor:pointer;
+    font-size:22px;
   }
 
   .chat-messages {
-    min-height: 0;
-    overflow-y: auto;
-    padding: 14px;
+    min-height:0;
+    overflow-y:auto;
+    padding:14px;
   }
 
   .chat-empty {
-    margin: 0;
-    padding: 28px 8px;
-    text-align: center;
-    opacity: .6;
+    text-align:center;
+    opacity:.6;
+    padding:28px 8px;
   }
 
   .chat-message {
-    margin-bottom: 12px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    background: rgba(255,255,255,.06);
-    overflow-wrap: anywhere;
+    margin:1px 0;
+    padding:3px 12px;
+    border-radius:8px;
+    overflow-wrap:anywhere;
   }
+
+  .chat-message.chat-message-group-start {
+    margin-top:12px;
+    padding-top:8px;
+  }
+
+  .chat-message:hover { background:rgba(127,127,127,.07); }
 
   .chat-message-meta {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 4px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:3px;
   }
 
-  .chat-message-name {
-    font-weight: 800;
-    font-size: 13px;
-  }
+  .chat-message-name { font-weight:800; font-size:13px; }
+  .chat-message-time { font-size:10px; opacity:.45; }
+  .chat-message-content { font-size:14px; line-height:1.45; white-space:pre-wrap; }
 
-  .chat-message-time {
-    font-size: 10px;
-    opacity: .45;
-  }
-
-  .chat-message-content {
-    font-size: 14px;
-    line-height: 1.45;
-    white-space: pre-wrap;
+  .chat-sticker-message {
+    display:block;
+    max-width:190px;
+    max-height:190px;
+    object-fit:contain;
+    border-radius:10px;
   }
 
   .chat-input-area {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    padding: 12px;
-    border-top: 1px solid rgba(255,255,255,.1);
-    background: inherit;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px;
+    padding:12px;
+    border-top:1px solid var(--chat-border, rgba(255,255,255,.12));
+  }
+
+  .chat-composer {
+    min-width:0;
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    gap:6px;
   }
 
   .chat-input-area input {
-    min-width: 0;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 10px;
-    padding: 11px 12px;
-    background: rgba(255,255,255,.06);
-    color: inherit;
-    outline: none;
+    min-width:0;
+    border:1px solid var(--chat-border, rgba(255,255,255,.12));
+    border-radius:10px;
+    padding:11px 12px;
+    background:rgba(127,127,127,.08);
+    color:inherit;
+    outline:none;
   }
 
-  .chat-input-area input:focus {
-    border-color: rgba(255,255,255,.28);
+  .chat-tool-button,
+  .chat-send-button,
+  .sticker-upload-button {
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    font:inherit;
+    font-weight:700;
+    padding:8px 10px;
   }
 
-  .chat-input-area button {
-    width: 44px;
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 800;
+  .chat-tool-button { background:rgba(127,127,127,.12); color:inherit; }
+  .chat-send-button,
+  .sticker-upload-button {
+    background:var(--accent-color,#5865f2);
+    color:var(--accent-contrast,#fff);
   }
 
-  @media (max-width: 600px) {
-    .chat-tab.chat-open {
-      right: min(92vw, 390px);
-    }
+  .chat-picker {
+    position:absolute;
+    right:12px;
+    bottom:76px;
+    z-index:2147483002;
+    width:min(340px,calc(100% - 24px));
+    max-height:min(420px,55vh);
+    overflow:hidden;
+    border:1px solid var(--chat-border,rgba(255,255,255,.12));
+    border-radius:14px;
+    background:var(--card-bg,#151515);
+    color:var(--text-color,#fff);
+    box-shadow:0 18px 50px rgba(0,0,0,.35);
+  }
 
-    .chat-panel {
-      width: 92vw;
+  .chat-picker[hidden] { display:none !important; }
+
+  .chat-picker-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px;
+    border-bottom:1px solid var(--chat-border,rgba(255,255,255,.1));
+  }
+
+  .chat-emoji-grid,
+  .chat-sticker-grid {
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:4px;
+    padding:10px;
+    max-height:330px;
+    overflow-y:auto;
+  }
+
+  .chat-emoji-grid button {
+    border:0;
+    border-radius:8px;
+    background:transparent;
+    cursor:pointer;
+    font-size:24px;
+    padding:5px;
+  }
+
+  .chat-sticker-item {
+    border:0;
+    border-radius:8px;
+    background:transparent;
+    padding:5px;
+    cursor:pointer;
+  }
+
+  .chat-sticker-item img {
+    display:block;
+    width:62px;
+    height:62px;
+    object-fit:contain;
+  }
+
+  .chat-sticker-empty {
+    grid-column:1 / -1;
+    text-align:center;
+    opacity:.6;
+    padding:24px 8px;
+  }
+
+  @media (max-width:600px) {
+    #chat-tab.chat-tab.chat-open {
+      right:92vw !important;
     }
   }
 </style>
@@ -1430,7 +1547,7 @@
 
     <div class="subtitle-card">
       <div class="divider">
-        ✦────────────୨ৎ────────────✦
+        ────────────୨ৎ────────────
       </div>
 
       <p class="subtitle">
@@ -1790,6 +1907,9 @@
         SUPABASE_KEY
       );
 
+    // Make the existing Supabase client available to the optional UI modules below.
+    window.supabaseClient = supabaseClient;
+
     const STORAGE_BUCKET =
       "card-backgrounds";
 
@@ -1960,7 +2080,7 @@
       {
         name: "Gabby",
         utc: -7,
-        roles: ["Matchmaker ♡ Cupid"],
+        roles: ["Matchmaker  Cupid"],
         custom_status: "",
         custom_status_expires_at: null,
         background: "stars.jpg",
@@ -2287,7 +2407,7 @@
           alt="Birthday"
           onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
         >
-        <span hidden aria-hidden="true">🎂</span>
+        <span hidden aria-hidden="true"></span>
       `;
     }
 
@@ -2608,7 +2728,7 @@
           plans.length > 0
             ? `
                 <div class="calendar-plan-marker">
-                  ✦ ${plans.length}
+                   ${plans.length}
                 </div>
               `
             : "";
@@ -2730,14 +2850,14 @@
                                   >
                                   <span>
                                     ${interested
-                                      ? "Interested ✓"
+                                      ? "Interested "
                                       : "I'm interested"}
                                   </span>
                                 </label>
                               `
                             : `
                                 <span class="calendar-interest-login-note">
-                                  ♡ Log in to mark yourself interested
+                                   Log in to mark yourself interested
                                 </span>
                               `}
 
@@ -2763,7 +2883,7 @@
                     <div class="calendar-event-top-row">
                       <div class="calendar-event-info">
                         <div class="calendar-event-title">
-                          ✦ ${escapeHtml(event.title)}
+                           ${escapeHtml(event.title)}
                         </div>
 
                         <div class="calendar-event-owner">
@@ -3094,7 +3214,7 @@
 
         calendarMessage.textContent =
           wantsToJoin
-            ? "You're interested! ♡"
+            ? "You're interested! "
             : "Interest removed.";
       }
     );
@@ -3923,6 +4043,11 @@
       const roleBadges =
         createRoles(friend.roles);
 
+      const displayName =
+        window.getLocalNickname
+          ? window.getLocalNickname(friend.owner_id, friend.name)
+          : friend.name;
+
       const birthdayBanner =
         isBirthdayNowForFriend(
           friend,
@@ -3969,6 +4094,7 @@
       return `
         <section
           class="friend-card"
+          data-friend-id="${escapeHtml(friend.owner_id || friend.id || "")}"
           style="
             background-image:
               linear-gradient(
@@ -3990,7 +4116,7 @@
           ${roleBadges}
 
           <h2 class="friend-name">
-            ${escapeHtml(friend.name)}
+            ${escapeHtml(displayName)}
           </h2>
 
           <div class="friend-utc">
@@ -4016,10 +4142,19 @@
 
 
     function updateClocks() {
+      const orderedFriends =
+        window.getOrderedFriends
+          ? window.getOrderedFriends(friends)
+          : friends;
+
       friendList.innerHTML =
-        friends
+        orderedFriends
           .map(createFriendCard)
           .join("");
+
+      if (window.applyCardInteractionMode) {
+        window.applyCardInteractionMode();
+      }
     }
 
 
@@ -4572,6 +4707,16 @@
     }
 
 
+    // Expose read-only access for the feature panels added below.
+    window.serverAppState = {
+      get friends() { return friends; },
+      get currentUser() { return currentUser; },
+      get currentCard() { return currentCard; },
+      get friendList() { return friendList; },
+      refreshCards() { updateClocks(); },
+      async reloadCards() { await loadCardsFromSupabase(); }
+    };
+
     initialisePage();
 
     setInterval(
@@ -4580,15 +4725,437 @@
     );
   </script>
 
+<!-- ===== Personal Settings / Sorting ===== -->
+<button id="settings-button" class="settings-button" type="button" aria-label="Open settings"></button>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <div><strong> Settings</strong><span>Personal settings stay on this device.</span></div>
+    <button id="settings-close" type="button" aria-label="Close settings">×</button>
+  </div>
+
+  <div class="settings-scroll">
+    <section class="settings-section">
+      <h3>Theme</h3>
+      <div class="theme-presets">
+        <button type="button" data-theme-preset="discord">Discord-ish</button>
+        <button type="button" data-theme-preset="midnight">Midnight</button>
+        <button type="button" data-theme-preset="lavender">Lavender</button>
+        <button type="button" data-theme-preset="light">Light</button>
+      </div>
+      <label>Page colour <input id="theme-page" type="color" value="#443653"></label>
+      <label>Panel colour <input id="theme-panel" type="color" value="#15121d"></label>
+      <label>Accent colour <input id="theme-accent" type="color" value="#8c6bd9"></label>
+      <button id="theme-save" type="button">Save theme</button>
+    </section>
+
+    <section class="settings-section">
+      <h3>Card order</h3>
+      <p class="settings-help">Cards normally follow timezone order. Turn on Reorder only when you want to drag them around.</p>
+      <div class="sort-buttons">
+        <button id="sort-timezone" type="button">↕ Timezone order</button>
+        <button id="sort-manual" type="button"> My order</button>
+      </div>
+      <button id="reorder-toggle" type="button">Reorder cards</button>
+      <button id="reorder-save" type="button" hidden>Save my order</button>
+      <p id="reorder-message" class="settings-message"></p>
+    </section>
+
+    <section class="settings-section">
+      <h3>Nicknames</h3>
+      <p class="settings-help">Nicknames are private to you. Nobody else sees the names you choose here.</p>
+      <div id="nickname-list" class="nickname-list"></div>
+      <button id="nickname-save" type="button">Save nicknames</button>
+    </section>
+  </div>
+</aside>
+
+<style id="server-features-styles">
+  :root {
+    --personal-page: #443653;
+    --personal-panel: #15121d;
+    --personal-accent: #8c6bd9;
+    --personal-text: #ffffff;
+  }
+
+  .chat-tab, .settings-button {
+    position: fixed;
+    z-index: 9998;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0 8px 28px rgba(0,0,0,.2);
+  }
+  .chat-tab {
+    top: 50%; right: 0; transform: translateY(-50%);
+    border-radius: 12px 0 0 12px; padding: 13px 11px;
+    writing-mode: vertical-rl; text-orientation: mixed;
+    font-weight: 800; letter-spacing: .08em;
+    transition: right .25s ease, transform .2s ease;
+  }
+  .chat-tab:hover { transform: translateY(-50%) translateX(-3px); }
+  .chat-tab.chat-open { right: 390px; }
+  .settings-button {
+    top: 18px; right: 18px; width: 44px; height: 44px;
+    border-radius: 50%; font-size: 20px;
+  }
+  .chat-panel, .settings-panel {
+    position: fixed; top: 0; right: 0; z-index: 9999;
+    height: 100vh; background: var(--personal-panel); color: var(--personal-text);
+    border-left: 1px solid rgba(255,255,255,.12);
+    box-shadow: -12px 0 40px rgba(0,0,0,.3);
+    transition: transform .25s ease;
+  }
+  .chat-panel { width: min(390px, 92vw); transform: translateX(102%); display: grid; grid-template-rows: auto 1fr auto; }
+  .chat-panel.open, .settings-panel.open { transform: translateX(0); }
+  .settings-panel { width: min(430px, 94vw); transform: translateX(102%); display: grid; grid-template-rows: auto 1fr; }
+  .chat-header, .settings-header {
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px; border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .chat-header strong, .settings-header strong { display:block; font-size:16px; }
+  .chat-header span, .settings-header span { display:block; margin-top:3px; opacity:.6; font-size:11px; }
+  .chat-header button, .settings-header button {
+    width:34px; height:34px; border:0; border-radius:9px; background:rgba(255,255,255,.08); color:inherit; cursor:pointer; font-size:24px;
+  }
+  .chat-messages { min-height:0; overflow-y:auto; padding:14px; }
+  .chat-empty { margin:0; padding:28px 8px; text-align:center; opacity:.6; }
+  .chat-message { display:flex; gap:10px; margin-bottom:3px; padding:6px 8px; border-radius:10px; overflow-wrap:anywhere; }
+  .chat-message.continued { padding-top:2px; }
+  .chat-message:hover { background:rgba(255,255,255,.04); }
+  .chat-avatar { flex:0 0 34px; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--personal-accent); color:white; font-size:12px; font-weight:800; overflow:hidden; }
+  .chat-avatar.placeholder { margin-top:0; visibility:hidden; }
+  .chat-message-body { min-width:0; flex:1; }
+  .chat-message-meta { display:flex; align-items:baseline; gap:8px; margin-bottom:2px; }
+  .chat-message-name { font-weight:800; font-size:13px; }
+  .chat-message-time { font-size:10px; opacity:.45; }
+  .chat-message-content { font-size:14px; line-height:1.45; white-space:pre-wrap; }
+  .chat-sticker { max-width:180px; max-height:180px; display:block; object-fit:contain; border-radius:10px; margin-top:3px; }
+  .chat-input-area { display:grid; grid-template-columns:42px 1fr 44px; gap:8px; padding:12px; border-top:1px solid rgba(255,255,255,.1); background:inherit; }
+  .chat-input-area input { min-width:0; border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:11px 12px; background:rgba(255,255,255,.06); color:inherit; outline:none; }
+  .chat-input-area input:focus { border-color:var(--personal-accent); }
+  .chat-input-area > button { border:0; border-radius:10px; cursor:pointer; font-size:18px; font-weight:800; }
+  .chat-tool-button { background:rgba(255,255,255,.08); color:inherit; }
+  .chat-picker { position:absolute; right:12px; bottom:70px; width:min(360px, calc(100% - 24px)); max-height:380px; padding:10px; border:1px solid rgba(255,255,255,.12); border-radius:14px; background:var(--personal-panel); box-shadow:0 15px 40px rgba(0,0,0,.35); overflow:auto; }
+  .chat-picker-tabs { display:flex; gap:6px; margin-bottom:8px; }
+  .chat-picker-tab { flex:1; padding:8px; border:0; border-radius:8px; background:rgba(255,255,255,.06); color:inherit; cursor:pointer; }
+  .chat-picker-tab.active { background:var(--personal-accent); }
+  .emoji-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:3px; }
+  .emoji-grid button { padding:7px 3px; border:0; border-radius:7px; background:transparent; color:inherit; cursor:pointer; font-size:22px; }
+  .emoji-grid button:hover { background:rgba(255,255,255,.08); }
+  .sticker-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .sticker-grid button { padding:6px; border:1px solid rgba(255,255,255,.1); border-radius:10px; background:rgba(255,255,255,.04); cursor:pointer; }
+  .sticker-grid img { width:100%; aspect-ratio:1; object-fit:contain; }
+  .sticker-upload-button { display:block; margin-top:8px; padding:9px; text-align:center; border-radius:9px; background:rgba(255,255,255,.08); cursor:pointer; font-weight:700; }
+  .settings-scroll { overflow-y:auto; padding:16px; }
+  .settings-section { margin-bottom:18px; padding:14px; border:1px solid rgba(255,255,255,.1); border-radius:14px; background:rgba(255,255,255,.04); }
+  .settings-section h3 { margin:0 0 8px; font-size:15px; }
+  .settings-help { margin:0 0 10px; opacity:.65; font-size:11px; line-height:1.45; }
+  .theme-presets, .sort-buttons { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+  .settings-section button { width:100%; margin-top:7px; padding:9px; border:0; border-radius:9px; cursor:pointer; font-weight:700; background:rgba(255,255,255,.1); color:inherit; }
+  .settings-section button:hover { background:rgba(255,255,255,.16); }
+  .settings-section label { display:grid; grid-template-columns:1fr 52px; align-items:center; gap:10px; margin-top:8px; font-size:12px; }
+  .settings-section input[type=color] { width:52px; height:32px; padding:2px; border:0; border-radius:7px; background:transparent; cursor:pointer; }
+  .nickname-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; align-items:center; margin-top:7px; }
+  .nickname-row span { font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .nickname-row input { width:100%; min-width:0; padding:8px; border:1px solid rgba(255,255,255,.12); border-radius:8px; background:rgba(255,255,255,.06); color:inherit; }
+  .settings-message { min-height:1em; margin:7px 0 0; font-size:11px; opacity:.7; }
+  .cards-reordering .friend-card { cursor:grab; user-select:none; }
+  .cards-reordering .friend-card:active { cursor:grabbing; }
+  .friend-card.card-dragging { opacity:.55; outline:2px dashed var(--personal-accent); }
+  .friend-card.drop-target { outline:3px solid var(--personal-accent); }
+  @media (max-width:600px) { .chat-tab.chat-open { right:92vw; } .chat-picker { bottom:72px; } }
+  body {
+    background-color: var(--personal-page);
+  }
+  .settings-button, .chat-tab {
+    background: var(--personal-accent);
+    color: white;
+  }
+  .chat-input-area > button:last-child, #theme-save, #nickname-save, #reorder-save {
+    background: var(--personal-accent);
+    color: white;
+  }
+  .friend-card.card-dragging {
+    outline-color: var(--personal-accent);
+  }
+</style>
+
+<script id="server-features-script">
+(() => {
+  const STORAGE = {
+    nicknames: "friends-app-nicknames-v1",
+    theme: "friends-app-theme-v1",
+    order: "friends-app-order-v1",
+    orderMode: "friends-app-order-mode-v1"
+  };
+
+  const state = {
+    nicknames: JSON.parse(localStorage.getItem(STORAGE.nicknames) || "{}"),
+    theme: JSON.parse(localStorage.getItem(STORAGE.theme) || "null"),
+    order: JSON.parse(localStorage.getItem(STORAGE.order) || "[]"),
+    orderMode: localStorage.getItem(STORAGE.orderMode) || "timezone",
+    reorderEnabled: false,
+    draggedId: null
+  };
+
+  const $ = id => document.getElementById(id);
+  const chatTab = $("chat-tab"), chatPanel = $("chat-panel"), chatClose = $("chat-close");
+  const chatMessages = $("chat-messages"), chatForm = $("chat-form"), chatInput = $("chat-input");
+  const emojiButton = $("emoji-button"), chatPicker = $("chat-picker"), emojiPicker = $("emoji-picker"), stickerPicker = $("sticker-picker");
+  const settingsButton = $("settings-button"), settingsPanel = $("settings-panel"), settingsClose = $("settings-close");
+
+  const emojis = "                                      ️                                                  ️                                                                      ️ ".split(" ");
+
+  function esc(v) { return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;"); }
+  function app() { return window.serverAppState || {}; }
+  window.getLocalNickname = (id, fallback) => state.nicknames[id] || fallback || "Unknown";
+
+  // ---------- themes ----------
+  const presets = {
+    discord: { page:"#313338", panel:"#1e1f22", accent:"#5865f2" },
+    midnight: { page:"#0f1117", panel:"#171a21", accent:"#7c5cff" },
+    lavender: { page:"#443653", panel:"#211a2b", accent:"#b58cff" },
+    light: { page:"#eeeaf5", panel:"#ffffff", accent:"#7657b8" }
+  };
+  function applyTheme(theme) {
+    const t = theme || presets.lavender;
+    document.documentElement.style.setProperty("--personal-page", t.page);
+    document.documentElement.style.setProperty("--personal-panel", t.panel);
+    document.documentElement.style.setProperty("--personal-accent", t.accent);
+    document.body.style.backgroundColor = t.page;
+    document.body.style.color = t.page === "#eeeaf5" ? "#443653" : "#fff";
+    $("theme-page").value = t.page; $("theme-panel").value = t.panel; $("theme-accent").value = t.accent;
+    // Keep the original artwork, but tint it according to the personal page colour.
+    document.body.style.backgroundBlendMode = "soft-light";
+    document.body.style.setProperty("--theme-page-color", t.page);
+  }
+  function saveTheme(theme) { state.theme = theme; localStorage.setItem(STORAGE.theme, JSON.stringify(theme)); applyTheme(theme); }
+  applyTheme(state.theme || presets.lavender);
+
+  // ---------- nicknames ----------
+  function renderNicknameList() {
+    const list = $("nickname-list");
+    const people = Array.isArray(app().friends) ? app().friends : [];
+    list.innerHTML = people.map(person => `
+      <div class="nickname-row">
+        <span title="${esc(person.name)}">${esc(person.name)}</span>
+        <input type="text" maxlength="40" data-nickname-id="${esc(person.owner_id || person.id || "")}" value="${esc(state.nicknames[person.owner_id || person.id] || "")}" placeholder="No nickname">
+      </div>`).join("") || `<p class="settings-help">Log in / load the cards first.</p>`;
+  }
+  function saveNicknames() {
+    document.querySelectorAll("[data-nickname-id]").forEach(input => {
+      const id = input.dataset.nicknameId;
+      const value = input.value.trim().slice(0,40);
+      if (value) state.nicknames[id] = value; else delete state.nicknames[id];
+    });
+    localStorage.setItem(STORAGE.nicknames, JSON.stringify(state.nicknames));
+    if (app().refreshCards) app().refreshCards();
+    if (chatLoaded) renderMessages(chatMessageCache);
+    renderNicknameList();
+    $("reorder-message").textContent = "";
+  }
+
+  // ---------- ordering ----------
+  function timezoneOrder(people) {
+    return [...people].sort((a,b) => (Number(b.utc)||0) - (Number(a.utc)||0) || String(a.name||"").localeCompare(String(b.name||"")));
+  }
+  function manualOrder(people) {
+    const ids = state.order;
+    const byId = new Map(people.map((p,i) => [String(p.owner_id || p.id || `fallback-${i}`), p]));
+    const result = [];
+    ids.forEach(id => { const p=byId.get(String(id)); if(p){ result.push(p); byId.delete(String(id)); } });
+    return result.concat([...byId.values()]);
+  }
+  window.getOrderedFriends = people => state.orderMode === "manual" ? manualOrder(people) : timezoneOrder(people);
+  function setOrderMode(mode) {
+    state.orderMode = mode;
+    localStorage.setItem(STORAGE.orderMode, mode);
+    if (app().refreshCards) app().refreshCards();
+    $("reorder-message").textContent = mode === "manual" ? "Your saved order is active." : "Timezone order is active.";
+  }
+  function enableReorder() {
+    if (state.orderMode !== "manual") setOrderMode("manual");
+    state.reorderEnabled = true;
+    document.body.classList.add("cards-reordering");
+    $("reorder-toggle").hidden = true; $("reorder-save").hidden = false;
+    applyCardInteractionMode();
+  }
+  function disableReorderAndSave() {
+    const ids = [...document.querySelectorAll("#friend-list .friend-card")].map((card) => card.dataset.friendId).filter(Boolean);
+    state.order = ids;
+    localStorage.setItem(STORAGE.order, JSON.stringify(ids));
+    state.orderMode = "manual";
+    localStorage.setItem(STORAGE.orderMode, "manual");
+    state.reorderEnabled = false;
+    document.body.classList.remove("cards-reordering");
+    $("reorder-toggle").hidden = false; $("reorder-save").hidden = true;
+    $("reorder-message").textContent = "Saved! Your card order will stay on this device.";
+    if (app().refreshCards) app().refreshCards();
+  }
+  window.applyCardInteractionMode = () => {
+    const cards = document.querySelectorAll("#friend-list .friend-card");
+    cards.forEach((card,index) => {
+      if (state.reorderEnabled) {
+        card.draggable = true;
+        card.dataset.friendId = card.dataset.friendId || (app().friends[index] ? (app().friends[index].owner_id || app().friends[index].id) : "");
+      } else card.draggable = false;
+    });
+    // When manual mode is rendered, match each card to its actual person.
+    if (state.reorderEnabled) {
+      const people = window.getOrderedFriends(app().friends || []);
+      cards.forEach((card,i) => { card.dataset.friendId = String(people[i]?.owner_id || people[i]?.id || ""); });
+    }
+  };
+
+  $("sort-timezone").onclick = () => { state.orderMode="timezone"; localStorage.setItem(STORAGE.orderMode,"timezone"); state.reorderEnabled=false; document.body.classList.remove("cards-reordering"); $("reorder-toggle").hidden=false; $("reorder-save").hidden=true; if(app().refreshCards) app().refreshCards(); $("reorder-message").textContent="Timezone order is active."; };
+  $("sort-manual").onclick = () => setOrderMode("manual");
+  $("reorder-toggle").onclick = enableReorder;
+  $("reorder-save").onclick = disableReorderAndSave;
+
+  $("friend-list").addEventListener("dragstart", e => {
+    if (!state.reorderEnabled) return;
+    const card=e.target.closest(".friend-card"); if(!card) return;
+    state.draggedId=card.dataset.friendId; card.classList.add("card-dragging"); e.dataTransfer.effectAllowed="move";
+  });
+  $("friend-list").addEventListener("dragover", e => {
+    if (!state.reorderEnabled) return;
+    e.preventDefault(); const card=e.target.closest(".friend-card");
+    if(card) card.classList.add("drop-target");
+  });
+  $("friend-list").addEventListener("dragleave", e => { const card=e.target.closest(".friend-card"); if(card) card.classList.remove("drop-target"); });
+  $("friend-list").addEventListener("drop", e => {
+    if (!state.reorderEnabled) return; e.preventDefault();
+    const target=e.target.closest(".friend-card"); if(!target || !state.draggedId) return;
+    document.querySelectorAll(".drop-target").forEach(c=>c.classList.remove("drop-target"));
+    const dragged=document.querySelector(`[data-friend-id="${CSS.escape(String(state.draggedId))}"]`);
+    if(!dragged || dragged===target) return;
+    const rect=target.getBoundingClientRect();
+    target.parentNode.insertBefore(dragged, e.clientY < rect.top + rect.height/2 ? target : target.nextSibling);
+  });
+  $("friend-list").addEventListener("dragend", e => { const card=e.target.closest(".friend-card"); if(card) card.classList.remove("card-dragging"); state.draggedId=null; document.querySelectorAll(".drop-target").forEach(c=>c.classList.remove("drop-target")); });
+
+  // ---------- settings ----------
+  function openSettings(){ settingsPanel.classList.add("open"); settingsPanel.setAttribute("aria-hidden","false"); renderNicknameList(); }
+  function closeSettings(){ settingsPanel.classList.remove("open"); settingsPanel.setAttribute("aria-hidden","true"); }
+  settingsButton.onclick=openSettings; settingsClose.onclick=closeSettings;
+  document.querySelectorAll("[data-theme-preset]").forEach(btn=>btn.onclick=()=>saveTheme({...presets[btn.dataset.themePreset]}));
+  $("theme-save").onclick=()=>saveTheme({page:$("theme-page").value,panel:$("theme-panel").value,accent:$("theme-accent").value});
+  $("nickname-save").onclick=saveNicknames;
+
+
+</script>
+<!-- ===== End Chat / Settings / Sorting ===== -->
+<script id="automatic-theme-contrast-script">
+(() => {
+  function parseCssColor(value) {
+    if (!value) return null;
+
+    value = value.trim();
+
+    if (value.startsWith("#")) {
+      let hex = value.slice(1);
+      if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
+      if (hex.length !== 6) return null;
+      return {
+        r: parseInt(hex.slice(0, 2), 16),
+        g: parseInt(hex.slice(2, 4), 16),
+        b: parseInt(hex.slice(4, 6), 16)
+      };
+    }
+
+    const match = value.match(/rgba?\\(\\s*([\\d.]+)[,\\s]+([\\d.]+)[,\\s]+([\\d.]+)/i);
+    if (match) {
+      return {
+        r: Number(match[1]),
+        g: Number(match[2]),
+        b: Number(match[3])
+      };
+    }
+
+    return null;
+  }
+
+  function luminance({ r, g, b }) {
+    const values = [r, g, b].map(v => {
+      v /= 255;
+      return v <= 0.03928
+        ? v / 12.92
+        : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+
+    return 0.2126 * values[0] + 0.7152 * values[1] + 0.0722 * values[2];
+  }
+
+  function contrastRatio(a, b) {
+    const l1 = luminance(a);
+    const l2 = luminance(b);
+    const light = Math.max(l1, l2);
+    const dark = Math.min(l1, l2);
+    return (light + 0.05) / (dark + 0.05);
+  }
+
+  function updateAutomaticContrast() {
+    const root = document.documentElement;
+    const body = document.body;
+    if (!body) return;
+
+    const computed = getComputedStyle(body);
+    const candidates = [
+      computed.backgroundColor,
+      computed.getPropertyValue("--background-color"),
+      computed.getPropertyValue("--bg-color"),
+      computed.getPropertyValue("--theme-color"),
+      computed.getPropertyValue("--main-color"),
+      computed.getPropertyValue("--card-bg")
+    ];
+
+    const background = candidates
+      .map(parseCssColor)
+      .find(Boolean);
+
+    if (!background) return;
+
+    const white = { r: 255, g: 255, b: 255 };
+    const black = { r: 0, g: 0, b: 0 };
+
+    const whiteContrast = contrastRatio(background, white);
+    const blackContrast = contrastRatio(background, black);
+
+    // If the effective background is light, force readable dark text/borders.
+    const shouldUseBlack = luminance(background) > 0.55 || blackContrast >= whiteContrast;
+
+    body.classList.toggle("theme-auto-contrast", shouldUseBlack);
+    root.style.setProperty("--auto-text-color", shouldUseBlack ? "#111" : "#f5f5f5");
+    root.style.setProperty(
+      "--auto-border-color",
+      shouldUseBlack ? "rgba(0,0,0,.18)" : "rgba(255,255,255,.14)"
+    );
+  }
+
+  window.updateAutomaticContrast = updateAutomaticContrast;
+
+  updateAutomaticContrast();
+
+  new MutationObserver(updateAutomaticContrast).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["style", "class", "data-theme"]
+  });
+
+  new MutationObserver(updateAutomaticContrast).observe(document.body, {
+    attributes: true,
+    attributeFilter: ["style", "class", "data-theme"]
+  });
+})();
+</script>
+
+
 <!-- ===== Server Chat ===== -->
-<button id="chat-tab" class="chat-tab" type="button" aria-label="Open server chat">
-  💬 CHAT
-</button>
+<button id="chat-tab" class="chat-tab" type="button" aria-label="Open server chat">CHAT</button>
 
 <aside id="chat-panel" class="chat-panel" aria-hidden="true">
   <div class="chat-header">
     <div>
-      <strong>✦ Server Chat</strong>
+      <strong>Server Chat</strong>
       <span># general</span>
     </div>
     <button id="chat-close" type="button" aria-label="Close chat">×</button>
@@ -4599,253 +5166,754 @@
   </div>
 
   <form id="chat-form" class="chat-input-area">
-    <input
-      id="chat-input"
-      type="text"
-      maxlength="500"
-      placeholder="Message #general..."
-      autocomplete="off"
-    />
-    <button type="submit" aria-label="Send message">➤</button>
+    <div class="chat-composer">
+      <input id="chat-input" type="text" maxlength="500"
+             placeholder="Message #general..." autocomplete="off">
+      <button id="chat-emoji-button" class="chat-tool-button" type="button">+</button>
+      <button id="chat-sticker-button" class="chat-tool-button" type="button">Stickers</button>
+    </div>
+    <button class="chat-send-button" type="submit">Send</button>
   </form>
+
+  <section id="chat-picker-shell" class="chat-picker-shell" hidden>
+    <div class="chat-picker-tabs">
+      <button id="chat-stickers-tab" class="chat-picker-tab" type="button">Stickers</button>
+      <button id="chat-emojis-tab" class="chat-picker-tab active" type="button">Emoji</button>
+      <button id="chat-picker-close" class="chat-picker-x" type="button" aria-label="Close picker">×</button>
+    </div>
+
+    <div class="chat-picker-toolbar">
+      <input id="chat-emoji-search" class="chat-emoji-search" type="search"
+             placeholder="Find the perfect emoji" autocomplete="off">
+      <label class="chat-add-emoji-button">
+        Add Emoji
+        <input id="chat-emoji-upload" type="file"
+               accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+      </label>
+    </div>
+
+    <div id="chat-emoji-view" class="chat-picker-view">
+      <div class="chat-picker-category">
+        <span>Custom Emoji</span>
+      </div>
+      <div id="chat-emoji-grid" class="chat-emoji-grid"></div>
+      <div id="chat-emoji-empty" class="chat-picker-empty">
+        No custom emojis yet. Use <strong>Add Emoji</strong> to add image-based emojis.
+      </div>
+    </div>
+
+    <div id="chat-sticker-view" class="chat-picker-view" hidden>
+      <div class="chat-picker-category">
+        <span>Stickers</span>
+      </div>
+      <div id="chat-sticker-grid" class="chat-sticker-grid"></div>
+      <div id="chat-sticker-empty" class="chat-picker-empty">
+        No stickers yet.
+      </div>
+    </div>
+
+    <label class="chat-add-sticker-button">
+      Add Sticker
+      <input id="chat-sticker-upload" type="file"
+             accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+    </label>
+  </section>
 </aside>
 <!-- ===== End Server Chat ===== -->
 
 
+
+<style id="discord-picker-overrides">
+  /* Discord-like picker layout: no built-in Unicode emoji wall. */
+  .chat-input-area {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+  }
+
+  .chat-composer {
+    grid-template-columns: minmax(0, 1fr) auto auto !important;
+    gap: 6px !important;
+    min-width: 0 !important;
+  }
+
+  .chat-input-area input#chat-input {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 44px !important;
+    box-sizing: border-box !important;
+    padding: 10px 14px !important;
+    font-size: 15px !important;
+  }
+
+  .chat-send-button {
+    width: auto !important;
+    min-width: 54px !important;
+    height: 38px !important;
+    padding: 7px 12px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+  }
+
+  .chat-tool-button {
+    height: 38px !important;
+    padding: 7px 9px !important;
+    font-size: 12px !important;
+  }
+
+  .chat-picker-shell {
+    position: absolute;
+    right: 10px;
+    bottom: 70px;
+    z-index: 2147483002;
+    width: min(420px, calc(100% - 20px));
+    max-height: min(520px, 68vh);
+    overflow: hidden;
+    border: 1px solid var(--chat-border, rgba(255,255,255,.12));
+    border-radius: 14px;
+    background: var(--card-bg, #151515);
+    color: var(--text-color, #fff);
+    box-shadow: 0 18px 50px rgba(0,0,0,.42);
+  }
+
+  .chat-picker-shell[hidden] { display: none !important; }
+
+  .chat-picker-tabs {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px 0;
+    border-bottom: 1px solid var(--chat-border, rgba(255,255,255,.10));
+  }
+
+  .chat-picker-tab {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 10px 14px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+    opacity: .72;
+  }
+
+  .chat-picker-tab.active {
+    opacity: 1;
+    background: rgba(127,127,127,.16);
+  }
+
+  .chat-picker-x {
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 22px;
+    line-height: 1;
+    padding: 7px 9px;
+    cursor: pointer;
+    opacity: .7;
+  }
+
+  .chat-picker-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .chat-emoji-search {
+    min-width: 0;
+    height: 44px;
+    box-sizing: border-box;
+    border: 1px solid var(--chat-border, rgba(255,255,255,.12));
+    border-radius: 10px;
+    background: rgba(127,127,127,.08);
+    color: inherit;
+    outline: none;
+    padding: 0 12px;
+    font: inherit;
+  }
+
+  .chat-emoji-search:focus {
+    border-color: var(--accent-color, #5865f2);
+  }
+
+  .chat-add-emoji-button,
+  .chat-add-sticker-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border-radius: 10px;
+    background: var(--accent-color, #5865f2);
+    color: var(--accent-contrast, #fff);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .chat-picker-view {
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 0 10px 12px;
+  }
+
+  .chat-picker-category {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 9px 4px 7px;
+    font-size: 13px;
+    font-weight: 800;
+    background: var(--card-bg, #151515);
+    border-bottom: 1px solid var(--chat-border, rgba(255,255,255,.07));
+  }
+
+  .chat-emoji-grid,
+  .chat-sticker-grid {
+    display: grid !important;
+    grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    padding: 8px 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .chat-emoji-item,
+  .chat-sticker-item {
+    width: 100%;
+    aspect-ratio: 1;
+    min-width: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+  }
+
+  .chat-emoji-item:hover,
+  .chat-sticker-item:hover {
+    background: rgba(127,127,127,.14);
+  }
+
+  .chat-emoji-item img,
+  .chat-sticker-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .chat-picker-empty {
+    padding: 28px 12px 34px;
+    text-align: center;
+    opacity: .65;
+    font-size: 13px;
+  }
+
+  .chat-add-sticker-button {
+    width: calc(100% - 20px);
+    margin: 0 10px 10px;
+  }
+
+  body.theme-auto-contrast .chat-picker-shell,
+  body.theme-auto-contrast .chat-picker-category {
+    color: #111 !important;
+    --chat-border: rgba(0,0,0,.18);
+    background: #fff !important;
+  }
+
+  body.theme-auto-contrast .chat-emoji-search {
+    color: #111 !important;
+    background: rgba(0,0,0,.05) !important;
+    border-color: rgba(0,0,0,.18) !important;
+  }
+</style>
+
 <script id="server-chat-script">
-/* ===== Server Chat ===== */
 (() => {
-  const chatTab = document.getElementById("chat-tab");
-  const chatPanel = document.getElementById("chat-panel");
-  const chatClose = document.getElementById("chat-close");
-  const chatMessages = document.getElementById("chat-messages");
-  const chatForm = document.getElementById("chat-form");
-  const chatInput = document.getElementById("chat-input");
+  const $ = id => document.getElementById(id);
+
+  const chatTab = $("chat-tab");
+  const chatPanel = $("chat-panel");
+  const chatClose = $("chat-close");
+  const chatMessages = $("chat-messages");
+  const chatForm = $("chat-form");
+  const chatInput = $("chat-input");
+
+  const pickerShell = $("chat-picker-shell");
+  const emojiButton = $("chat-emoji-button");
+  const stickerButton = $("chat-sticker-button");
+  const pickerClose = $("chat-picker-close");
+  const stickersTab = $("chat-stickers-tab");
+  const emojisTab = $("chat-emojis-tab");
+  const emojiView = $("chat-emoji-view");
+  const stickerView = $("chat-sticker-view");
+  const emojiGrid = $("chat-emoji-grid");
+  const stickerGrid = $("chat-sticker-grid");
+  const emojiEmpty = $("chat-emoji-empty");
+  const stickerEmpty = $("chat-sticker-empty");
+  const emojiSearch = $("chat-emoji-search");
+  const emojiUpload = $("chat-emoji-upload");
+  const stickerUpload = $("chat-sticker-upload");
 
   let chatChannel = null;
   let chatLoaded = false;
+  let pickerMode = "emoji";
+  let customEmojis = [];
+  let stickers = [];
 
-  if (!chatTab || !chatPanel || !chatForm) return;
-
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+  if (!chatTab || !chatPanel) {
+    console.error("Chat UI could not initialize: missing chat elements.");
+    return;
   }
 
-  function getChatUserName(userId) {
+  function getNickname(userId) {
+    try {
+      const a = JSON.parse(localStorage.getItem("friends-app-nicknames-v1") || "{}");
+      const b = JSON.parse(localStorage.getItem("friendChatNicknames") || "{}");
+      return a[userId] || b[userId] || "";
+    } catch {
+      return "";
+    }
+  }
+
+  function getUserName(userId) {
     if (typeof friends !== "undefined" && Array.isArray(friends)) {
-      const card = friends.find(friend => friend.owner_id === userId);
-      if (card && card.name) return card.name;
+      const card = friends.find(x => x.owner_id === userId);
+      if (card) return getNickname(userId) || card.name || "Unknown";
     }
-
-    if (
-      typeof currentUser !== "undefined" &&
-      currentUser &&
-      currentUser.id === userId &&
-      typeof currentCard !== "undefined" &&
-      currentCard &&
-      currentCard.name
-    ) {
-      return currentCard.name;
+    if (typeof currentUser !== "undefined" && currentUser?.id === userId &&
+        typeof currentCard !== "undefined" && currentCard) {
+      return getNickname(userId) || currentCard.name || "Unknown";
     }
-
     return "Unknown";
   }
 
-  function formatChatTime(value) {
+  function formatTime(value) {
     const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "";
-    return date.toLocaleString([], {
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit"
+    return Number.isNaN(date.getTime()) ? "" : date.toLocaleString([], {
+      month:"short", day:"numeric", hour:"numeric", minute:"2-digit"
     });
   }
 
-  function renderChatMessage(message) {
-    if (!message || !message.id) return;
-
-    // Realtime and the insert response can both reach the UI.
-    // Use the message ID to prevent duplicates.
-    if (chatMessages.querySelector(`[data-chat-message-id="${message.id}"]`)) {
-      return;
-    }
-
-    const empty = chatMessages.querySelector(".chat-empty");
-    if (empty) empty.remove();
-
-    const wrapper = document.createElement("article");
-    wrapper.className = "chat-message";
-    wrapper.dataset.chatMessageId = String(message.id);
-
-    wrapper.innerHTML = `
-      <div class="chat-message-meta">
-        <span class="chat-message-name">${escapeHtml(getChatUserName(message.user_id))}</span>
-        <span class="chat-message-time">${escapeHtml(formatChatTime(message.created_at))}</span>
-      </div>
-      <div class="chat-message-content">${escapeHtml(message.content)}</div>
-    `;
-
-    chatMessages.appendChild(wrapper);
+  function closePicker() {
+    if (pickerShell) pickerShell.hidden = true;
   }
 
-  function renderChatMessages(messages) {
-    chatMessages.innerHTML = "";
-
-    if (!messages || messages.length === 0) {
-      chatMessages.innerHTML = `<p class="chat-empty">Testing - No messages yet.</p>`;
-      return;
+  function openPicker(mode = "emoji") {
+    if (!pickerShell) return;
+    pickerShell.hidden = false;
+    setPickerMode(mode);
+    if (mode === "emoji") {
+      emojiSearch?.focus();
+      loadStickerData();
+    } else {
+      loadStickerData();
     }
-
-    messages.forEach(renderChatMessage);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  function appendChatMessage(message) {
-    renderChatMessage(message);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  async function loadChatMessages() {
-    if (typeof supabaseClient === "undefined") {
-      chatMessages.innerHTML = `<p class="chat-empty">Chat is not connected.</p>`;
-      return;
-    }
-
-    chatMessages.innerHTML = `<p class="chat-empty">Loading chat...</p>`;
-
-    const { data, error } = await supabaseClient
-      .from("chat_messages")
-      .select("id, user_id, content, created_at")
-      .order("created_at", { ascending: true })
-      .limit(100);
-
-    if (error) {
-      console.error("Could not load chat:", error);
-      chatMessages.innerHTML = `<p class="chat-empty">Couldn't load the chat.</p>`;
-      return;
-    }
-
-    renderChatMessages(data || []);
-    chatLoaded = true;
+  function setPickerMode(mode) {
+    pickerMode = mode === "sticker" ? "sticker" : "emoji";
+    emojisTab?.classList.toggle("active", pickerMode === "emoji");
+    stickersTab?.classList.toggle("active", pickerMode === "sticker");
+    if (emojiView) emojiView.hidden = pickerMode !== "emoji";
+    if (stickerView) stickerView.hidden = pickerMode !== "sticker";
+    if (emojiSearch) emojiSearch.placeholder =
+      pickerMode === "emoji" ? "Find the perfect emoji" : "Find a sticker";
   }
 
   function openChat() {
     chatPanel.classList.add("open");
     chatTab.classList.add("chat-open");
     chatPanel.setAttribute("aria-hidden", "false");
-    chatInput.focus();
-
-    if (!chatLoaded) loadChatMessages();
+    if (!chatLoaded) loadMessages();
+    setTimeout(() => chatInput?.focus(), 50);
   }
 
   function closeChat() {
+    closePicker();
     chatPanel.classList.remove("open");
     chatTab.classList.remove("chat-open");
     chatPanel.setAttribute("aria-hidden", "true");
   }
 
-  chatTab.addEventListener("click", () => {
-    if (chatPanel.classList.contains("open")) {
-      closeChat();
+  function groupedWithPrevious(message) {
+    const previous = chatMessages.lastElementChild;
+    if (!previous?.dataset) return false;
+    const sameUser = previous.dataset.chatUserId === String(message.user_id);
+    const previousTime = Number(previous.dataset.chatCreatedAt);
+    const currentTime = new Date(message.created_at).getTime();
+    return sameUser && Number.isFinite(previousTime) &&
+      currentTime - previousTime <= 5 * 60 * 1000;
+  }
+
+  function renderMessage(message) {
+    if (!message?.id) return;
+    if (chatMessages.querySelector(`[data-chat-message-id="${message.id}"]`)) return;
+
+    chatMessages.querySelector(".chat-empty")?.remove();
+
+    const grouped = groupedWithPrevious(message);
+    const article = document.createElement("article");
+    article.className = "chat-message" + (grouped ? "" : " chat-message-group-start");
+    article.dataset.chatMessageId = String(message.id);
+    article.dataset.chatUserId = String(message.user_id);
+    article.dataset.chatCreatedAt = String(new Date(message.created_at).getTime());
+
+    if (!grouped) {
+      const meta = document.createElement("div");
+      meta.className = "chat-message-meta";
+      const name = document.createElement("span");
+      name.className = "chat-message-name";
+      name.textContent = getUserName(message.user_id);
+      const time = document.createElement("span");
+      time.className = "chat-message-time";
+      time.textContent = formatTime(message.created_at);
+      meta.append(name, time);
+      article.appendChild(meta);
+    }
+
+    if (message.message_type === "sticker") {
+      const image = document.createElement("img");
+      image.className = "chat-sticker-message";
+      image.src = message.content;
+      image.alt = "Sticker";
+      article.appendChild(image);
+    } else if (message.message_type === "emoji") {
+      const image = document.createElement("img");
+      image.className = "chat-sticker-message";
+      image.src = message.content;
+      image.alt = "Emoji";
+      article.appendChild(image);
     } else {
-      openChat();
-    }
-  });
-
-  chatClose.addEventListener("click", closeChat);
-
-  chatForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (
-      typeof currentUser === "undefined" ||
-      !currentUser ||
-      typeof supabaseClient === "undefined"
-    ) {
-      return;
+      const content = document.createElement("div");
+      content.className = "chat-message-content";
+      content.textContent = message.content;
+      article.appendChild(content);
     }
 
-    const content = chatInput.value.trim().slice(0, 500);
-    if (!content) return;
+    chatMessages.appendChild(article);
+  }
 
-    chatInput.disabled = true;
+  async function loadMessages() {
+    if (typeof supabaseClient === "undefined") return;
+    chatMessages.innerHTML = '<p class="chat-empty">Loading chat...</p>';
 
     const { data, error } = await supabaseClient
       .from("chat_messages")
-      .insert({
-        user_id: currentUser.id,
-        content
-      })
-      .select("id, user_id, content, created_at")
-      .single();
-
-    chatInput.disabled = false;
+      .select("id,user_id,content,message_type,created_at")
+      .order("created_at", { ascending:true })
+      .limit(100);
 
     if (error) {
-      console.error("Could not send chat message:", error);
+      console.error("Chat load failed:", error);
+      chatMessages.innerHTML = '<p class="chat-empty">Could not load chat.</p>';
       return;
     }
 
-    chatInput.value = "";
+    chatMessages.innerHTML = "";
+    (data || []).forEach(renderMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatLoaded = true;
+  }
 
-    // Render immediately. The Realtime event will be ignored if it arrives too.
-    // late because renderChatMessage() de-duplicates by message ID.
-    if (data) appendChatMessage(data);
+  function appendMessage(message) {
+    renderMessage(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function renderEmojiGrid() {
+    if (!emojiGrid) return;
+    const query = (emojiSearch?.value || "").trim().toLowerCase();
+    emojiGrid.innerHTML = "";
+
+    const visible = customEmojis.filter(item =>
+      !query || String(item.name || "").toLowerCase().includes(query)
+    );
+
+    if (emojiEmpty) emojiEmpty.hidden = visible.length > 0;
+
+    visible.forEach(item => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "chat-emoji-item";
+      button.title = item.name || "Emoji";
+
+      const image = document.createElement("img");
+      image.src = item.url;
+      image.alt = item.name || "Emoji";
+      button.appendChild(image);
+
+      button.addEventListener("click", async () => {
+        closePicker();
+        if (typeof currentUser === "undefined" || !currentUser) return;
+
+        const { data: message, error } = await supabaseClient
+          .from("chat_messages")
+          .insert({
+            user_id: currentUser.id,
+            content: item.url,
+            message_type: "emoji"
+          })
+          .select("id,user_id,content,message_type,created_at")
+          .single();
+
+        if (error) {
+          console.error("Emoji send failed:", error);
+          return;
+        }
+        if (message) appendMessage(message);
+      });
+
+      emojiGrid.appendChild(button);
+    });
+  }
+
+  function renderStickerGrid() {
+    if (!stickerGrid) return;
+    const query = (emojiSearch?.value || "").trim().toLowerCase();
+    stickerGrid.innerHTML = "";
+
+    const visible = stickers.filter(item =>
+      !query || String(item.name || "").toLowerCase().includes(query)
+    );
+
+    if (stickerEmpty) stickerEmpty.hidden = visible.length > 0;
+
+    visible.forEach(sticker => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "chat-sticker-item";
+      button.title = sticker.name || "Sticker";
+
+      const image = document.createElement("img");
+      image.src = sticker.url;
+      image.alt = sticker.name || "Sticker";
+      button.appendChild(image);
+
+      button.addEventListener("click", async () => {
+        closePicker();
+        if (typeof currentUser === "undefined" || !currentUser) return;
+
+        const { data: message, error } = await supabaseClient
+          .from("chat_messages")
+          .insert({
+            user_id: currentUser.id,
+            content: sticker.url,
+            message_type: "sticker"
+          })
+          .select("id,user_id,content,message_type,created_at")
+          .single();
+
+        if (error) {
+          console.error("Sticker send failed:", error);
+          return;
+        }
+        if (message) appendMessage(message);
+      });
+
+      stickerGrid.appendChild(button);
+    });
+  }
+
+  async function loadStickerData() {
+    if (typeof supabaseClient === "undefined") return;
+
+    const { data, error } = await supabaseClient
+      .from("chat_stickers")
+      .select("id,name,url,created_at")
+      .order("created_at", { ascending:false });
+
+    if (error) {
+      console.error("Sticker/emoji load failed:", error);
+      customEmojis = [];
+      stickers = [];
+      renderEmojiGrid();
+      renderStickerGrid();
+      return;
+    }
+
+    const all = data || [];
+    customEmojis = all.filter(item => String(item.name || "").startsWith("emoji:"));
+    stickers = all.filter(item => !String(item.name || "").startsWith("emoji:"));
+    renderEmojiGrid();
+    renderStickerGrid();
+  }
+
+  async function uploadImage(file, kind) {
+    if (!file || typeof currentUser === "undefined" || !currentUser ||
+        typeof supabaseClient === "undefined") return;
+
+    const allowed = ["image/png","image/jpeg","image/webp","image/gif"];
+    if (!allowed.includes(file.type)) {
+      alert("Please choose a PNG, JPG, WEBP, or GIF.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Images must be 2 MB or smaller.");
+      return;
+    }
+
+    const ext = file.name.split(".").pop().toLowerCase() || "png";
+    const path = `${currentUser.id}/${crypto.randomUUID()}.${ext}`;
+
+    const { error: uploadError } = await supabaseClient.storage
+      .from("chat-stickers")
+      .upload(path, file, { contentType:file.type, upsert:false });
+
+    if (uploadError) {
+      console.error("Image upload failed:", uploadError);
+      alert("Could not upload image.");
+      return;
+    }
+
+    const { data: publicData } = supabaseClient.storage
+      .from("chat-stickers")
+      .getPublicUrl(path);
+
+    const base = file.name.replace(/\.[^/.]+$/,"").slice(0,36) || (kind === "emoji" ? "Emoji" : "Sticker");
+    const name = kind === "emoji" ? `emoji:${base}` : base;
+
+    const { error: dbError } = await supabaseClient
+      .from("chat_stickers")
+      .insert({
+        owner_id: currentUser.id,
+        name,
+        url: publicData.publicUrl
+      });
+
+    if (dbError) {
+      console.error("Image database save failed:", dbError);
+      alert("Image uploaded but could not be saved.");
+      return;
+    }
+
+    await loadStickerData();
+  }
+
+  chatTab.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (chatPanel.classList.contains("open")) closeChat();
+    else openChat();
   });
 
-  window.subscribeToChat = function subscribeToChat() {
-    if (
-      chatChannel ||
-      typeof supabaseClient === "undefined"
-    ) {
-      return;
-    }
+  chatClose?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeChat();
+  });
+
+  chatForm?.addEventListener("submit", event => {
+    event.preventDefault();
+    if (typeof currentUser === "undefined" || !currentUser || typeof supabaseClient === "undefined") return;
+
+    const content = chatInput?.value.trim().slice(0,500);
+    if (!content) return;
+
+    chatInput.disabled = true;
+    supabaseClient
+      .from("chat_messages")
+      .insert({
+        user_id: currentUser.id,
+        content,
+        message_type: "text"
+      })
+      .select("id,user_id,content,message_type,created_at")
+      .single()
+      .then(({ data, error }) => {
+        chatInput.disabled = false;
+        if (error) {
+          console.error("Chat send failed:", error);
+          return;
+        }
+        chatInput.value = "";
+        if (data) appendMessage(data);
+      });
+  });
+
+  emojiButton?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    openPicker("emoji");
+  });
+
+  stickerButton?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    openPicker("sticker");
+  });
+
+  pickerClose?.addEventListener("click", event => {
+    event.preventDefault();
+    closePicker();
+  });
+
+  emojisTab?.addEventListener("click", () => setPickerMode("emoji"));
+  stickersTab?.addEventListener("click", () => setPickerMode("sticker"));
+
+  emojiSearch?.addEventListener("input", () => {
+    if (pickerMode === "emoji") renderEmojiGrid();
+    else renderStickerGrid();
+  });
+
+  emojiUpload?.addEventListener("change", async () => {
+    const file = emojiUpload.files?.[0];
+    if (file) await uploadImage(file, "emoji");
+    emojiUpload.value = "";
+  });
+
+  stickerUpload?.addEventListener("change", async () => {
+    const file = stickerUpload.files?.[0];
+    if (file) await uploadImage(file, "sticker");
+    stickerUpload.value = "";
+  });
+
+  document.addEventListener("click", event => {
+    if (!chatPanel.contains(event.target)) closePicker();
+  });
+
+  window.subscribeToChat = function() {
+    if (chatChannel || typeof supabaseClient === "undefined") return;
 
     chatChannel = supabaseClient
       .channel("server-chat")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "chat_messages"
-        },
-        (payload) => {
-          appendChatMessage(payload.new);
-        }
-      )
-      .subscribe((status) => {
-        if (status === "SUBSCRIBED") {
-          console.log("Server chat connected.");
-        }
-      });
+      .on("postgres_changes", {
+        event:"INSERT",
+        schema:"public",
+        table:"chat_messages"
+      }, payload => appendMessage(payload.new))
+      .subscribe();
   };
 
-  window.unsubscribeFromChat = async function unsubscribeFromChat() {
+  window.unsubscribeFromChat = async function() {
     if (!chatChannel || typeof supabaseClient === "undefined") return;
-
     await supabaseClient.removeChannel(chatChannel);
     chatChannel = null;
     chatLoaded = false;
   };
 
-  // Start the realtime listener once the page's existing Supabase setup
-  // has had a chance to create supabaseClient.
-  function startWhenReady() {
+  function waitForSupabase() {
     if (typeof supabaseClient !== "undefined") {
       window.subscribeToChat();
+      loadStickerData();
     } else {
-      setTimeout(startWhenReady, 250);
+      setTimeout(waitForSupabase, 250);
     }
   }
 
-  startWhenReady();
+  waitForSupabase();
 })();
 </script>
 
